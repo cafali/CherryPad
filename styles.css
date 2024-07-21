@@ -1,0 +1,17 @@
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .spin-once {
+    animation: spin 1s linear;
+  }
+  
+  <style>
+    #fullscreenImg {
+        transition: filter 0.3s ease; /* Smooth transition for the effect */
+    }
+    #fullscreenImg.hovered {
+        filter: brightness(2.0); /* Increase brightness on hover */
+    }
+</style>

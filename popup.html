@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>CherryPad Popup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #1a1a1a; 
+      color: white;
+    }
+
+    .popup-container {
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      width: 528px; 
+      max-height: 500px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      padding: 10px;
+      overflow: auto; 
+    }
+
+    textarea {
+      width: calc(100% - 30px);
+      height: 340px; 
+      margin: 10px 0; 
+      padding: 15px;
+      border: 5px solid #232323;
+      border-radius: 7px;
+      font-size: 15px;
+      resize: none;
+      color: rgb(255, 255, 255); /* set text color */
+      background-color: #0c0c0c; 
+      box-sizing: border-box;
+    }
+
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5); 
+    }
+
+    textarea:focus {
+      outline: none; /* remove outline when textarea is focused */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0; 
+      width: 100%;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 20px; /* round corners */
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+      margin: 0 6px;
+      background-color: #1a1a1a; 
+      font-family: 'Bahnschrift', Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 9px rgba(0,0,0,0.15);
+    }
+
+    #saveButton {
+      background-color: #539861;
+    }
+
+    #saveTxtButton {
+      background-color: #dc5858; 
+    }
+
+    #clearButton {
+      background-color: #232323;
+    }
+
+    #clearButton:hover {
+      background-color: #131313;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      margin-top: 10px; /* reduced margin */
+    }
+
+    .cherry-icon {
+      width: 30px;
+      height: 30px;
+      filter: brightness(1);
+      transition: filter 0.3s;
+    }
+
+    .cherry-icon:hover {
+      filter: brightness(1.5);
+    }
+
+    .fullscreen-icon {
+      transition: filter 0.3s;
+    }
+
+    .fullscreen-icon:hover {
+      filter: brightness(2.0);
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <div class="button-container">
+      <button id="saveButton"><b>Save</b></button>
+      <button id="saveTxtButton"><b>Download</b></button>
+    </div>
+    <textarea id="noteInput" placeholder="Welcome to CherryPad! Write your note here..."></textarea>
+    <div class="button-container">
+      <button id="clearButton"><b>Clear CherryPad</b></button>
+    </div>
+    <footer>
+      <p>CherryPad Makes Note-Taking Easy</p>
+      <img class="cherry-icon" src="CherryPad.png" alt="Cherry Icon">
+    </footer>
+  </div>
+  <a id="Fullscreen" href="CherryPad.html" target="_blank">
+    <img class="fullscreen-icon" src="fullscreen.png" alt="Fullscreen" width="15" height="15">
+  </a>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+
+<style>
+  .button.about-button {
+      position: fixed;
+      bottom: 20px; 
+      right: 20px;
+  }
+</style>
+
+
