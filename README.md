@@ -1,4 +1,5 @@
-# CherryPad 
+
+![!CherryPad](https://github.com/user-attachments/assets/a84a4ec1-347d-4413-8c08-5d98e0a92250)
 
 CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity.
 
