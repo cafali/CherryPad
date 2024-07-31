@@ -1,10 +1,11 @@
 
 ![!CherryPad](https://github.com/user-attachments/assets/a84a4ec1-347d-4413-8c08-5d98e0a92250)
 
-CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity.
+CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity. 🍒
 
 
-**[Get CherryPad from Chrome Web Store]([https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?hl=en](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?hl=en))**
+ **[Get CherryPad from Chrome Web Store](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?hl=en)** 
+
 
 
 CherryPad is a browser extension designed to facilitate efficient and visually appealing note-taking. It aims to enhance productivity by providing a quick and convenient platform for users to record their notes.
