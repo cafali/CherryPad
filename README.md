@@ -14,3 +14,5 @@ Key Features:
 - Built-in emoji panel 😃🎉
 - Full-screen mode includes two separate note fields 📝📝
 
+![350729777-1eef88fc-ac15-4469-8bb1-09343cc0cd3f](https://github.com/user-attachments/assets/96f99e13-ef76-4611-83f2-b674f82764bd)
+![2](https://github.com/user-attachments/assets/fdc46b70-28d3-4b0f-b002-66df961636eb)
