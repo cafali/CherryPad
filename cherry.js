@@ -1,313 +1,258 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CherryPad</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        @font-face {
-            font-family: 'Bahnschrift';
-            src: url('Bahnschrift-Bold.ttf') format('truetype');
-            font-weight: bold;
-        }
-        body {
-            background-color: #1a1a1a;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            color: white;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .logo-container {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            display: flex;
-            align-items: center;
-            z-index: 1; /* cherry logo */
-        }
-        .logo-container img {
-            width: 40px;
-            height: 40px;
-        }
-        .logo-container span {
-            font-family: 'Bahnschrift', sans-serif;
-            font-weight: bold;
-            font-size: 24px;
-            margin-left: 10px;
-            color: white;
-        }
-        .buttons-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            z-index: 1; /* buttons above other elements */
-        }
-        .button {
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-right: 10px; /* space between buttons */
-            border-radius: 20px;
-            cursor: pointer;
-            outline: none;
-            font-size: 16px;
-            font-family: 'Bahnschrift', sans-serif;
-            font-weight: bold; /* set font to bold */
-            transition: background-color 0.1s; /* transition on hover */
-        }
-        .button i {
-            margin-right: 5px; /* add space between icon and text */
-        }
-        .button:first-child {
-            background-color: #539861; /* "SAVE" button */
-        }
-        .button:nth-child(2) {
-            background-color: #dc5858; /* "DOWNLOAD" button */
-        }
-        .button:nth-child(3) {
-            background-color: #dc8d58; /* "COPY" button */
-        }
-        .button:nth-child(4) {
-            background-color: #6A98DC; /* "PASTE" button */
-        }
-        .button:nth-child(5) {
-            background-color: #dca158; /* "EMOJI" button */
-        }
-        .button:last-child {
-            background-color: #232323; /* "CLEAR" button */
-            margin-right: 0; 
-        }
-        .button:hover {
-            filter: brightness(90%); /* dark button on hover */
-        }
-        /* Adjust color - hover for specific buttons */
-        #saveButton:hover {
-            background-color: #2e6c45; 
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // load saved values from local storage
+    if (localStorage.getItem('noteInput')) {
+        document.getElementById('noteInput').value = localStorage.getItem('noteInput');
+    }
+    if (localStorage.getItem('noteInput2')) {
+        document.getElementById('noteInput2').value = localStorage.getItem('noteInput2');
+    }
 
-        #saveTxtButton:hover {
-            background-color: #913535; /* Download */
-        }
+    // save button click
+    document.getElementById('saveButton').addEventListener('click', function() {
+        // get current date and time
+        var now = new Date();
+        var formattedTime = now.toLocaleString();
 
-        #clearButton:hover {
-            background-color: #131313; /* Clear */
-        }
-        
-        #clearButton2:hover {
-            background-color: #131313; /* Clear */
-        }
+        // update last saved time in the footer
+        document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
 
-        #pasteButton:hover {
-            background-color: #4A73B1;  /* Paste */
-        }
+        // get values from noteInput and noteInput2
+        var noteInputValue = document.getElementById('noteInput').value;
+        var noteInput2Value = document.getElementById('noteInput2').value;
 
-        #emojiButton:hover {
-            background-color: #d19445; /* EmojiPanel */
-        }
-        
-        .container {
-            display: flex;
-            flex: 1;
-            width: calc(100% - 20px);
-            margin: 60px 10px 20px; 
-            box-sizing: border-box;
-            position: relative;
-            padding-bottom: 40px;
-        }
-        .textarea-wrapper {
-            flex: 1;
-            padding: 10px;
-        }
-        .container textarea {
-            width: 100%;
-            height: calc(100% - 20px); /* height for padding */
-            background-color: #0f0f0f;
-            color: white;
-            border: 4px solid #212121;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            outline: none;
-            box-sizing: border-box;
-            resize: none; 
-        }
-        .container textarea::placeholder {
-            color: #888;
-        }
-        .footer {
-            position: fixed; 
-            bottom: 20px; /* distance from the bottom */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-family: Arial, sans-serif; 
-            font-weight: normal;
-            background-color: #1A1A1A;
-            color: rgb(102, 102, 102);
-            box-sizing: border-box;
-            text-align: center;
-        }
-        /* CSS rule for the image hover effect */
-        #logo-image:hover {
-            filter: brightness(130%);
-        }
+        // save notes (storage)
+        localStorage.setItem('noteInput', noteInputValue);
+        localStorage.setItem('noteInput2', noteInput2Value);
+    });
+});
 
-        /* css styles for the cherry icon */
-        .cherry-icon {
-            display: none; /* hide the cherry icon */
-        }
+// Download .txt file button
+saveTxtButton.addEventListener('click', function() {
+    const blob = new Blob([noteInput.value], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
 
-        /* emoji panel styles */
-        .emoji-panel {
-            display: none; /* hidden */
-            position: fixed;
-            top: 60px; 
-            right: 20px;
-            background-color: #333;
-            border: 1px solid #666;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000; /* above other elements */
-        }
-        .emoji-panel button {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 5px;
-            margin: 2px;
-        }
-    </style>
-</head>
-<body>
-    <div class="logo-container">
-        <img id="logo-image" src="CherryPad.png" alt="CherryPad Logo">
-        <span>CherryPad</span>
-    </div>
-    <div class="buttons-container">
-        <button id="saveButton" class="button"><i class="fas fa-save"></i>Save</button>
-        <button id="saveTxtButton" class="button"><i class="fas fa-file-download"></i>Download</button>
-        <button id="copyButton" class="button" style="background-color: #DCA158;"><i class="fas fa-copy"></i>Copy All</button>
-        <button id="pasteButton" class="button"><i class="fas fa-paste"></i>Paste</button>
-        <button id="emojiButton" class="button" style="background-color: #b8b43f;"><i class="fas fa-smile"></i>Emoji</button>
-        <button id="clearButton" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Clear Notefield 1</button>
-        <button id="clearButton2" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Clear Notefield 2</button>
-    </div>
-    <div class="container">
-        <div class="textarea-wrapper">
-            <textarea id="noteInput" placeholder="Write your note here..."></textarea>
-        </div>
-        <div class="textarea-wrapper">
-            <textarea id="noteInput2" placeholder="Hidden Note - This note won't appear in the popup and must be downloaded manually..."></textarea>
-        </div>
-    </div>
-    <div class="footer">
-        <div id="lastSaved" class="last-saved" style="color: #539861;"></div>
+    a.href = url;
+    a.download = 'CherryNote.txt';
     
-        CherryPad Makes Note-Taking Easy<br>
-        Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
-    </div>
-    <!-- Cherry Icon -->
-    <img id="cherry-icon" class="cherry-icon" src="CherryPad.png" alt="Cherry Icon">
-
-    <!-- Emoji Panel -->
-    <div id="emojiPanel" class="emoji-panel">
-        <button class="emoji">😊</button>
-        <button class="emoji">😂</button>
-        <button class="emoji">😍</button>
-        <button class="emoji">😢</button>
-        <button class="emoji">😎</button>
-        <button class="emoji">😜</button>
-        <button class="emoji">😋</button>
-        <button class="emoji">😇</button>
-        <button class="emoji">😒</button>
-        <button class="emoji">😡</button>
-        <button class="emoji">🤮</button><br>
-        <button class="emoji">💩</button>
-        <button class="emoji">🍒</button>
-        <button class="emoji">🌸</button>
-        <button class="emoji">👍</button>
-        <button class="emoji">👎</button>
-        <button class="emoji">👌</button>
-        <button class="emoji">❤️</button>
-        <button class="emoji">🌟</button>
-        <button class="emoji">💥</button>
-        <button class="emoji">🎮</button>
-        <button class="emoji">🌈</button><br>
-        <button class="emoji">❌</button>
-        <button class="emoji">✅</button>
-        <button class="emoji">🎃</button>
-        <button class="emoji">💀</button>
-        <button class="emoji">💦</button>
-        <button class="emoji">🚫</button>
-        <button class="emoji">💲</button>
-        <button class="emoji">🔥</button>
-        <button class="emoji">👻</button>
-        <button class="emoji">🚨</button>
-        <button class="emoji">🐬</button>
-</div>
-<script src="cherry.js"></script>
-</body>
-</html>
+    document.body.appendChild(a);
+    a.click();
+    
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
 
 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>v1.3.3</button>
+ 
+// copy button
 
-<style>
-  .button.version-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px; 
-      color: #666666;
-      background-color: #1a1a1a;
-  }
-</style>
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
 
-<button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub.com/cafali</button>
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
 
-<style>
-    .button.github-button {
-        position: fixed;
-        bottom: 20px;
-        left: 130px; 
-        color: #666666;
-        background-color: #1a1a1a;
+// Copy button functionality
+document.addEventListener("DOMContentLoaded", function() {
+    var copyButton = document.getElementById("copyButton");
+
+    copyButton.addEventListener("click", function() {
+        if (!lastActiveTextarea) return;
+
+        lastActiveTextarea.focus();
+        lastActiveTextarea.setSelectionRange(0, lastActiveTextarea.value.length);
+
+        document.execCommand("copy");
+
+        console.log("Text copied: " + lastActiveTextarea.value);
+    });
+});
+
+
+
+// Paste content Input & Input 2
+
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+document.getElementById('pasteButton').addEventListener('click', async () => {
+    try {
+        if (!lastActiveTextarea) return;
+
+        const text = await navigator.clipboard.readText();
+        const startPos = lastActiveTextarea.selectionStart;
+
+        lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
+        lastActiveTextarea.dataset.lastPastedContent = JSON.stringify({
+            text: text,
+            startPos: startPos
+        });
+
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
     }
-</style>
+});
 
-<button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Chrome Web Store</button>
 
-<style> 
-    .button.WebStore-button {
-        position: fixed;
-        bottom: 20px; 
-        right: 20px; 
-        color: #666666;
-        background-color: #1a1a1a;
+
+document.getElementById('noteInput').addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+        const textarea = document.getElementById('noteInput');
+        const pastedContent = JSON.parse(textarea.dataset.lastPastedContent || '{}');
+
+        if (pastedContent.text) {
+            // calculate the end position of the pasted content
+            const endPos = pastedContent.startPos + pastedContent.text.length;
+
+            // remove the pasted content
+            textarea.setRangeText('', pastedContent.startPos, endPos, 'end');
+
+            // prevent the default undo behavior
+            e.preventDefault();
+        }
     }
-</style>
+});
 
-<button id="AboutButton" class="button About-button"><i class="fa fa-question-circle"></i>About</button>
 
-<style> 
-    .button.About-button {
-        position: fixed;
-        bottom: 20px; 
-        right: 250px; 
-        color: #666666;
-        background-color: #1a1a1a;
+document.addEventListener('DOMContentLoaded', function() {
+    const versionButton = document.getElementById('versionButton');
+    const noteInput = document.getElementById('noteInput2');
+
+    if (versionButton && noteInput) {
+        versionButton.addEventListener('click', function() {
+            const textToToggle = " 🍒 Hello there! You've discovered an Easter egg! 🍒 Have a nice day! ";
+            if (noteInput.value.includes(textToToggle)) {
+                // remove the text if it's already there
+                noteInput.value = noteInput.value.replace(textToToggle, '');
+            } else {
+                // Add the text if it's not there
+                noteInput.value += textToToggle;
+            }
+        });
     }
-</style>
+});
 
 
-<a href="about.html" class="button About-button">
-    <i class="fa fa-question-circle"></i>About
-</a>
+        // emoji panel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const noteInput1 = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+    let activeInput = null; // track the currently active input
+
+    // focusing on the input fields
+    noteInput1.addEventListener('focus', function() {
+        activeInput = noteInput1;
+    });
+
+    noteInput2.addEventListener('focus', function() {
+        activeInput = noteInput2;
+    });
+
+    emojiButton.addEventListener('click', function(event) {
+        // prevent the click from propagating to the document event listener
+        event.stopPropagation();
+        emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    emojiPanel.addEventListener('click', function(event) {
+        if (event.target.classList.contains('emoji')) {
+            // ensure that an active input is selected
+            if (activeInput) {
+                insertAtCursor(activeInput, event.target.textContent);
+            }
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!emojiButton.contains(event.target) && !emojiPanel.contains(event.target)) {
+            emojiPanel.style.display = 'none';
+        }
+    });
+
+    function insertAtCursor(input, textToInsert) {
+        const startPos = input.selectionStart;
+        const endPos = input.selectionEnd;
+        const beforeValue = input.value.substring(0, startPos);
+        const afterValue = input.value.substring(endPos, input.value.length);
+        input.value = beforeValue + textToInsert + afterValue;
+        // move the cursor to the end
+        input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
+        // refocus the textarea after inserting
+        input.focus();
+    }
+});
+
+
+
+        document.addEventListener('DOMContentLoaded', function() { 
+            // go to WebStore - Store
+            document.getElementById('WebStoreButton').addEventListener('click', function() {
+                window.open('https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd', '_blank');
+            });
+        
+            // go to Github
+            document.getElementById('GithubButton').addEventListener('click', function() {
+                window.open('https://github.com/cafali', '_blank');
+            });
+        });
+        
+
+        clearButton2.addEventListener('click', function() {
+            noteInput2.value = '';
+            localStorage.setItem('note2', '');
+        });
+
+        clearButton.addEventListener('click', function() {
+            noteInput.value = '';
+            localStorage.setItem('note', '');
+        });
+        
+
+//CherryLogo message fullscreen
+const logoImage = document.getElementById('logo-image');
+const noteInput = document.getElementById('noteInput');
+const toggleText = " 😡 STOP CLICKING RANDOM THINGS!!! 😡 ";
+
+logoImage.addEventListener('click', function() {
+    if (noteInput.value.includes(toggleText)) {
+        noteInput.value = noteInput.value.replace(toggleText, '');  // Remove if it's already there
+    } else {
+        noteInput.value += toggleText;
+    }
+});
+
+
+//Shortcuts Fullscreen
+
+//Save Ctrl+S
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 's') {
+        event.preventDefault(); 
+        document.getElementById('saveButton').click(); 
+    }
+});
+
+//Emoji Panel Ctrl+E
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'e') {
+        event.preventDefault(); 
+        document.getElementById('emojiButton').click(); 
+    }
+});
+
+//Download Ctrl+D
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'd') {
+        event.preventDefault(); 
+        document.getElementById('saveTxtButton').click(); 
+    }
+});
