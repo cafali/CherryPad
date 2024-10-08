@@ -26,55 +26,81 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Download .txt file button
+saveTxtButton.addEventListener('click', function() {
+    const blob = new Blob([noteInput.value], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    a.href = url;
+    a.download = 'CherryNote.txt';
+    
+    document.body.appendChild(a);
+    a.click();
+    
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
 
 
  
 // copy button
+
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+// Copy button functionality
 document.addEventListener("DOMContentLoaded", function() {
-    // get the copy button
     var copyButton = document.getElementById("copyButton");
 
-    // get the textarea containing the text to copy
-    var noteInput = document.getElementById("noteInput");
-
-    // add click event listener to the copy button
     copyButton.addEventListener("click", function() {
-        // select the text inside the textarea
-        noteInput.focus(); // Ensure textarea is focused
-        noteInput.setSelectionRange(0, noteInput.value.length); // select all text
+        if (!lastActiveTextarea) return;
 
-        // copy the selected text to the clipboard
+        lastActiveTextarea.focus();
+        lastActiveTextarea.setSelectionRange(0, lastActiveTextarea.value.length);
+
         document.execCommand("copy");
 
-        // log a message to indicate the text has been copied (optional)
-        console.log("Text copied: " + noteInput.value);
+        console.log("Text copied: " + lastActiveTextarea.value);
     });
 });
 
 
+
+// Paste content Input & Input 2
+
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
 document.getElementById('pasteButton').addEventListener('click', async () => {
     try {
-        const text = await navigator.clipboard.readText();
-        const textarea = document.getElementById('noteInput');
-        
-        // track the current value and selection start position
-        const previousValue = textarea.value;
-        const startPos = textarea.selectionStart;
-        
-        // insert the pasted text at the cursor position
-        textarea.setRangeText(text, startPos, startPos, 'end');
+        if (!lastActiveTextarea) return;
 
-        // store the pasted content and its position for undo
-        const pastedContent = {
+        const text = await navigator.clipboard.readText();
+        const startPos = lastActiveTextarea.selectionStart;
+
+        lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
+        lastActiveTextarea.dataset.lastPastedContent = JSON.stringify({
             text: text,
             startPos: startPos
-        };
-        textarea.dataset.lastPastedContent = JSON.stringify(pastedContent);
+        });
 
     } catch (err) {
         console.error('Failed to read clipboard contents: ', err);
     }
 });
+
+
 
 document.getElementById('noteInput').addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 'z') {
@@ -201,5 +227,32 @@ logoImage.addEventListener('click', function() {
         noteInput.value = noteInput.value.replace(toggleText, '');  // Remove if it's already there
     } else {
         noteInput.value += toggleText;
+    }
+});
+
+
+//Shortcuts Fullscreen
+
+//Save Ctrl+S
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 's') {
+        event.preventDefault(); 
+        document.getElementById('saveButton').click(); 
+    }
+});
+
+//Emoji Panel Ctrl+E
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'e') {
+        event.preventDefault(); 
+        document.getElementById('emojiButton').click(); 
+    }
+});
+
+//Download Ctrl+D
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'd') {
+        event.preventDefault(); 
+        document.getElementById('saveTxtButton').click(); 
     }
 });
