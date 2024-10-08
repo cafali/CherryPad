@@ -4,7 +4,8 @@
 Welcome to CherryPad 🍒, the notepad extension for your browser!
 CherryPad is designed to make your note-taking experience quick, convenient, and visually pleasing.
 
-**Get from the [Chrome Web Store](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)**
+**Get CherryPad from the [Chrome Web Store](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)**
+---
 
 Key Features:
 - Modern dark design for comfortable long-term viewing 🌒
