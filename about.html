@@ -1,136 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About CherryPad</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        @font-face {
-            font-family: 'Bahnschrift';
-            src: url('Bahnschrift-Bold.ttf') format('truetype');
-            font-weight: bold;
-        }
-        body {
-            background-color: #1a1a1a;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            color: rgb(191, 191, 191);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .logo-container {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            display: flex;
-            align-items: center;
-            z-index: 1;
-        }
-        .logo-container img {
-            width: 40px;
-            height: 40px;
-        }
-        .logo-container span {
-            font-family: 'Bahnschrift', sans-serif;
-            font-weight: bold;
-            font-size: 24px;
-            margin-left: 10px;
-            color: white;
-        }
-        .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    min-height: 60vh; 
-    padding: 10px;
-    box-sizing: border-box;
-}
-        h1 {
-            font-size: 32px;
-            font-family: 'Bahnschrift', sans-serif;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        h2 {
-            font-size: 24px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        p {
-            font-size: 20px;
-            margin: 10px 0;
-            text-align: center;
-        }
-        .features {
-            font-size: 1.5em;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .footer {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-            font-weight: normal;
-            background-color: #1A1A1A;
-            color: rgb(102, 102, 102);
-            box-sizing: border-box;
-            text-align: center;
-        }
-        .button.About-button {
-            position: fixed;
-            bottom: 80px;
-            left: 20px; 
-            color: #ffffff;
-            background-color: #1a1a1a;
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 25px; 
-            font-size: 25px; 
-            cursor: pointer; 
-            font-family: 'Bahnschrift', sans-serif;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About CherryPad</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Bahnschrift', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 15px;
+    }
+
+    #icon {
+      width: 102px;
+      height: 102px;
+      border-radius: 0%;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin: 10px 0 20px;
+    }
+
+    .features {
+      text-align: center;
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      font-family: 'Bahnschrift', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #c25050;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5c2828;
+    }
+  </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img id="logo-image" src="CherryPad.png" alt="CherryPad Logo">
-        <span>CherryPad</span>
-    </div>
-    <div class="container">
-        <h1></h1>
-        <h1>🍒CherryPad 1.3.2 by cafali📝</h1>
-        <h1>Your Sleek, Distraction-Free Notepad in your Browser</h1>
-        
-        <p>Welcome to CherryPad, the notepad extension for your browser!<br>
-        CherryPad is designed to make your note-taking experience quick, convenient, and visually pleasing.</p>
-        
-        <div class="features">
-            <h2>Key Features:</h2>
-            🌒 Modern dark design for comfortable long-term viewing 🌒<br>
-            ✏️ Quickly capture notes within your browser ✏️<br>
-            📝 Save notes directly in the extension or download them as a .txt file 📝<br>
-            🖥️ Create notes using the extension popup or access the full-screen mode for a larger workspace 🖥️<br>
-            🎉😃Built-in emoji panel 😃🎉<br>
-            📝📝Full-screen mode includes two separate note fields 📝📝<br><br>
-            CherryPad Makes Note-Taking Easy<br>
-            Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
-        </div>
-        <h2>Thank you for using CherryPad!</h2>
-        <p>CherryPad is released under the <a href="https://opensource.org/licenses/MIT">MIT License</a></p>
-        <p>Visit CherryPad on <a href="https://github.com/cafali/CherryPad">GitHub</a></p>
-    </div>    
-    <a href="CherryPad.html" target="_self" class="button About-button">
-        <i class="fa fa-chevron-circle-left"></i> Return to CherryPad
-    </a>
-    
+  <img id="icon" src="CherryPad.png" alt="CherryPad Logo">
+  
+  <h1>CherryPad 1.3.3 by cafali</h1>
+  <h2>Your Sleek, Distraction-Free Notepad in your Browser</h2>
+  <h2>Thank you for using CherryPad!</h2>
+  <p>CherryPad is released under the <a href="https://opensource.org/licenses/MIT">MIT License</a> - Visit CherryPad on <a href="https://github.com/cafali/CherryPad">GitHub</a></p>
+  <p></p>
+  <a href="cherrypad.html">
+    <button>
+      <i class="fa fa-chevron-circle-left"></i> Return to CherryPad
+    </button>
+  </a>
+  
+  <p></p>
+  <p></p>
+  <p>GitHub.com/cafali/CherryPad</p>
+
 </body>
 </html>
+
+Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+<a href="CherryPad.html" class="button button">
+</a>
