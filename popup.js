@@ -111,3 +111,21 @@ document.getElementById('noteInput').addEventListener('keydown', (e) => {
         }
     }
 });
+
+//Shortcuts Popup
+
+//Save Ctrl+S
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 's') {
+        event.preventDefault(); 
+        document.getElementById('saveButton').click(); 
+    }
+});
+
+//Download Ctrl+D
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'd') {
+        event.preventDefault(); 
+        document.getElementById('saveTxtButton').click(); 
+    }
+});
