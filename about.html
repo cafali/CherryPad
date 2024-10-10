@@ -14,15 +14,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       padding: 15px;
+      box-sizing: border-box;
     }
 
     #icon {
       width: 102px;
       height: 102px;
-      border-radius: 0%;
       margin-bottom: 20px;
     }
 
@@ -31,12 +31,6 @@
       font-size: 32px;
       letter-spacing: 1px;
       margin: 10px 0 20px;
-    }
-
-    .features {
-      text-align: center;
-      font-size: 1.2em;
-      margin-bottom: 30px;
     }
 
     h2 {
@@ -48,6 +42,7 @@
     p {
       font-size: 18px;
       margin-top: 15px;
+      text-align: center;
     }
 
     a {
@@ -69,7 +64,8 @@
 
     button {
       font-family: 'Bahnschrift', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #c25050;
+      font-weight: bold;
+      background-color: #bd4f4f;
       color: #fff;
       border: none;
       border-radius: 25px;
@@ -81,32 +77,34 @@
     }
 
     button:hover {
-      background-color: #5c2828;
+      background-color: #672626;
+    }
+
+    
+    .arial-text {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <img id="icon" src="CherryPad.png" alt="CherryPad Logo">
   
-  <h1>CherryPad 1.3.3 by cafali</h1>
+  <h1>CherryPad 1.3.8 by cafali</h1>
   <h2>Your Sleek, Distraction-Free Notepad in your Browser</h2>
-  <h2>Thank you for using CherryPad!</h2>
   <p>CherryPad is released under the <a href="https://opensource.org/licenses/MIT">MIT License</a> - Visit CherryPad on <a href="https://github.com/cafali/CherryPad">GitHub</a></p>
-  <p></p>
+  
   <a href="cherrypad.html">
     <button>
-      <i class="fa fa-chevron-circle-left"></i> Return to CherryPad
+      <i class="fa fa-chevron-circle-left"></i> Return to CherryPad (Have you already found all the hidden Easter Eggs?)
     </button>
   </a>
-  
   <p></p>
-  <p></p>
-  <p>GitHub.com/cafali/CherryPad</p>
+  <p>CherryPad Extension</p>
 
+  
+  <p class="arial-text">Button icons used in this project: Font Awesome (<a href="https://fontawesome.com">https://fontawesome.com</a>), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)</p>
 </body>
 </html>
-
-Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
-
-<a href="CherryPad.html" class="button button">
-</a>

@@ -25,8 +25,8 @@
         }
         .logo-container {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            left: 23px;
             display: flex;
             align-items: center;
             z-index: 1; /* cherry logo */
@@ -44,7 +44,7 @@
         }
         .buttons-container {
             position: fixed;
-            top: 10px;
+            top: 15px;
             right: 10px;
             display: flex;
             z-index: 1; /* buttons above other elements */
@@ -198,15 +198,23 @@
         <button id="copyButton" class="button" style="background-color: #DCA158;"><i class="fas fa-copy"></i>Copy All</button>
         <button id="pasteButton" class="button"><i class="fas fa-paste"></i>Paste</button>
         <button id="emojiButton" class="button" style="background-color: #b8b43f;"><i class="fas fa-smile"></i>Emoji</button>
-        <button id="clearButton" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Clear Notefield 1</button>
-        <button id="clearButton2" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Clear Notefield 2</button>
+        <button id="clearButton" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Note 1</button>
+        <button id="clearButton2" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Note 2</button>
     </div>
     <div class="container">
         <div class="textarea-wrapper">
             <textarea id="noteInput" placeholder="Write your note here..."></textarea>
         </div>
         <div class="textarea-wrapper">
-            <textarea id="noteInput2" placeholder="Hidden Note - This note won't appear in the popup and must be downloaded manually..."></textarea>
+            <textarea id="noteInput2" placeholder="Hidden Note - This note won't appear in the popup... 
+ 
+CherryPad Shortcuts: 
+
+CTRL+S - Save Manually
+CTRL+D - Download Note
+CTRL+E - Open Emoji Panel
+
+...also make sure to find all the easter eggs!"></textarea>
         </div>
     </div>
     <div class="footer">
@@ -259,7 +267,7 @@
 </html>
 
 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>v1.3.3</button>
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>v1.3.8</button>
 
 <style>
   .button.version-button {
@@ -283,7 +291,7 @@
     }
 </style>
 
-<button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Chrome Web Store</button>
+<button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
 
 <style> 
     .button.WebStore-button {
@@ -301,7 +309,7 @@
     .button.About-button {
         position: fixed;
         bottom: 20px; 
-        right: 250px; 
+        right: 173px; 
         color: #666666;
         background-color: #1a1a1a;
     }
@@ -311,3 +319,4 @@
 <a href="about.html" class="button About-button">
     <i class="fa fa-question-circle"></i>About
 </a>
+

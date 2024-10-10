@@ -26,9 +26,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Download .txt file button
-saveTxtButton.addEventListener('click', function() {
-    const blob = new Blob([noteInput.value], { type: 'text/plain' });
+// AutoSave both fields
+
+document.addEventListener('DOMContentLoaded', function() {
+    const noteInput = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+
+    if (localStorage.getItem('noteInput')) {
+        noteInput.value = localStorage.getItem('noteInput');
+    }
+    if (localStorage.getItem('noteInput2')) {
+        noteInput2.value = localStorage.getItem('noteInput2');
+    }
+
+    noteInput.addEventListener('input', function() {
+        localStorage.setItem('noteInput', noteInput.value);
+    });
+
+    noteInput2.addEventListener('input', function() {
+        localStorage.setItem('noteInput2', noteInput2.value);
+    });
+});
+
+
+
+// Download .txt file button based on active window
+let lastActiveTextarea = null;
+
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+document.getElementById('saveTxtButton').addEventListener('click', function() {
+    if (!lastActiveTextarea) return;
+
+    const content = lastActiveTextarea.value;
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
 
@@ -41,6 +78,8 @@ saveTxtButton.addEventListener('click', function() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 });
+
+
 
 
  
@@ -127,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (versionButton && noteInput) {
         versionButton.addEventListener('click', function() {
-            const textToToggle = " 🍒 Hello there! You've discovered an Easter egg! 🍒 Have a nice day! ";
+            const textToToggle = " 🍒 Something interesting is happening... Keep going! 🍒 ";
             if (noteInput.value.includes(textToToggle)) {
                 // remove the text if it's already there
                 noteInput.value = noteInput.value.replace(textToToggle, '');
@@ -256,3 +295,38 @@ document.addEventListener('keydown', function(event) {
         document.getElementById('saveTxtButton').click(); 
     }
 });
+
+
+//blink Cherry when saving
+const cherryIcon = document.getElementById('logo-image');
+const saveButton = document.getElementById('saveButton');
+
+function blinkCherryIcon() {
+    cherryIcon.style.filter = 'brightness(1.5)';
+
+    setTimeout(function() {
+        cherryIcon.style.filter = 'brightness(1)';
+    }, 500);
+}
+
+saveButton.addEventListener('click', function() {
+    blinkCherryIcon();
+});
+
+
+//Easteregg
+
+let clickCount = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const versionButton = document.getElementById('versionButton');
+
+    versionButton.addEventListener('click', function() {
+        clickCount++;
+
+        if (clickCount === 5) {
+            window.location.href = 'hidden.html';
+        }
+    });
+});
+

@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
             noteInput.value += "🍒 Click! 🍒";
         });
 
-        // add click event to Fullscreen.png to save content and redirect
+        // add click event to Fullscreen.png to save content and redirect to fullscreen
         fullscreenLink.addEventListener('click', function(event) {
-            event.preventDefault(); // prevent default behavior of the link
-            saveButton.click(); // save the content using the save button
+            event.preventDefault(); 
+            saveButton.click();
             setTimeout(function() {
                 window.open("CherryPad.html", '_blank'); // open in a new tab after 500ms
             }, 500);
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // load saved values from local storage
+    // load from local storage
     if (localStorage.getItem('noteInput')) {
         document.getElementById('noteInput').value = localStorage.getItem('noteInput');
     }
@@ -111,6 +111,22 @@ document.getElementById('noteInput').addEventListener('keydown', (e) => {
         }
     }
 });
+
+
+// AutoSave
+document.addEventListener('DOMContentLoaded', function() {
+    const noteInput = document.getElementById('noteInput');
+
+    if (localStorage.getItem('noteInput')) {
+        noteInput.value = localStorage.getItem('noteInput');
+    }
+
+    noteInput.addEventListener('input', function() {
+        localStorage.setItem('noteInput', noteInput.value);
+    });
+});
+
+
 
 //Shortcuts Popup
 
