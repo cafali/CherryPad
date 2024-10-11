@@ -108,3 +108,38 @@
   <p class="arial-text">Button icons used in this project: Font Awesome (<a href="https://fontawesome.com">https://fontawesome.com</a>), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)</p>
 </body>
 </html>
+
+
+<style>
+  body {
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  #icon {
+    width: 60px;
+    height: 60px;
+    animation: spin 0s linear infinite;
+    transition: filter 0.3s ease, animation-duration 0.3s ease, width 0.3s ease, height 0.3s ease;
+  }
+
+  #icon:hover {
+    filter: brightness(1.5);
+    animation-duration: 10.133s;
+    width: 60px; 
+    height: 60px; 
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

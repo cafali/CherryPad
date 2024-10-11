@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // cherry icon blink
     function blinkCherryIcon() {
-        cherryIcon.style.filter = 'brightness(1.5)';
+        cherryIcon.style.filter = 'brightness(1.6)';
         setTimeout(function() {
             cherryIcon.style.filter = 'brightness(1)';
         }, 500);
