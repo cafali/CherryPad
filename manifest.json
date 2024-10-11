@@ -3,7 +3,7 @@
 
   "manifest_version": 3,
   "name": "CherryPad",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity",
   "permissions": ["storage"],
   "action": {

@@ -259,15 +259,20 @@ document.addEventListener('DOMContentLoaded', function() {
 //CherryLogo message fullscreen
 const logoImage = document.getElementById('logo-image');
 const noteInput = document.getElementById('noteInput');
-const toggleText = " 😡 STOP CLICKING RANDOM THINGS!!! 😡 ";
+const toggleText = " 😡 STOP CLICKING RANDOM THINGS!!! 😡 \n\n";
 
 logoImage.addEventListener('click', function() {
-    if (noteInput.value.includes(toggleText)) {
+    if (noteInput.value.includes(toggleText.trim())) {
         noteInput.value = noteInput.value.replace(toggleText, '');  // Remove if it's already there
     } else {
-        noteInput.value += toggleText;
+        noteInput.value = toggleText + noteInput.value.trim();  // Insert text at the top
     }
 });
+
+
+
+
+
 
 
 //Shortcuts Fullscreen
