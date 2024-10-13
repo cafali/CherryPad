@@ -1,5 +1,5 @@
 
-![353722492-a84a4ec1-347d-4413-8c08-5d98e0a92250](https://github.com/user-attachments/assets/00f1f7b5-db4d-46ac-84f7-0eccbcc3efd6)
+![banner](https://github.com/user-attachments/assets/21dc751d-2ad2-4903-af9f-c49ff9b29475)
 
 Welcome to CherryPad 🍒, the notepad extension for your browser!
 CherryPad is designed to make your note-taking experience quick, convenient, and visually pleasing.
