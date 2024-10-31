@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clickCount++;
 
         if (clickCount === 5) {
-            window.location.href = '.../pages/hidden.html';
+            window.location.href = 'hidden.html';
         }
     });
 });
