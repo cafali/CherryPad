@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CherryPad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/cherrypad.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img id="logo-image" src="icon/CherryPad.png" alt="CherryPad Logo">
+        <span>CherryPad</span>
+    </div>
+    <div class="buttons-container">
+        <button id="saveButton" class="button"><i class="fas fa-save"></i>Save</button>
+        <button id="saveTxtButton" class="button"><i class="fas fa-file-download"></i>Download</button>
+        <button id="copyButton" class="button" style="background-color: #DCA158;"><i class="fas fa-copy"></i>Copy All</button>
+        <button id="pasteButton" class="button"><i class="fas fa-paste"></i>Paste</button>
+        <button id="emojiButton" class="button" style="background-color: #b8b43f;"><i class="fas fa-smile"></i>Emoji</button>
+        <button id="clearButton" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Note 1</button>
+        <button id="clearButton2" class="button" style="background-color: #131313;"><i class="fas fa-eraser"></i>Note 2</button>
+    </div>
+    <div class="container">
+        <div class="textarea-wrapper">
+            <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+        </div>
+        <div class="textarea-wrapper">
+            <textarea id="noteInput2" placeholder="Hidden Note - This note won't appear in the popup... 
+ 
+CherryPad Shortcuts: 
+
+CTRL+S - Save Manually
+CTRL+D - Download Note
+CTRL+E - Open Emoji Panel
+
+...also make sure to find all the Easter Eggs!"></textarea>
+        </div>
+    </div>
+    <div class="footer">
+        <div id="lastSaved" class="last-saved" style="color: #539861;"></div>
+    
+        CherryPad Makes Note-Taking Easy<br>
+        Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
+    </div>
+    <!-- Cherry Icon -->
+    <img id="cherry-icon" class="cherry-icon" src="CherryPad.png" alt="Cherry Icon">
+
+    <!-- Emoji Panel --> 
+    <div id="emojiPanel" class="emoji-panel">
+        <button class="emoji">😊</button>
+        <button class="emoji">😂</button>
+        <button class="emoji">😍</button>
+        <button class="emoji">😢</button>
+        <button class="emoji">😎</button>
+        <button class="emoji">😜</button>
+        <button class="emoji">😋</button>
+        <button class="emoji">😇</button>
+        <button class="emoji">😒</button><br>
+        
+        <button class="emoji">😡</button>
+        <button class="emoji">🤮</button>
+        <button class="emoji">🤡</button>
+        <button class="emoji">💩</button>
+        <button class="emoji">💀</button>
+        <button class="emoji">🎃</button>
+        <button class="emoji">👽</button>
+        <button class="emoji">🥶</button>
+        <button class="emoji">😱</button><br>
+
+        <button class="emoji">👌</button>
+        <button class="emoji">✋</button>
+        <button class="emoji">👍</button>
+        <button class="emoji">👎</button>
+        <button class="emoji">👊</button>
+        <button class="emoji">👏</button>
+        <button class="emoji">👋</button>
+        <button class="emoji">🤙</button>
+        <button class="emoji">🤝</button><br>
+
+        <button class="emoji">💥</button>
+        <button class="emoji">🔥</button>
+        <button class="emoji">⚡</button>
+        <button class="emoji">🌟</button>
+        <button class="emoji">✨</button>
+        <button class="emoji">💨</button>
+        <button class="emoji">💣</button>
+        <button class="emoji">🌪️</button>
+        <button class="emoji">🚨</button><br>
+
+        <button class="emoji">✅</button>
+        <button class="emoji">❌</button>
+        <button class="emoji">🗂️</button>
+        <button class="emoji">📅</button>
+        <button class="emoji">📝</button>
+        <button class="emoji">📈</button>
+        <button class="emoji">📉</button>
+        <button class="emoji">📌</button>
+        <button class="emoji">🗑️</button><br>
+
+        <button class="emoji">🍒</button>
+        <button class="emoji">🌸</button>
+        <button class="emoji">🍌</button>
+        <button class="emoji">🍉</button>
+        <button class="emoji">🍇</button>
+        <button class="emoji">🍓</button>
+        <button class="emoji">🍍</button>
+        <button class="emoji">🥭</button>
+        <button class="emoji">🍎</button><br>
+
+        <button class="emoji">💻</button>
+        <button class="emoji">📱</button>
+        <button class="emoji">🖥️</button>
+        <button class="emoji">🖨️</button>
+        <button class="emoji">📷</button>
+        <button class="emoji">🎧</button>
+        <button class="emoji">🔊</button>
+        <button class="emoji">⌚</button>
+        <button class="emoji">📺</button><br>
+        
+        <button class="emoji">💎</button>
+        <button class="emoji">👑</button>
+        <button class="emoji">🥂</button>
+        <button class="emoji">👜</button>
+        <button class="emoji">👠</button>
+        <button class="emoji">⌚</button>
+        <button class="emoji">🏖️</button>
+        <button class="emoji">🛥️</button>
+        <button class="emoji">💲</button><br>
+        
+        <button class="emoji">🎉</button>
+        <button class="emoji">🎈</button>
+        <button class="emoji">💦</button>
+        <button class="emoji">👻</button>
+        <button class="emoji">🐬</button>
+        <button class="emoji">🌈</button>
+        <button class="emoji">🦄</button>
+        <button class="emoji">🍧</button>
+        <button class="emoji">🍨</button><br>
+        
+</div>
+</body>
+</html>
+
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.4.3</button>
+<button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub.com/cafali</button>
+<button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
+
+<a href="about.html" class="button About-button">
+    <i class="fa fa-question-circle"></i>About
+</a>
+
+<script src="scripts/cherry.js"></script>
