@@ -1,0 +1,22 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "CherryPad",
+  "version": "1.4.3",
+  "description": "CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon/icon16.png",
+      "48": "icon/icon48.png",
+      "128": "icon/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon/icon16.png",
+    "48": "icon/icon48.png",
+    "128": "icon/icon128.png"
+  }
+}
