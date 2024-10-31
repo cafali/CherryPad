@@ -19,3 +19,6 @@ Key Features:
 
 
 ![Preview](https://github.com/user-attachments/assets/53da88aa-c418-48b1-afad-556db91f04b1)
+```
+Note: May differ from the current version
+```
