@@ -30,7 +30,6 @@ body {
     color: rgb(255, 255, 255); /* text color */
     background-color: #0c0c0c;
     scrollbar-color: #333 #111;
-    scrollbar-width: thin; 
     box-sizing: border-box;
   }
 
