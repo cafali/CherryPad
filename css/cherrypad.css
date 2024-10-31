@@ -1,0 +1,209 @@
+        @font-face {
+            font-family: 'Bahnschrift';
+            src: url('Bahnschrift-Bold.ttf') format('truetype');
+            font-weight: bold;
+        }
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-container {
+            position: fixed;
+            top: 15px;
+            left: 23px;
+            display: flex;
+            align-items: center;
+            z-index: 1; /* cherry logo */
+        }
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+        .logo-container span {
+            font-family: 'Bahnschrift', sans-serif;
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: 10px;
+            color: white;
+        }
+        .buttons-container {
+            position: fixed;
+            top: 15px;
+            right: 10px;
+            display: flex;
+            z-index: 1; /* buttons above other elements */
+        }
+        .button {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px; /* space between buttons */
+            border-radius: 20px;
+            cursor: pointer;
+            outline: none;
+            font-size: 16px;
+            font-family: 'Bahnschrift', sans-serif;
+            font-weight: bold; /* set font to bold */
+            transition: background-color 0.1s; /* transition on hover */
+        }
+        .button i {
+            margin-right: 5px; /* add space between icon and text */
+        }
+        .button:first-child {
+            background-color: #539861; /* "SAVE" button */
+        }
+        .button:nth-child(2) {
+            background-color: #dc5858; /* "DOWNLOAD" button */
+        }
+        .button:nth-child(3) {
+            background-color: #dc8d58; /* "COPY" button */
+        }
+        .button:nth-child(4) {
+            background-color: #6A98DC; /* "PASTE" button */
+        }
+        .button:nth-child(5) {
+            background-color: #dca158; /* "EMOJI" button */
+        }
+        .button:last-child {
+            background-color: #232323; /* "CLEAR" button */
+            margin-right: 0; 
+        }
+        .button:hover {
+            filter: brightness(90%); /* dark button on hover */
+        }
+        /* Adjust color - hover for specific buttons */
+        #saveButton:hover {
+            background-color: #2e6c45; 
+        }
+
+        #saveTxtButton:hover {
+            background-color: #913535; /* Download */
+        }
+
+        #clearButton:hover {
+            background-color: #131313; /* Clear */
+        }
+        
+        #clearButton2:hover {
+            background-color: #131313; /* Clear */
+        }
+
+        #pasteButton:hover {
+            background-color: #4A73B1;  /* Paste */
+        }
+
+        #emojiButton:hover {
+            background-color: #d19445; /* EmojiPanel */
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+            width: calc(100% - 20px);
+            margin: 60px 10px 20px; 
+            box-sizing: border-box;
+            position: relative;
+            padding-bottom: 40px;
+        }
+        .textarea-wrapper {
+            flex: 1;
+            padding: 10px;
+        }
+        .container textarea {
+            width: 100%;
+            height: calc(100% - 20px); /* height for padding */
+            background-color: #0f0f0f;
+            color: white;
+            border: 4px solid #212121;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            scrollbar-color: #333 #111;
+            scrollbar-width: thin; 
+            outline: none;
+            box-sizing: border-box;
+            resize: none; 
+        }
+        .container textarea::placeholder {
+            color: #888;
+        }
+        .footer {
+            position: fixed; 
+            bottom: 20px; /* distance from the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-family: Arial, sans-serif; 
+            font-weight: normal;
+            background-color: #1A1A1A;
+            color: rgb(102, 102, 102);
+            box-sizing: border-box;
+            text-align: center;
+        }
+        /* CSS rule for the image hover effect */
+        #logo-image:hover {
+            filter: brightness(130%);
+        }
+
+        /* css styles for the cherry icon */
+        .cherry-icon {
+            display: none; /* hide the cherry icon */
+        }
+
+        /* emoji panel styles */
+        .emoji-panel {
+            display: none; /* hidden */
+            position: fixed;
+            top: 60px; 
+            right: 20px;
+            background-color: #333;
+            border: 1px solid #666;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* above other elements */
+        }
+        .emoji-panel button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0px;
+            margin: 2px;
+        }
+
+        .button.version-button {
+          position: fixed;
+          bottom: 20px;
+          left: 20px; 
+          color: #666666;
+          background-color: #1a1a1a;
+        }
+        .button.github-button {
+          position: fixed;
+          bottom: 20px;
+          left: 130px; 
+          color: #666666;
+          background-color: #1a1a1a;
+        }
+        .button.WebStore-button {
+          position: fixed;
+          bottom: 20px; 
+          right: 20px; 
+          color: #666666;
+          background-color: #1a1a1a;
+        }
+        .button.About-button {
+        position: fixed;
+        bottom: 20px; 
+        right: 163px; 
+        color: #666666;
+        background-color: #1a1a1a;
+        }       

@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #1a1a1a; 
+    color: white;
+  }
+
+  .popup-container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 528px; 
+    max-height: 500px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: auto; 
+  }
+
+  textarea {
+    width: calc(100% - 30px);
+    height: 340px; 
+    margin: 10px 0; 
+    padding: 15px;
+    border: 5px solid #232323;
+    border-radius: 7px;
+    font-size: 15px;
+    resize: none;
+    color: rgb(255, 255, 255); /* text color */
+    background-color: #0c0c0c;
+    scrollbar-color: #333 #111;
+    scrollbar-width: thin; 
+    box-sizing: border-box;
+  }
+
+  textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5); 
+  }
+
+  textarea:focus {
+    outline: none; /* remove outline when textarea is focused */
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0; 
+    width: 100%;
+  }
+
+  button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 20px; /* round corners */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    margin: 0 6px;
+    background-color: #1a1a1a; 
+    font-family: 'Bahnschrift', Arial, sans-serif;
+    font-weight: bold;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 9px rgba(0,0,0,0.15);
+  }
+
+  #saveButton {
+    background-color: #539861;
+  }
+
+  #saveTxtButton {
+    background-color: #dc5858; 
+  }
+
+  #clearButton {
+    background-color: #232323;
+  }
+
+  #clearButton:hover {
+    background-color: #131313;
+  }
+
+  footer {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-top: 10px; /* reduced margin */
+  }
+
+  .cherry-icon {
+    width: 30px;
+    height: 30px;
+    filter: brightness(1);
+    transition: filter 0.3s;
+  }
+
+  .cherry-icon:hover {
+    filter: brightness(1.5);
+  }
+
+  .fullscreen-icon {
+    transition: filter 0.3s;
+  }
+
+  .fullscreen-icon:hover {
+    filter: brightness(2.0);
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .spin-once {
+    animation: spin 1s linear;
+  }
+    #fullscreenImg {
+        transition: filter 0.3s ease; /* Smooth transition for the effect */
+    }
+    #fullscreenImg.hovered {
+        filter: brightness(2.0); /* Increase brightness on hover */
+    }
