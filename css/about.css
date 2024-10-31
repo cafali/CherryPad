@@ -99,15 +99,6 @@ body {
     filter: brightness(1.5);
     animation-delay: 1s;
     animation-duration: 0.1s;
-    width: 100px; 
-    height: 100px; 
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+    width: 150px; 
+    height: 150px; 
   }
