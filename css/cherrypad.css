@@ -161,7 +161,7 @@
             display: none; /* hidden */
             position: fixed;
             top: 60px; 
-            right: 20px;
+            right: 110px;
             background-color: #333;
             border: 1px solid #666;
             border-radius: 5px;
@@ -188,7 +188,7 @@
         .button.github-button {
           position: fixed;
           bottom: 20px;
-          left: 130px; 
+          left: 120px; 
           color: #666666;
           background-color: #1a1a1a;
         }
