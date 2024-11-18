@@ -63,10 +63,13 @@
             background-color: #dc5858; /* "DOWNLOAD" button */
         }
         .button:nth-child(3) {
-            background-color: #dc8d58; /* "COPY" button */
+            background-color: #DCA158; /* "COPY" button */
         }
         .button:nth-child(4) {
             background-color: #6A98DC; /* "PASTE" button */
+        }
+        #emojiButton {
+            background-color: #b8b43f; /* EmojiPanel */
         }
         .button:last-child {
             background-color: #232323; /* "CLEAR" button */
@@ -84,10 +87,16 @@
             background-color: #913535; /* Download */
         }
 
+        #copyButton:hover {
+            background-color: #c47e53; /* "COPY" button */
+        }
+
         #clearButton:hover {
             background-color: #131313; /* Clear */
         }
-        
+        .button:nth-child(4) {
+            background-color: #6A98DC; /* "Emoji" button */
+        }
         #clearButton2:hover {
             background-color: #131313; /* Clear */
         }
@@ -97,7 +106,7 @@
         }
 
         #emojiButton:hover {
-            background-color: #d19445; /* EmojiPanel */
+            background-color: #949133; /* EmojiPanel */
         }
         
         .container {
