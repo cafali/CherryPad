@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // AutoSave both fields
-
 document.addEventListener('DOMContentLoaded', function() {
     const noteInput = document.getElementById('noteInput');
     const noteInput2 = document.getElementById('noteInput2');
@@ -47,8 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('noteInput2', noteInput2.value);
     });
 });
-
-
 
 // Download .txt file button based on active window
 let lastActiveTextarea = null;
@@ -79,12 +76,7 @@ document.getElementById('saveTxtButton').addEventListener('click', function() {
     URL.revokeObjectURL(url);
 });
 
-
-
-
- 
-// copy button
-
+// Copy button
 document.getElementById('noteInput').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput');
 });
@@ -109,10 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-
 // Paste content Input & Input 2
-
 document.getElementById('noteInput').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput');
 });
@@ -244,18 +233,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-
+//Clear Notes + Ask user
         clearButton2.addEventListener('click', function() {
-            noteInput2.value = '';
-            localStorage.setItem('note2', '');
-        });
-
-        clearButton.addEventListener('click', function() {
-            noteInput.value = '';
-            localStorage.setItem('note', '');
+            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
+                noteInput2.value = '';
+                localStorage.setItem('note2', '');
+                document.getElementById('saveButton').click(); 
+            }
         });
         
-
+        clearButton.addEventListener('click', function() {
+            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
+                noteInput.value = '';
+                localStorage.setItem('note', '');
+                document.getElementById('saveButton').click(); 
+            }
+        });
+        
 //CherryLogo message fullscreen
 const logoImage = document.getElementById('logo-image');
 const noteInput = document.getElementById('noteInput');
@@ -270,22 +264,17 @@ logoImage.addEventListener('click', function() {
 });
 
 
-
-
-
-
-
 //Shortcuts Fullscreen
 
-//Save Ctrl+S
+//Ctrl+S for SAVE
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.key === 's') {
         event.preventDefault(); 
-        document.getElementById('saveButton').click(); 
+        document.getElementById('saveButton').click();
     }
 });
 
-//Emoji Panel Ctrl+E
+//CTRL+E for Emoji Panel
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.key === 'e') {
         event.preventDefault(); 
@@ -293,7 +282,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-//Download Ctrl+D
+//CTRL+D Download 
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.key === 'd') {
         event.preventDefault(); 
@@ -320,7 +309,6 @@ saveButton.addEventListener('click', function() {
 
 
 //Easteregg
-
 let clickCount = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -334,5 +322,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-

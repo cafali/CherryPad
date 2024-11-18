@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #1a1a1a; 
-    color: white;
+    color: #ffffff;
   }
 
   .popup-container {
@@ -34,7 +34,7 @@ body {
   }
 
   textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5); 
+    color: #ffffff80; 
   }
 
   textarea:focus {
@@ -65,7 +65,7 @@ body {
 
   button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 7px 9px rgba(0,0,0,0.15);
+    box-shadow: 0 7px 9px #00000026;
   }
 
   #saveButton {
