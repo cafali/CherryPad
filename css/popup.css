@@ -72,8 +72,16 @@ body {
     background-color: #539861;
   }
 
+  #saveButton:hover {
+    background-color: #2e6c45;
+  }
+
   #saveTxtButton {
     background-color: #dc5858; 
+  }
+
+  #saveTxtButton:hover {
+    background-color: #913535; 
   }
 
   #clearButton {

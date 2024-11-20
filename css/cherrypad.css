@@ -183,8 +183,8 @@
             padding: 0px;
             margin: 2px;
         }
-
-        .button.version-button {
+        
+        .button.version-button {  /* bottom buttons */
           position: fixed;
           bottom: 20px;
           left: 20px; 
@@ -206,9 +206,12 @@
           background-color: #1a1a1a;
         }
         .button.About-button {
-        position: fixed;
-        bottom: 20px; 
-        right: 163px; 
-        color: #666666;
-        background-color: #1a1a1a;
-        }       
+          position: fixed;
+          bottom: 20px;
+          right: 163px; 
+          color: #666666;
+          background-color: #1a1a1a;
+        }  
+
+
+     
