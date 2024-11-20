@@ -1,54 +1,57 @@
-CherryPad Update Log
+CherryPad Updates
 
-Version 1.4 (November 2024)
--------------------------------------------------
-- Adjusted Icons for Various Buttons
-- Added Dark Scrollbar to Match Design Aesthetic
-- Added Webstore Button
-- Removed Unnecessary Storage Permissions
-- Fixed Bug Preventing "About" Page from Loading
-- Resolved Issue with Main Script Failing to Load, Breaking Fullscreen Mode Functionality
-- Fine-Tuned Cherry Animation Speed on Certain Pages
-- Corrected CSS for Several Buttons
-- Refined Fullscreen Button Colors and Hover Effects to Align with Design
-- Refined Popup Button Colors and Hover Effects to Align with Design
-- Fixed an issue where certain emojis were displayed twice in the Emoji Panel
-- Expanded Emoji Collection
+Version 1.4 (November 2024)  
+-------------------------------------------------  
+- Added "Web Store" button  
+- Removed unnecessary storage permissions   
+- Resolved issue with main script failing to load, breaking fullscreen mode functionality  
+- Fine-tuned cherry animation speed on certain pages  
+- Corrected css for several buttons   
+- Refined popup hover effects to align with design  
+- Fixed an issue where certain emojis were displayed twice in the emoji panel  
+- Adjusted icons for various buttons  
+- Added dark scrollbar to match design aesthetic  
+- Expanded emoji collection  
+- Adjusted active input detection for emoji panel (notefield1 & notefield2)  
+- Added a blink effect when saving in fullscreen mode
+- Fixed "Copy All" and "Emoji" button hover animation
+- Fixed bug preventing "about" page from loading 
+- Fixed "About" button hover issue with white bar misalignment
 
-Version 1.3 (September 2024)
--------------------------------------------------
-- Expanded Emoji Collection
-- Added Keyboard Shortcuts for Easier Navigation
-- Added CLEAR 2nd Note Field button
-- Introduced Autosave Feature in Popup
-- Redesigned Bottom Buttons
-- Optimized CSS for Smaller Screens
-- Included Multiple Easter Eggs
-- Added "About" Page
+Version 1.3 (September 2024)  
+-------------------------------------------------  
+- Expanded emoji collection  
+- Added keyboard shortcuts for easier navigation  
+- Added clear 2nd note field button  
+- Introduced autosave feature in popup  
+- Redesigned bottom buttons  
+- Optimized css for smaller screens  
+- Included multiple easter eggs  
+- Added "about" page  
 
-Version 1.2 (July 2024)
--------------------------------------------------
-- Bug Fixes for Saving and 
-- Bug Fixes for Syncing between Popup and Fullscreen Mode
-- Added 2nd Note Field in Fullscreen Mode
-- Improved Animations
-- Design Refinements
+Version 1.2 (July 2024)  
+-------------------------------------------------  
+- Added emoji panel  
+- Bug fixes related to fullscreen mode (design)  
+- Bug fixes for syncing between popup and fullscreen mode  
+- Added 2nd note field in fullscreen mode  
+- Improved animations  
+- Design refinements  
 
-Version 1.1 (June 2024)
--------------------------------------------------
-- Updated Logo and Icons
-- Refined Design and Theme
-- Added Animation for Saving Notes
-- Introduced Fullscreen Mode
-- Added Emoji Panel
-- Enhanced Fullscreen Mode with SAVE/DOWNLOAD/COPY/PASTE/CLEAR Options
-- Adjusted Font Style and Size
-- Synchronized Fullscreen Mode with Popup
+Version 1.1 (June 2024)  
+-------------------------------------------------  
+- Updated logo and icons  
+- Refined design and theme  
+- Added animation for saving notes  
+- Introduced fullscreen mode  
+- Enhanced fullscreen mode with save/download/copy/paste/clear options  
+- Adjusted font style and size  
+- Synchronized fullscreen mode with popup  
 
-Version 1.0 (May 2024)
--------------------------------------------------
-- Initial CherryPad Release
-- Design Adjustments
-- Added Logo and Icons
-- Multiple Bug Fixes
-- Fixed Multiple Bugs in popup.js
+Version 1.0 (May 2024)  
+-------------------------------------------------  
+- Initial cherrypad release  
+- Design adjustments  
+- Added logo and icons  
+- Multiple bug fixes (html/css)  
+- Fixed multiple bugs in popup.js 
