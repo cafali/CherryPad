@@ -220,16 +220,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+        //Bottom Buttons CherryPad.html
         document.addEventListener('DOMContentLoaded', function() { 
-            // go to WebStore - Store
+            // go to WebStore
             document.getElementById('WebStoreButton').addEventListener('click', function() {
                 window.open('https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd', '_blank');
             });
-        
             // go to Github
             document.getElementById('GithubButton').addEventListener('click', function() {
                 window.open('https://github.com/cafali', '_blank');
+            });
+            // go to About
+            document.getElementById('AboutButton').addEventListener('click', function() {
+                window.location.href = 'about.html';
             });
         });
         
