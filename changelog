@@ -10,7 +10,9 @@ Version 1.4 (November 2024)
 - Resolved Issue with Main Script Failing to Load, Breaking Fullscreen Mode Functionality
 - Fine-Tuned Cherry Animation Speed on Certain Pages
 - Corrected CSS for Several Buttons
-- Refined Button Colors and Hover Effects to Align with Design
+- Refined Fullscreen Button Colors and Hover Effects to Align with Design
+- Refined Popup Button Colors and Hover Effects to Align with Design
+- Fixed an issue where certain emojis were displayed twice in the Emoji Panel
 - Expanded Emoji Collection
 
 Version 1.3 (September 2024)
