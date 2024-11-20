@@ -17,6 +17,7 @@ Version 1.4 (November 2024)
 - Fixed "Copy All" and "Emoji" button hover animation
 - Fixed bug preventing "about" page from loading 
 - Fixed "About" button hover issue with white bar misalignment
+- Added "Changelog" to the "About" page
 
 Version 1.3 (September 2024)  
 -------------------------------------------------  
