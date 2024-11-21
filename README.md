@@ -18,7 +18,9 @@ Key Features:
 - Full-screen mode includes two separate note fields 📝📝
 
 
-![1 4 7](https://github.com/user-attachments/assets/ad0ea0ec-31fa-449d-938c-fe5e7b5ecb64)
+![image](https://github.com/user-attachments/assets/44938819-281f-42ef-994e-3f4181fa663f)
+
+
 
 
 ```
