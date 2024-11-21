@@ -18,6 +18,8 @@ Version 1.4 (November 2024)
 - Fixed bug preventing "about" page from loading 
 - Fixed "About" button hover issue with white bar misalignment
 - Added "Changelog" to the "About" page
+- Adjuted the border, added rounded edges, adjusted emoji size and added a darker background to the emoji panel 
+- Removed unnecessary CSS background from bottom text
 
 Version 1.3 (September 2024)  
 -------------------------------------------------  
@@ -28,7 +30,7 @@ Version 1.3 (September 2024)
 - Redesigned bottom buttons  
 - Optimized css for smaller screens  
 - Included multiple easter eggs  
-- Added "about" page  
+- Added "About" page  
 
 Version 1.2 (July 2024)  
 -------------------------------------------------  
