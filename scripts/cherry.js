@@ -28,24 +28,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // AutoSave both fields
 document.addEventListener('DOMContentLoaded', function() {
-    const noteInput = document.getElementById('noteInput');
+    const noteInput1 = document.getElementById('noteInput');
     const noteInput2 = document.getElementById('noteInput2');
 
+    // Load saved values from localStorage
     if (localStorage.getItem('noteInput')) {
-        noteInput.value = localStorage.getItem('noteInput');
+        noteInput1.value = localStorage.getItem('noteInput');
     }
     if (localStorage.getItem('noteInput2')) {
         noteInput2.value = localStorage.getItem('noteInput2');
     }
 
-    noteInput.addEventListener('input', function() {
-        localStorage.setItem('noteInput', noteInput.value);
+    // Save to localStorage on input
+    function saveInput(key, element) {
+        localStorage.setItem(key, element.value);
+    }
+
+    noteInput1.addEventListener('input', function() {
+        saveInput('noteInput', noteInput1);
     });
 
     noteInput2.addEventListener('input', function() {
-        localStorage.setItem('noteInput2', noteInput2.value);
+        saveInput('noteInput2', noteInput2);
     });
 });
+
 
 // Download .txt file button based on active window
 let lastActiveTextarea = null;
@@ -117,16 +124,24 @@ document.getElementById('pasteButton').addEventListener('click', async () => {
         const text = await navigator.clipboard.readText();
         const startPos = lastActiveTextarea.selectionStart;
 
+        // Insert the text at the cursor position
         lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
         lastActiveTextarea.dataset.lastPastedContent = JSON.stringify({
             text: text,
             startPos: startPos
         });
 
+        // Save the updated content to localStorage
+        if (lastActiveTextarea.id === 'noteInput') {
+            localStorage.setItem('noteInput', lastActiveTextarea.value);
+        } else if (lastActiveTextarea.id === 'noteInput2') {
+            localStorage.setItem('noteInput2', lastActiveTextarea.value);
+        }
     } catch (err) {
         console.error('Failed to read clipboard contents: ', err);
     }
 });
+
 
 
 
@@ -168,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-        // emoji panel functionality
+// emoji panel functionality
 document.addEventListener('DOMContentLoaded', function() {
     const emojiButton = document.getElementById('emojiButton');
     const emojiPanel = document.getElementById('emojiPanel');
@@ -176,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const noteInput2 = document.getElementById('noteInput2');
     let activeInput = null; // track the currently active input
 
-    // focusing on the input fields
+    // Focusing on the input fields
     noteInput1.addEventListener('focus', function() {
         activeInput = noteInput1;
     });
@@ -186,16 +201,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     emojiButton.addEventListener('click', function(event) {
-        // prevent the click from propagating to the document event listener
+        // Prevent the click from propagating to the document event listener
         event.stopPropagation();
         emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
     });
 
     emojiPanel.addEventListener('click', function(event) {
         if (event.target.classList.contains('emoji')) {
-            // ensure that an active input is selected
+            // Ensure that an active input is selected
             if (activeInput) {
                 insertAtCursor(activeInput, event.target.textContent);
+                // Save to localStorage after inserting emoji
+                if (activeInput === noteInput1) {
+                    localStorage.setItem('noteInput', activeInput.value);
+                } else if (activeInput === noteInput2) {
+                    localStorage.setItem('noteInput2', activeInput.value);
+                }
             }
         }
     });
@@ -212,12 +233,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const beforeValue = input.value.substring(0, startPos);
         const afterValue = input.value.substring(endPos, input.value.length);
         input.value = beforeValue + textToInsert + afterValue;
-        // move the cursor to the end
+        // Move the cursor to the end
         input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
-        // refocus the textarea after inserting
+        // Refocus the textarea after inserting
         input.focus();
     }
 });
+
 
 
         //Bottom Buttons CherryPad.html
