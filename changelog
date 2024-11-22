@@ -20,6 +20,7 @@ Version 1.4 (November 2024)
 - Added "Changelog" to the "About" page
 - Adjuted the border, added rounded edges, adjusted emoji size and added a darker background to the emoji panel 
 - Removed unnecessary CSS background from bottom text
+- Resolved multiple issues where programmatically inserted content (e.g., emojis from the emoji panel or pasted content via paste button) was not triggering autosave
 
 Version 1.3 (September 2024)  
 -------------------------------------------------  
