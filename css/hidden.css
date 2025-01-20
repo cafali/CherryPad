@@ -29,3 +29,8 @@ body {
       transform: rotate(360deg);
     }
   }
+
+  #icon {    
+    user-select: none;  
+    -webkit-user-drag: none;
+  }

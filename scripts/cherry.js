@@ -164,23 +164,28 @@ document.getElementById('noteInput').addEventListener('keydown', (e) => {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {   //1.5.0 fix
     const versionButton = document.getElementById('versionButton');
     const noteInput = document.getElementById('noteInput2');
 
     if (versionButton && noteInput) {
         versionButton.addEventListener('click', function() {
             const textToToggle = " 🍒 Something interesting is happening... Keep going! 🍒 ";
-            if (noteInput.value.includes(textToToggle)) {
-                // remove the text if it's already there
-                noteInput.value = noteInput.value.replace(textToToggle, '');
+            const textWithNewline = textToToggle + '\n\n';
+            const currentValue = noteInput.value;
+
+            if (currentValue.startsWith(textWithNewline)) {
+                // Remove the text and its newline if it's already at the top
+                noteInput.value = currentValue.replace(textWithNewline, '');
             } else {
-                // Add the text if it's not there
-                noteInput.value += textToToggle;
+                // Add the text to the top with a newline
+                noteInput.value = textWithNewline + currentValue;
             }
         });
     }
 });
+
+
 
 
 // emoji panel functionality
