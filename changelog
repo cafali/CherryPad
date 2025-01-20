@@ -2,8 +2,8 @@ CherryPad Updates
 
 Version 1.5 (January 2025) (Current)  
 -------------------------------------------------  
-- Fixed a bug where the hidden cherry icon in the Easter egg sequence was selectable, making it hard to identify.
-- Adjusted the position of the Easter egg message to ensure it is clearly visible to the user upon discovery.
+- Fixed a bug where the hidden cherry icon in the Easter egg sequence was selectable, making it hard to identify
+- Adjusted the position of the Easter egg message to ensure it is clearly visible to the user upon discovery
 - Added "Website" to the About page
 - Updated MIT License year to 2025
 
