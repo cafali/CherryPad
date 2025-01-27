@@ -57,7 +57,7 @@ body {
   button {
     font-family: 'Bahnschrift', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
-    background-color: #bd4f4f;
+    background-color: #dc5858;
     color: #fff;
     border: none;
     border-radius: 25px;
@@ -99,6 +99,6 @@ body {
     filter: brightness(1.5);
     animation-delay: 1s;
     animation-duration: 0.1s;
-    width: 150px; 
-    height: 150px; 
+    width: 90px; 
+    height: 90px; 
   }
