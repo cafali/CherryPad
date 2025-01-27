@@ -2,6 +2,10 @@ CherryPad Updates
 
 Version 1.5 (January 2025) (Current)  
 -------------------------------------------------  
+- Updated the emoji panel by replacing various emojis with task management-related emojis
+- Adjusted the "Review" link to redirect to the dedicated review page instead of the main extension store page
+- Changed "Rate CherryPad" to "Review" and "Updates" to "Changelog" on the About Page
+- Updated button color and resized the cherry icon on hover on About Page
 - Fixed a bug where the hidden cherry icon in the Easter egg sequence was selectable, making it hard to identify
 - Adjusted the position of the Easter egg message to ensure it is clearly visible to the user upon discovery
 - Added "Website" to the About page
