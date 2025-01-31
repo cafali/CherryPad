@@ -210,5 +210,7 @@
           background-color: #1a1a1a;
         }  
 
-
+        button:active {
+            transform: scale(0.95); /* button size when click */
+          }
      

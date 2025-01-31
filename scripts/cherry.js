@@ -352,3 +352,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// display emoji panel on hover 1.5.2
+document.addEventListener('DOMContentLoaded', function() {
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const buttonsToClose = document.querySelectorAll('.button:not(#emojiButton)');
+
+    // open emoji panel when hovering over emoji button
+    emojiButton.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+
+    // close emoji panel when hovering over other buttons
+    buttonsToClose.forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+            emojiPanel.style.display = 'none';
+        });
+    });
+
+    // no collapsing when hovering overpanel
+    emojiPanel.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+});

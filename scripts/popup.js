@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); 
             saveButton.click();
             setTimeout(function() {
-                window.open("CherryPad.html", '_blank'); // open in a new tab after 500ms
-            }, 500);
+                window.open("CherryPad.html", '_blank'); // open in a new tab after "X" ms
+            }, 150); //1.5.2
         });
     }
 });

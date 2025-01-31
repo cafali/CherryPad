@@ -1,36 +1,72 @@
+@font-face {
+  font-family: "Bahnschrift";
+  src: local("Bahnschrift"), local("Segoe UI Light");
+}
+
 body {
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow: hidden; /* emoji view */
+  font-family: 'Bahnschrift', sans-serif;
+}
 
-  #icon {
-    width: 50px;
-    height: 50px;
-    animation: spin 10s linear infinite;
-    transition: filter 0.3s ease, animation-duration 0.3s ease, width 0.3s ease, height 0.3s ease;
-  }
+#counter {   /* counter */
+  color: white;
+  font-size: 70px;
+  position: absolute;
+  top: 50px;
+  left: center;
+  font-family: 'Bahnschrift', sans-serif; 
+  font-weight: bold;
+}
 
-  #icon:hover {
-    filter: brightness(1.5);
-    animation-duration: 10.133s;
-    width: 300px; 
-    height: 300px; 
-  }
+#icon {
+  width: 50px;
+  height: 50px;
+  animation: spin 10s linear infinite;
+  transition: filter 0.3s ease, animation-duration 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+#icon:hover {
+  filter: brightness(1.5);
+  animation-duration: 10.133s;
+  width: 300px; 
+  height: 300px; 
+}
 
-  #icon {    
-    user-select: none;  
-    -webkit-user-drag: none;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#icon {    
+  user-select: none;  
+  -webkit-user-drag: none;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(-600px);
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px)); /* moves emojis down */
+  }
+}
+
+span.emoji {
+  position: absolute;
+  font-size: 100px; 
+  animation: drop 10s linear infinite;
+  cursor: pointer; 
+  user-select: none;
+}
+

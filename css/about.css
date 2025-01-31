@@ -102,3 +102,7 @@ body {
     width: 90px; 
     height: 90px; 
   }
+
+  button:active {
+    transform: scale(.98); /* button size when click */
+  }
