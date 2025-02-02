@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
   const emojiRain = () => {
-    const emojis = ['🥚', '🐣', '🐰', '🍒', '📝', '🐇', '🦉', '⭐'];
+    const emojis = ['🥚', '🐣', '🐰', '🍒', '📝', '🐇', '🦉', '⭐', '💖', '🍪', '🔥'];
     const container = document.body;
-    let emojiClickCount = 0;  // counter
+    let emojiClickCount = 0; // counter
 
     setInterval(() => {
       const emoji = document.createElement('span');
@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
       emoji.style.left = Math.random() * window.innerWidth + 'px'; 
       emoji.style.fontSize = Math.random() * 40 + 30 + 'px';
       
-      // emoji click
-      emoji.addEventListener('click', function() {
-        emoji.remove();  // remove the emoji on click
-        emojiClickCount++;  // counter on click
-        document.getElementById('counter').innerHTML = 'SCORE: ' + emojiClickCount;  // Update the displayed count
+      // emoji hover 
+      emoji.addEventListener('mouseover', function() {
+        emoji.remove(); // remove emoji on hover
+        emojiClickCount++; // counter on hover
+        document.getElementById('counter').innerHTML = 'SCORE: ' + emojiClickCount;
       });
 
       container.appendChild(emoji);
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const checkEmojiPosition = setInterval(() => {
         const emojiRect = emoji.getBoundingClientRect();
         if (emojiRect.bottom >= window.innerHeight) {
-          window.location.href = 'cherrypad.html';  // end game when emoji reaches bottom
-          clearInterval(checkEmojiPosition); // stop checking position once redirected
+          window.location.href = 'cherrypad.html'; // end game when emoji reaches bottom
+          clearInterval(checkEmojiPosition); // stop checking 
         }
       }, 100);
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         emoji.remove();
         clearInterval(checkEmojiPosition); // stop checking if the emoji is removed
       }, 10000); // fall animation duration
-    },300); // frequency of emoji generation
+    }, 300); // frequency of emoji generation
   };
 
   emojiRain();

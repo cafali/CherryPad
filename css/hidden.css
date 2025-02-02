@@ -13,6 +13,7 @@ body {
   position: relative;
   overflow: hidden; /* emoji view */
   font-family: 'Bahnschrift', sans-serif;
+  user-select: none;
 }
 
 #counter {   /* counter */
@@ -23,6 +24,7 @@ body {
   left: center;
   font-family: 'Bahnschrift', sans-serif; 
   font-weight: bold;
+  user-select: none;
 }
 
 #icon {
@@ -36,7 +38,7 @@ body {
   filter: brightness(1.5);
   animation-duration: 10.133s;
   width: 300px; 
-  height: 300px; 
+  height: 300px;
 }
 
 @keyframes spin {
@@ -69,4 +71,3 @@ span.emoji {
   cursor: pointer; 
   user-select: none;
 }
-

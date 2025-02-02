@@ -1,7 +1,10 @@
 CherryPad Updates
 
-Version 1.5 (January 2025) (Current)  
+Version 1.5 (February 2025) (Current)  
 -------------------------------------------------  
+1.5.3 (dev)
+- Enhanced the Easter Egg minigame 
+- Minor CSS adjustments related to hovering over some objects across CherryPad
 1.5.2
 - The hidden Easter Egg page now includes a minigame with falling emojis and a score counter
 - Added a shrink animation to all buttons on click for improved interactivity
@@ -20,25 +23,35 @@ Version 1.5 (January 2025) (Current)
 
 Version 1.4 (November 2024)  
 -------------------------------------------------  
-- Added "Web Store" button  
-- Removed unnecessary storage permissions   
-- Resolved issue with main script failing to load, breaking fullscreen mode functionality  
-- Fine-tuned cherry animation speed on certain pages  
-- Corrected css for several buttons   
-- Refined popup hover effects to align with design  
-- Fixed an issue where certain emojis were displayed twice in the emoji panel  
-- Adjusted icons for various buttons  
-- Added dark scrollbar to match design aesthetic  
-- Expanded emoji collection  
-- Adjusted active input detection for emoji panel (notefield1 & notefield2)  
-- Added a blink effect when saving in fullscreen mode
-- Fixed "Copy All" and "Emoji" button hover animation
-- Fixed bug preventing "about" page from loading 
-- Fixed "About" button hover issue with white bar misalignment
-- Added "Changelog" to the "About" page
-- Adjuted the border, added rounded edges, adjusted emoji size and added a darker background to the emoji panel 
-- Removed unnecessary CSS background from bottom text
+1.4.9
 - Resolved multiple issues where programmatically inserted content (e.g., emojis from the emoji panel or pasted content via paste button) was not triggering autosave
+- Removed unnecessary CSS background from bottom text
+1.4.8
+- Adjuted the border, added rounded edges, adjusted emoji size, and added a darker background to the emoji panel
+- Added "Changelog" to the "About" page
+- Fixed "About" button hover issue with white bar misalignment
+1.4.7
+- Fixed bug preventing "about" page from loading
+- Fixed "Copy All" and "Emoji" button hover animation
+1.4.6
+- Added a blink effect when saving in fullscreen mode
+- Adjusted active input detection for emoji panel (notefield1 & notefield2)
+1.4.5
+- Expanded emoji collection
+- Added dark scrollbar to match design aesthetic
+- Adjusted icons for various buttons
+1.4.4
+- Fixed an issue where certain emojis were displayed twice in the emoji panel
+1.4.3
+- Refined popup hover effects to align with design
+- Corrected CSS for several buttons
+1.4.2
+- Fine-tuned cherry animation speed on certain pages
+- Resolved issue with main script failing to load, breaking fullscreen mode functionality
+1.4.1
+- Removed unnecessary storage permissions
+1.4.0
+- Added "Web Store" button
 
 Version 1.3 (September 2024)  
 -------------------------------------------------  
@@ -79,7 +92,5 @@ Version 1.0 (May 2024)
 - Fixed multiple bugs in popup.js 
 
 
-
-
-CherryPad by https://github.com/cafali
+CherryPad by github.com/cafali
 cafali.art - cafalidev@gmail.com
