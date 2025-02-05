@@ -53,8 +53,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//blink logo Cherry when saving (fullscreen)
+const cherryIcon = document.getElementById('logo-image');
+const saveButton = document.getElementById('saveButton');
 
-// Download .txt file button based on active window
+function blinkCherryIcon() {
+    cherryIcon.style.filter = 'brightness(1.5)';
+
+    setTimeout(function() {
+        cherryIcon.style.filter = 'brightness(1)';
+    }, 500);
+}
+
+saveButton.addEventListener('click', function() {
+    blinkCherryIcon();
+});
+
+// Download .txt file button based on active window (noteInput/noteInput2)
 let lastActiveTextarea = null;
 
 document.getElementById('noteInput').addEventListener('focus', () => {
@@ -83,7 +98,7 @@ document.getElementById('saveTxtButton').addEventListener('click', function() {
     URL.revokeObjectURL(url);
 });
 
-// Copy button
+// Copy button Fullscreen
 document.getElementById('noteInput').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput');
 });
@@ -108,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Paste content Input & Input 2
+// paste content on active field (Input 1&2)
 document.getElementById('noteInput').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput');
 });
@@ -124,14 +139,14 @@ document.getElementById('pasteButton').addEventListener('click', async () => {
         const text = await navigator.clipboard.readText();
         const startPos = lastActiveTextarea.selectionStart;
 
-        // Insert the text at the cursor position
+        // insert the text at the cursor position
         lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
         lastActiveTextarea.dataset.lastPastedContent = JSON.stringify({
             text: text,
             startPos: startPos
         });
 
-        // Save the updated content to localStorage
+        // save the updated content to localStorage
         if (lastActiveTextarea.id === 'noteInput') {
             localStorage.setItem('noteInput', lastActiveTextarea.value);
         } else if (lastActiveTextarea.id === 'noteInput2') {
@@ -163,7 +178,9 @@ document.getElementById('noteInput').addEventListener('keydown', (e) => {
     }
 });
 
+//version buttton
 
+// when you click the version button - a message should appear (noteinput 2)
 document.addEventListener('DOMContentLoaded', function() {   //1.5.0 fix
     const versionButton = document.getElementById('versionButton');
     const noteInput = document.getElementById('noteInput2');
@@ -185,7 +202,46 @@ document.addEventListener('DOMContentLoaded', function() {   //1.5.0 fix
     }
 });
 
+// versionButton eastereggclick -> redirect
+let clickCount = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
+    const versionButton = document.getElementById('versionButton');
+
+    versionButton.addEventListener('click', function() {
+        clickCount++;
+
+        if (clickCount === 5) {
+            window.location.href = 'hidden.html';
+        }
+    });
+});
+
+// emoji panel
+
+// emoji panel display on hover 1.5.2
+document.addEventListener('DOMContentLoaded', function() {
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const buttonsToClose = document.querySelectorAll('.button:not(#emojiButton)');
+
+    // open emoji panel when hovering over emoji button
+    emojiButton.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+
+    // close emoji panel when hovering over other buttons
+    buttonsToClose.forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+            emojiPanel.style.display = 'none';
+        });
+    });
+
+    // no collapsing when hovering overpanel
+    emojiPanel.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+});
 
 
 // emoji panel functionality
@@ -263,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-//Clear Notes + Ask user
+        //Clear Notes + Ask user (browser popup)
         clearButton2.addEventListener('click', function() {
             if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
                 noteInput2.value = '';
@@ -280,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-//CherryLogo message fullscreen
+//CherryLogo message fullscreen when click
 const logoImage = document.getElementById('logo-image');
 const noteInput = document.getElementById('noteInput');
 const toggleText = " 😡 STOP CLICKING RANDOM THINGS!!! 😡 \n\n";
@@ -289,12 +345,11 @@ logoImage.addEventListener('click', function() {
     if (noteInput.value.includes(toggleText.trim())) {
         noteInput.value = noteInput.value.replace(toggleText, '');  // Remove if it's already there
     } else {
-        noteInput.value = toggleText + noteInput.value.trim();  // Insert text at the top
+        noteInput.value = toggleText + noteInput.value.trim();  // Insert text at the very top (noteinput 1)
     }
 });
 
-
-//Shortcuts Fullscreen
+//keyboard shortcuts fullscreen
 
 //Ctrl+S for SAVE
 document.addEventListener('keydown', function(event) {
@@ -318,61 +373,4 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault(); 
         document.getElementById('saveTxtButton').click(); 
     }
-});
-
-
-//blink Cherry when saving
-const cherryIcon = document.getElementById('logo-image');
-const saveButton = document.getElementById('saveButton');
-
-function blinkCherryIcon() {
-    cherryIcon.style.filter = 'brightness(1.5)';
-
-    setTimeout(function() {
-        cherryIcon.style.filter = 'brightness(1)';
-    }, 500);
-}
-
-saveButton.addEventListener('click', function() {
-    blinkCherryIcon();
-});
-
-
-//Easteregg
-let clickCount = 0;
-
-document.addEventListener('DOMContentLoaded', function() {
-    const versionButton = document.getElementById('versionButton');
-
-    versionButton.addEventListener('click', function() {
-        clickCount++;
-
-        if (clickCount === 5) {
-            window.location.href = 'hidden.html';
-        }
-    });
-});
-
-// display emoji panel on hover 1.5.2
-document.addEventListener('DOMContentLoaded', function() {
-    const emojiButton = document.getElementById('emojiButton');
-    const emojiPanel = document.getElementById('emojiPanel');
-    const buttonsToClose = document.querySelectorAll('.button:not(#emojiButton)');
-
-    // open emoji panel when hovering over emoji button
-    emojiButton.addEventListener('mouseenter', function() {
-        emojiPanel.style.display = 'block';
-    });
-
-    // close emoji panel when hovering over other buttons
-    buttonsToClose.forEach(function(button) {
-        button.addEventListener('mouseenter', function() {
-            emojiPanel.style.display = 'none';
-        });
-    });
-
-    // no collapsing when hovering overpanel
-    emojiPanel.addEventListener('mouseenter', function() {
-        emojiPanel.style.display = 'block';
-    });
 });
