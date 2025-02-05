@@ -353,7 +353,7 @@ logoImage.addEventListener('click', function() {
 
 //Ctrl+S for SAVE
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 's') {
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
         event.preventDefault(); 
         document.getElementById('saveButton').click();
     }
@@ -361,7 +361,7 @@ document.addEventListener('keydown', function(event) {
 
 //CTRL+E for Emoji Panel
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'e') {
+    if (event.ctrlKey && (event.key === 'e' || event.key === 'E')) {
         event.preventDefault(); 
         document.getElementById('emojiButton').click(); 
     }
@@ -369,7 +369,7 @@ document.addEventListener('keydown', function(event) {
 
 //CTRL+D Download 
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'd') {
+    if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
         event.preventDefault(); 
         document.getElementById('saveTxtButton').click(); 
     }

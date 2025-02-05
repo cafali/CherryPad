@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //Save Ctrl+S
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 's') {
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
         event.preventDefault(); 
         document.getElementById('saveButton').click(); 
     }
@@ -140,7 +140,7 @@ document.addEventListener('keydown', function(event) {
 
 //Download Ctrl+D
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'd') {
+    if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
         event.preventDefault(); 
         document.getElementById('saveTxtButton').click(); 
     }
