@@ -10,8 +10,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 528px;
-  max-height: 500px;
+  width: 571px;
+  max-height: 492px;
   background-color: #1a1a1a;
   border-radius: 10px;
   padding: 10px;
@@ -19,10 +19,10 @@ body {
 }
 
 textarea {
-  width: calc(100% - 30px);
-  height: 340px;
+  width: calc(100% - 20px);
+  height: 421px;
   margin: 10px 0;
-  padding: 15px;
+  padding: 7px;
   border: 5px solid #232323;
   border-radius: 7px;
   font-size: 15px;
@@ -38,13 +38,12 @@ textarea::placeholder {
 }
 
 textarea:focus {
-  outline: none; /* Remove outline when textarea is focused */
+  outline: none;
 }
 
 .button-container {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
   width: 100%;
 }
 
@@ -70,7 +69,7 @@ button:hover {
 }
 
 button:active {
-  transform: scale(0.95); /* button size when click */
+  transform: scale(0.95);
 }
 
 #saveButton {
@@ -101,7 +100,6 @@ footer {
   text-align: center;
   color: #777;
   font-size: 14px;
-  margin-top: 10px; /* Reduced margin */
   user-select: none;
 }
 
@@ -139,10 +137,10 @@ footer {
 }
 
 #fullscreenImg {
-  transition: filter 0.3s ease; /* Smooth transition for the effect */
+  transition: filter 0.3s ease; 
 }
 
 #fullscreenImg.hovered {
-  filter: brightness(2.0); /* Increase brightness on hover */
+  filter: brightness(2.0); 
   user-select: none;
 }
