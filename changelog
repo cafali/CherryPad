@@ -2,6 +2,8 @@ CherryPad Updates
 
 Version 1.5 (February 2025) (Current)  
 -------------------------------------------------  
+1.5.4
+- The popup window now contains a larger text input area
 1.5.3
 - Resolved case sensitivity issue, keyboard shortcuts now work regardless of letter case
 - Enhanced the Easter Egg minigame 
