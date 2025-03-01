@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const emoji = document.createElement('span');
       emoji.classList.add('emoji');
       emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.style.left = Math.random() * window.innerWidth + 'px'; 
+      emoji.style.left = Math.random() * (window.innerWidth - 50) + 'px'; // limit to screen width
       emoji.style.fontSize = Math.random() * 40 + 30 + 'px';
       
       // emoji hover 
       emoji.addEventListener('mouseover', function() {
         emoji.remove(); // remove emoji on hover
-        emojiClickCount++; // counter on hover
+        emojiClickCount++; // increment counter on hover
         document.getElementById('counter').innerHTML = 'SCORE: ' + emojiClickCount;
       });
 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 100);
 
-      // remove emoji after it falls
+      // Remove emoji after it falls
       setTimeout(() => {
         emoji.remove();
         clearInterval(checkEmojiPosition); // stop checking if the emoji is removed
