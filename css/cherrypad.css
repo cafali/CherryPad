@@ -191,6 +191,15 @@ button:active {
     background-color: #1a1a1a;
 }
 
+/* hover brightness bottom buttons */
+.button.version-button:hover,
+.button.github-button:hover,
+.button.WebStore-button:hover,
+.button.About-button:hover {
+    filter: brightness(90%);
+}
+
+/* pos bottom buttons */
 .button.version-button { left: 20px; }
 .button.github-button { left: 120px; }
 .button.About-button { right: 163px; }
