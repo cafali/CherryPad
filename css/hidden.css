@@ -3,6 +3,7 @@
   src: local("Bahnschrift"), local("Segoe UI Light");
 }
 
+/* body styling */
 body {
   background-color: #1a1a1a;
   display: flex;
@@ -16,7 +17,8 @@ body {
   user-select: none;
 }
 
-#counter {   /* counter */
+/* count score */
+#counter {   
   color: white;
   font-size: 70px;
   position: absolute;
@@ -27,6 +29,7 @@ body {
   user-select: none;
 }
 
+/* icon styling */
 #icon {
   width: 50px;
   height: 50px;
@@ -34,6 +37,7 @@ body {
   transition: filter 0.3s ease, animation-duration 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
+/* icon hover effect */
 #icon:hover {
   filter: brightness(1.5);
   animation-duration: 10.133s;
@@ -41,6 +45,7 @@ body {
   height: 300px;
 }
 
+/* spin animation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -50,11 +55,13 @@ body {
   }
 }
 
+/* icon user select and drag */
 #icon {    
   user-select: none;  
   -webkit-user-drag: none;
 }
 
+/* drop animation */
 @keyframes drop {
   0% {
     transform: translateY(-600px);
@@ -64,6 +71,7 @@ body {
   }
 }
 
+/* emoji styling */
 span.emoji {
   position: absolute;
   font-size: 100px; 
