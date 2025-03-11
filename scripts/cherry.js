@@ -374,3 +374,9 @@ document.addEventListener('keydown', function(event) {
         document.getElementById('saveTxtButton').click(); 
     }
 });
+
+/*
+  CHERRY.JS
+  Manages CherryPad's core features including note saving/loading, autosave, emoji panel, 
+  copy/paste functionality, version control easter egg, and keyboard shortcuts (save, emoji, download).
+*/

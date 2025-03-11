@@ -145,3 +145,9 @@ document.addEventListener('keydown', function(event) {
         document.getElementById('saveTxtButton').click(); 
     }
 });
+
+/*
+  POPUP.JS
+  Manages functionality for CherryPad popup, including note saving/loading, clear note,
+  fullscreen mode redirection, and keyboard shortcuts (save, download).
+*/
