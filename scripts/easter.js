@@ -39,3 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   emojiRain();
 });
+
+// go back to fullscreen mode - ESC
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+      window.location.href = "cherrypad.html";
+  }
+});
