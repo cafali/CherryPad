@@ -3,7 +3,7 @@ CherryPad Updates
 Version 1.5 (March 2025) (Current)  
 -------------------------------------------------  
 1.5.5
-- Fixed an issue where the button text would darken along with the button, making it less visible.
+- Fixed an issue where the button text would darken along with the button, making it less visible
 - Now, pressing ESC during the Easter egg minigame will exit the minigame
 - Adjusted the position of the "Last Saved" message in fullscreen 
 - Centered bottom buttons for improved visual alignment 
