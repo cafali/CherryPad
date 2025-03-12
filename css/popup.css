@@ -112,6 +112,8 @@ footer {
 
 .cherry-icon:hover {
   filter: brightness(1.5);
+  filter: brightness(130%);
+  transform: scale(0.95);
 }
 
 .fullscreen-icon {
@@ -121,6 +123,7 @@ footer {
 
 .fullscreen-icon:hover {
   filter: brightness(2.0);
+  transform: scale(1.1);
 }
 
 @keyframes spin {
