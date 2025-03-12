@@ -3,13 +3,16 @@ CherryPad Updates
 Version 1.5 (March 2025) (Current)  
 -------------------------------------------------  
 1.5.5
-- Fixed an issue where the button text would darken along with the button, making it less visible
+- The Clear button now turns red upon deletion confirmation, clearly indicating the action
+- Enhanced emoji animations and hover effects in the emoji panel
+- Enhanced animations and hover effects in the popup
 - Now, pressing ESC during the Easter egg minigame will exit the minigame
 - Adjusted the position of the "Last Saved" message in fullscreen 
 - Centered bottom buttons for improved visual alignment 
-- Resolved background errors on about page
+- Fixed an issue where the button text would darken along with the button, making it less visible
+- Fixed background errors on about page
 - Cleaned up CSS formatting for improved readability
-- Removed unused code in CherryPad 
+- Removed unused code in CherryPad
 1.5.4
 - The popup window now contains a larger text input area
 - Fixed emojis staying within the screen edges in the Easter egg mini-game
