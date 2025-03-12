@@ -81,13 +81,8 @@ button:active {
 .button:nth-child(2) { background-color: #dc5858; } /* download */
 .button:nth-child(3) { background-color: #DCA158; } /* copy */
 .button:nth-child(4) { background-color: #6A98DC; } /* paste */
-
 #emojiButton { background-color: #b8b43f; } /* emoji */
 #clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
-
-.button:last-child {
-    margin-right: 0;
-}
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -96,6 +91,14 @@ button:active {
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
 #emojiButton:hover { background-color: #949133; } /* emoji */
+
+/* clear buttons turn red on notification */
+#clearButton:active { color: #711313; background-color: #ff6d6d;}
+#clearButton2:active { color: #711313; background-color: #ff6d6d;}
+
+.button:last-child {
+    margin-right: 0;
+}
 
 /* emoji panel */
 .emoji-panel {
@@ -120,6 +123,16 @@ button:active {
     padding: 0px;
     margin: 2px;
 }
+
+.emoji-panel button:hover {
+transform: scale(1.4);
+z-index: 1;
+}
+
+.emoji-panel button:active {
+    transform: scale(1.2);
+    rotate: 10deg;
+    }
 
 /* text input/note fields */
 .container {
