@@ -7,7 +7,8 @@ Version 1.5 (March 2025) (Current)
 - Now, pressing ESC during the Easter egg minigame will exit the minigame
 - Adjusted the position of the "Last Saved" message in fullscreen 
 - Centered bottom buttons for improved visual alignment 
-- Cleaned up CSS formatting for improved readability 
+- Resolved background errors on about page
+- Cleaned up CSS formatting for improved readability
 - Removed unused code in CherryPad 
 1.5.4
 - The popup window now contains a larger text input area
