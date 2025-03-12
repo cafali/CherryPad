@@ -157,9 +157,6 @@ document.getElementById('pasteButton').addEventListener('click', async () => {
     }
 });
 
-
-
-
 document.getElementById('noteInput').addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 'z') {
         const textarea = document.getElementById('noteInput');
@@ -242,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
         emojiPanel.style.display = 'block';
     });
 });
-
 
 // emoji panel functionality
 document.addEventListener('DOMContentLoaded', function() {

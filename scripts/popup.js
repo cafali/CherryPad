@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         spinCherryIconOnce(); // spinning effect
     });
     
-  
     // load saved note from local storage when the popup is opened
     const savedNote = localStorage.getItem('note');
     if (savedNote) {
@@ -112,7 +111,6 @@ document.getElementById('noteInput').addEventListener('keydown', (e) => {
     }
 });
 
-
 // AutoSave
 document.addEventListener('DOMContentLoaded', function() {
     const noteInput = document.getElementById('noteInput');
@@ -125,8 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('noteInput', noteInput.value);
     });
 });
-
-
 
 //Shortcuts Popup
 
