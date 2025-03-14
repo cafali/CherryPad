@@ -98,3 +98,13 @@ button:active {
   margin-top: 30px;
   margin-bottom: 10px;
 }
+
+#category-links a {
+  color: #ffffff;
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
+
+#category-links a:hover {
+  color: #919191;
+}
