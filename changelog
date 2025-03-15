@@ -2,6 +2,10 @@ CherryPad Updates
 
 Version 1.5 (March 2025) (Current)  
 -------------------------------------------------  
+1.5.6
+- Adjusted emoji panel hover and action animations
+- Added a hover effects for links on About page
+- Changed "CheeryPad" to "CherryPad - Notepad Exstension" in the manifest file
 1.5.5
 - The Clear button now turns red upon deletion confirmation, clearly indicating the action
 - Enhanced emoji animations and hover effects in the emoji panel
@@ -10,7 +14,7 @@ Version 1.5 (March 2025) (Current)
 - Adjusted the position of the "Last Saved" message in fullscreen 
 - Centered bottom buttons for improved visual alignment 
 - Fixed an issue where the button text would darken along with the button, making it less visible
-- Fixed background errors on about page
+- Fixed background errors on About page
 - Cleaned up CSS formatting for improved readability
 - Removed unused code in CherryPad
 1.5.4
