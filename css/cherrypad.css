@@ -125,13 +125,13 @@ button:active {
 }
 
 .emoji-panel button:hover {
-transform: scale(1.4);
+transform: scale(1.2);
 z-index: 1;
 }
 
 .emoji-panel button:active {
-    transform: scale(1.2);
-    rotate: 10deg;
+    transform: scale(1.1);
+    rotate: 5deg;
     }
 
 /* text input/note fields */
