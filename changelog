@@ -4,7 +4,7 @@ Version 1.5 (March 2025) (Current)
 -------------------------------------------------  
 1.5.6
 - Adjusted emoji panel hover and action animations
-- Added a hover effects for links on About page
+- Added hover effects for links on About page
 - Changed "CheeryPad" to "CherryPad - Notepad Extension" in the manifest file
 1.5.5
 - The Clear button now turns red upon deletion confirmation, clearly indicating the action
