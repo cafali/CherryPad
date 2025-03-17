@@ -141,10 +141,9 @@ document.getElementById('pasteButton').addEventListener('click', async () => {
 
         // insert the text at the cursor position
         lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
-        lastActiveTextarea.dataset.lastPastedContent = JSON.stringify({
-            text: text,
-            startPos: startPos
-        });
+        lastActiveTextarea.focus(); // ensure the textarea is focused
+        lastActiveTextarea.selectionStart = startPos + text.length; // move cursor to end of pasted text
+        lastActiveTextarea.selectionEnd = startPos + text.length;
 
         // save the updated content to localStorage
         if (lastActiveTextarea.id === 'noteInput') {
