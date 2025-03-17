@@ -3,6 +3,7 @@ CherryPad Updates
 Version 1.5 (March 2025) (Current)  
 -------------------------------------------------  
 1.5.6
+- Fixed a bug where repeated pastes using the paste button would reset the cursor position, causing the pasted text to appear at the top
 - Adjusted emoji panel hover and action animations
 - Added hover effects for links on About page
 - Changed "CheeryPad" to "CherryPad - Notepad Extension" in the manifest file
