@@ -333,15 +333,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
 //CherryLogo message fullscreen when click
 const logoImage = document.getElementById('logo-image');
-const noteInput = document.getElementById('noteInput');
-const toggleText = " 😡 STOP CLICKING RANDOM THINGS!!! 😡 \n\n";
 
-logoImage.addEventListener('click', function() {
-    if (noteInput.value.includes(toggleText.trim())) {
-        noteInput.value = noteInput.value.replace(toggleText, '');  // Remove if it's already there
-    } else {
-        noteInput.value = toggleText + noteInput.value.trim();  // Insert text at the very top (noteinput 1)
-    }
+logoImage.addEventListener('click', function () {
+    window.location.href = "hidden.html";
 });
 
 //keyboard shortcuts fullscreen
