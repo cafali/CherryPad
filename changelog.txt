@@ -3,10 +3,18 @@ CherryPad Updates
 Version 1.5 (February 2026) (Current)  
 -------------------------------------------------  
 1.5.8
-- TBA
-1.57
+- Added the date to the name of the downloadable .txt file; the file name now includes the date at the end (DD-MM-YYYY)
+- Changed "CherryPad - Notepad Extension" to "CherryPad - Browser Notepad" in the manifest file
+- Removed the changelog file and replaced it with a direct link to the changelog on the official CherryPad GitHub page
+- Added the web store link to the About page
+1.5.7
 - Updated minigame trigger in fullscreen 
 - Fixed a bug on the About page that prevented the Changelog and License file from opening properly
+1.5.6
+- Fixed a bug where repeated pastes using the paste button would reset the cursor position, causing the pasted text to appear at the top
+- Adjusted emoji panel hover and action animations
+- Added hover effects for links on About page
+- Changed "CheeryPad" to "CherryPad - Notepad Extension" in the manifest file
 1.5.6
 - Fixed a bug where repeated pastes using the paste button would reset the cursor position, causing the pasted text to appear at the top
 - Adjusted emoji panel hover and action animations
