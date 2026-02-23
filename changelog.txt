@@ -2,6 +2,8 @@ CherryPad Updates
 
 Version 1.5 (February 2026) (Current)  
 -------------------------------------------------  
+1.5.8
+- TBA
 1.57
 - Updated minigame trigger in fullscreen 
 - Fixed a bug on the About page that prevented the Changelog and License file from opening properly

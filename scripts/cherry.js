@@ -89,7 +89,11 @@ document.getElementById('saveTxtButton').addEventListener('click', function() {
     const a = document.createElement('a');
 
     a.href = url;
-    a.download = 'CherryNote.txt';
+    const today = new Date(); // get current date for filename
+    const yyyy = today.getFullYear(); // get current date for filename
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // get current date for filename
+    const dd = String(today.getDate()).padStart(2, '0'); // get current date for filename
+    a.download = 'CherryNote ' + dd + '-' + mm + '-' + yyyy + '.txt'; // filename with date
     
     document.body.appendChild(a);
     a.click();

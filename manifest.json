@@ -2,9 +2,9 @@
 "update_url": "https://clients2.google.com/service/update2/crx",
 
   "manifest_version": 3,
-  "name": "CherryPad - Notepad Extension",
-  "version": "1.5.7",
-  "description": "CherryPad: Your Sleek, Distraction-Free Notepad for Endless Productivity",
+  "name": "CherryPad - Browser Notepad",
+  "version": "1.5.8",
+  "description": "CherryPad: Your Sleek, Distraction-Free Browser Notepad Extension for Endless Productivity",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
