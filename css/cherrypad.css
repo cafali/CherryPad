@@ -89,7 +89,7 @@ button:active {
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
 #saveButton:hover { background-color: #2e6c45; } /* save */
-#saveTxtButton:hover { background-color: #913535; } /* download */
+#DownloadButton:hover { background-color: #913535; } /* download */
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
 #emojiButton:hover { background-color: #949133; } /* emoji */
@@ -207,6 +207,12 @@ rotate: 5deg;
 /* bottom footer copy notification */
 .last-copied {
     color: #DCA158;
+    margin: 3px;
+}
+
+/* bottom footer copy notification */
+.last-download {
+    color: #dc5858;
     margin: 3px;
 }
 
