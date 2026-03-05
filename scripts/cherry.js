@@ -429,3 +429,100 @@ document.addEventListener('keydown', function(event) {
   Manages CherryPad's core features including note saving/loading, autosave, emoji panel, 
   copy/paste functionality, version control easter egg, and keyboard shortcuts (save, emoji, download).
 */
+
+
+// search bar functionality test
+
+const searchButton = document.getElementById("searchButton");
+const searchBar = document.getElementById("searchBar");
+const searchInput = document.getElementById("searchInput");
+const nextBtn = document.getElementById("nextResult");
+const prevBtn = document.getElementById("prevResult");
+const closeBtn = document.getElementById("closeSearch");
+const resultCount = document.getElementById("resultCount");
+
+const fields = [
+    { textarea: document.getElementById("noteInput"), overlay: document.getElementById("overlay1") },
+    { textarea: document.getElementById("noteInput2"), overlay: document.getElementById("overlay2") }
+];
+
+let matches = [];
+let currentIndex = -1;
+
+searchButton.onclick = () => {
+    searchBar.style.display = "flex";
+    searchInput.focus();
+};
+
+closeBtn.onclick = () => {
+    searchBar.style.display = "none";
+    clearHighlights();
+};
+
+function clearHighlights() {
+    matches = [];
+    currentIndex = -1;
+    fields.forEach(f => f.overlay.innerHTML = f.textarea.value);
+    resultCount.textContent = "";
+}
+
+function escapeHTML(str) {
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+}
+
+function performSearch() {
+    clearHighlights();
+    const query = searchInput.value;
+    if (!query) return;
+
+    const regex = new RegExp(query, "gi");
+
+    matches = [];
+
+    fields.forEach(f => {
+        const text = f.textarea.value;
+        let html = escapeHTML(text).replace(regex, match => {
+            matches.push({ overlay: f.overlay, matchText: match });
+            return `<span class="highlight">${match}</span>`;
+        });
+        f.overlay.innerHTML = html;
+    });
+
+    if (matches.length > 0) {
+        currentIndex = 0;
+        updateActive();
+    }
+
+    resultCount.textContent = matches.length > 0 ? `${currentIndex + 1} / ${matches.length}` : "0 results";
+}
+
+function updateActive() {
+    document.querySelectorAll(".highlight").forEach(el => el.classList.remove("active"));
+    if (matches[currentIndex]) {
+        const overlays = matches[currentIndex].overlay.querySelectorAll(".highlight");
+        overlays[0].classList.add("active");
+        overlays[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        resultCount.textContent = `${currentIndex + 1} / ${matches.length}`;
+    }
+}
+
+function nextResult() {
+    if (!matches.length) return;
+    currentIndex++;
+    if (currentIndex >= matches.length) currentIndex = 0;
+    updateActive();
+}
+
+function prevResult() {
+    if (!matches.length) return;
+    currentIndex--;
+    if (currentIndex < 0) currentIndex = matches.length - 1;
+    updateActive();
+}
+
+searchInput.addEventListener("input", performSearch);
+searchInput.addEventListener("keydown", e => { if (e.key === "Enter") nextResult(); });
+nextBtn.onclick = nextResult;
+prevBtn.onclick = prevResult;

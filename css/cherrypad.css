@@ -103,6 +103,7 @@ button:active {
 .button:nth-child(4) { background-color: #6A98DC; } /* paste */
 #emojiButton { background-color: #b8b43f; } /* emoji */
 #clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
+#searchButton { background-color: #4a73b100; } /* search button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -111,10 +112,12 @@ button:active {
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
 #emojiButton:hover { background-color: #949133; } /* emoji */
+#searchButton:hover { color: #9b9b9b; transform: scale(1.2);}
 
 /* clear buttons turn red on notification */
 #clearButton:active { color: #711313; background-color: #ff6d6d;}
 #clearButton2:active { color: #711313; background-color: #ff6d6d;}
+#searchButton:active { color: #ffffff;}
 
 .button:last-child {
     margin-right: 0;
@@ -127,7 +130,7 @@ button:active {
     display: none;
     position: fixed;
     top: 60px;
-    right: 110px;
+    right: 180px;
     background-color: #161616;
     border: 4px solid #212121;
     border-radius: 15px;
@@ -263,3 +266,81 @@ rotate: 5deg;
 .button.github-button { left: 120px; }
 .button.About-button { right: 163px; }
 .button.WebStore-button { right: 20px; }
+
+/* <<<<<<<<<<<<<< SEARCH BAR SETTINGS WITH BUTTONS >>>>>>>>>>>>>>> */
+#searchBar {
+    position: fixed;
+    top: 3px;
+    right: 1%;
+    background: #1a1a1a; /* matches top buttons */
+    border: 0px solid #212121; /* same as textarea border */
+    padding: 0px 5px;
+    border-radius: 100px;
+    display: none;
+    align-items: center;
+    gap: 0px;
+    font-family: 'Bahnschrift', sans-serif;
+    color: #ffffff;
+    z-index: 2;
+    backdrop-filter: blur(1px); /* subtle frosted effect */
+}
+
+#searchBar input {
+    padding: 15px 15px;
+    border: none;
+    outline: none;
+    border-radius: 100px;
+    background-color: #1a1a1a00; /* same as textarea */
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Bahnschrift', sans-serif;
+    font-weight: normal;
+    width: 450px;
+}
+
+#searchBar input:focus {
+    background-color: #00000000;
+}
+
+/* result count text */
+#resultCount {
+    font-size: 14px;
+    color: #DCA158; /* copy color accent */
+}
+
+/* buttons inside search bar */
+#searchBar button {
+    background-color: #dd0b0b00; /* dark button background */
+    border: none;
+    color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Bahnschrift', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+#searchBar button:hover {
+    border-radius: 100px;
+    transform: scale(1.5);
+}
+
+#searchBar button:active {
+    transform: scale(0.95);
+    border-radius: 100px;
+}
+
+/* highlight styling */
+.highlight {
+    background: #539861; /* normal highlight */
+    color: #000000;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.highlight.active {
+    background: #DCA158; /* active highlight */
+    color: #000000;
+}

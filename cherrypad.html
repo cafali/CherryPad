@@ -8,11 +8,25 @@
     <link rel="stylesheet" href="css/cherrypad.css">
 </head>
 <body>
-    <div class="logo-container">
-        <img id="logo-image" src="icon/CherryPad.png" alt="CherryPad Logo">
-        <span>CherryPad</span>
-    </div>
-    <div class="buttons-container"> <!-- TOP BUTTONS -->
+
+<div class="logo-container">
+    <img id="logo-image" src="icon/CherryPad.png" alt="CherryPad Logo">
+    <span>CherryPad</span>
+</div>    
+
+
+<!-- SEARCH BAR BETA -->
+<div id="searchBar">
+    <input type="text" id="searchInput" placeholder="Search CherryPad...">
+    <span id="resultCount"></span>
+    <button id="prevResult">▲</button>
+    <button id="nextResult">▼</button>
+    <button id="closeSearch" style="transform: scale(1.5);"><i class="fas fa-search"></i></button>
+</div>
+<!-- SEARCH BAR BETA -->
+
+<!-- TOP BUTTONS -->
+<div class="buttons-container"> 
         <button id="saveButton" class="button"><i class="fas fa-save"></i>Save</button>
         <button id="DownloadButton" class="button"><i class="fas fa-file-download"></i>Download</button>
         <button id="copyButton" class="button"><i class="fas fa-copy"></i>Copy All</button>
@@ -20,6 +34,7 @@
         <button id="emojiButton" class="button"><i class="fas fa-smile"></i>Emoji</button>
         <button id="clearButton" class="button"><i class="fas fa-eraser"></i>Note 1</button>
         <button id="clearButton2" class="button"><i class="fas fa-eraser"></i>Note 2</button>
+        <button id="searchButton" class="button"><i class="fas fa-search"></i></button>
     </div>
     <div class="container">
         <div class="textarea-wrapper">
