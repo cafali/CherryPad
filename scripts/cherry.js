@@ -7,24 +7,53 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('noteInput2').value = localStorage.getItem('noteInput2');
     }
 
-    // save button click
-    document.getElementById('saveButton').addEventListener('click', function() {
-        // get current date and time
-        var now = new Date();
-        var formattedTime = now.toLocaleString();
-
-        // update last saved time in the footer
-        document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
-
-        // get values from noteInput and noteInput2
-        var noteInputValue = document.getElementById('noteInput').value;
-        var noteInput2Value = document.getElementById('noteInput2').value;
-
-        // save notes (storage)
-        localStorage.setItem('noteInput', noteInputValue);
-        localStorage.setItem('noteInput2', noteInput2Value);
-    });
 });
+
+// SAVE button click message
+document.getElementById('saveButton').addEventListener('click', function() {
+    
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide copy & download message
+    document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+
+    // show save message
+    document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
+
+    // get values
+    var noteInputValue = document.getElementById('noteInput').value;
+    var noteInput2Value = document.getElementById('noteInput2').value;
+
+    // save notes
+    localStorage.setItem('noteInput', noteInputValue);
+    localStorage.setItem('noteInput2', noteInput2Value);
+});
+
+// COPY button click message
+document.getElementById('copyButton').addEventListener('click', function() {
+
+    // hide save & download message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+
+    // show copy message
+    document.getElementById('lastCopied').textContent = 'Your Note has been copied! (CTRL+C)';
+});
+
+// DOWNLOAD button click message
+document.getElementById('DownloadButton').addEventListener('click', function() {
+
+    // hide save & copy message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastCopied').textContent = '';
+
+    // show download message
+    document.getElementById('lastDownload').textContent = 'Successfully downloaded CherryNote';
+});
+
 
 // AutoSave both fields
 document.addEventListener('DOMContentLoaded', function() {
@@ -80,7 +109,7 @@ document.getElementById('noteInput2').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput2');
 });
 
-document.getElementById('saveTxtButton').addEventListener('click', function() {
+document.getElementById('DownloadButton').addEventListener('click', function() {
     if (!lastActiveTextarea) return;
 
     const content = lastActiveTextarea.value;
@@ -364,7 +393,7 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
         event.preventDefault(); 
-        document.getElementById('saveTxtButton').click(); 
+        document.getElementById('DownloadButton').click(); 
     }
 });
 
