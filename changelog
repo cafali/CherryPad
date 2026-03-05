@@ -1,9 +1,12 @@
-CherryPad Updates
+CherryPad - Browser Notepad | CHANGELOG
+-------------------------------------------------
 
-Version 1.5 (February 2026) (Current)  
+Version 1.5 (March 2026) (Current)  
 -------------------------------------------------  
 1.5.9
-- Added the current date and time to the notification messages displayed when using the save, copy and download buttons, providing users with a feedback of their actions
+- Added the current date and time to the notification messages displayed when using the save, copy, download & paste buttons
+- Added a moving dark gradient animation in fullscreen mode for a more dynamic and visually appealing background
+- General code cleanup and optimization
 1.5.8
 - Added the date to the name of the downloadable .txt file; the file name now includes the date at the end (DD-MM-YYYY)
 - Changed "CherryPad - Notepad Extension" to "CherryPad - Browser Notepad" in the manifest file
@@ -12,6 +15,10 @@ Version 1.5 (February 2026) (Current)
 1.5.7
 - Updated minigame trigger in fullscreen 
 - Fixed a bug on the About page that prevented the Changelog and License file from opening properly
+- Updated MIT License year to 2026
+
+Version 1.5 (Year 2025)  
+-------------------------------------------------  
 1.5.6
 - Fixed a bug where repeated pastes using the paste button would reset the cursor position, causing the pasted text to appear at the top
 - Adjusted emoji panel hover and action animations
@@ -57,7 +64,7 @@ Version 1.4 (November 2024)
 - Resolved multiple issues where programmatically inserted content (e.g., emojis from the emoji panel or pasted content via paste button) was not triggering autosave
 - Removed unnecessary CSS background from bottom text
 1.4.8
-- Adjuted the border, added rounded edges, adjusted emoji size, and added a darker background to the emoji panel
+- Adjusted the border, added rounded edges, adjusted emoji size, and added a darker background to the emoji panel
 - Added "Changelog" to the "About" page
 - Fixed "About" button hover issue with white bar misalignment
 1.4.7
@@ -113,7 +120,7 @@ Version 1.1 (June 2024)
 - Adjusted font style and size  
 - Synchronized fullscreen mode with popup  
 
-Version 1.0 (May 2024)  
+Version 1.0 (May 2024) 
 -------------------------------------------------  
 - Initial cherrypad release  
 - Design adjustments  
