@@ -1,346 +1,535 @@
-@font-face {
-    font-family: 'Bahnschrift';
-    src: url('Bahnschrift-Bold.ttf') format('truetype');
-    font-weight: bold;
-}
-
-/* general */
-body {
-    background-color: #1a1a1a;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(
-        120deg,
-    #0c0c0c,#101010,#131313,#131313,#171717,#1a1a1a,#1f1f1f
-    );
-    background-size: 400% 400%;
-    animation: gradientFlow 25s ease infinite;
-}
-
-@keyframes gradientFlow {
-    0% {
-        background-position: 0% 50%;
+document.addEventListener('DOMContentLoaded', function() {
+    // load saved values from local storage
+    if (localStorage.getItem('noteInput')) {
+        document.getElementById('noteInput').value = localStorage.getItem('noteInput');
     }
-    50% {
-        background-position: 100% 50%;
+    if (localStorage.getItem('noteInput2')) {
+        document.getElementById('noteInput2').value = localStorage.getItem('noteInput2');
     }
-    100% {
-        background-position: 0% 50%;
+
+});
+
+// SAVE button click message
+document.getElementById('saveButton').addEventListener('click', function() {
+    
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide copy & download message
+    document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
+
+    // show save message
+    document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
+
+    // get values
+    var noteInputValue = document.getElementById('noteInput').value;
+    var noteInput2Value = document.getElementById('noteInput2').value;
+
+    // save notes
+    localStorage.setItem('noteInput', noteInputValue);
+    localStorage.setItem('noteInput2', noteInput2Value);
+});
+
+// COPY button click message
+document.getElementById('copyButton').addEventListener('click', function() {
+
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide save & download message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
+
+    // show copy message
+    document.getElementById('lastCopied').textContent = 'Copied to clipboard - '  + formattedTime;
+});
+
+// DOWNLOAD button click message
+document.getElementById('DownloadButton').addEventListener('click', function() {
+
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide save & copy message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
+
+    // show download message
+    document.getElementById('lastDownload').textContent = 'Last attempted download: ' + formattedTime;
+});
+
+// PASTE button click message
+document.getElementById('pasteButton').addEventListener('click', function() {
+
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide save & copy message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+
+    // show paste message
+    document.getElementById('lastPasted').textContent = 'Last pasted: ' + formattedTime;
+});
+
+
+// AutoSave both fields
+document.addEventListener('DOMContentLoaded', function() {
+    const noteInput1 = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+
+    // Load saved values from localStorage
+    if (localStorage.getItem('noteInput')) {
+        noteInput1.value = localStorage.getItem('noteInput');
+    }
+    if (localStorage.getItem('noteInput2')) {
+        noteInput2.value = localStorage.getItem('noteInput2');
+    }
+
+    // Save to localStorage on input
+    function saveInput(key, element) {
+        localStorage.setItem(key, element.value);
+    }
+
+    noteInput1.addEventListener('input', function() {
+        saveInput('noteInput', noteInput1);
+    });
+
+    noteInput2.addEventListener('input', function() {
+        saveInput('noteInput2', noteInput2);
+    });
+});
+
+//blink logo Cherry when saving (fullscreen)
+const cherryIcon = document.getElementById('logo-image');
+const saveButton = document.getElementById('saveButton');
+
+function blinkCherryIcon() {
+    cherryIcon.style.filter = 'brightness(1.5)';
+
+    setTimeout(function() {
+        cherryIcon.style.filter = 'brightness(1)';
+    }, 500);
+}
+
+saveButton.addEventListener('click', function() {
+    blinkCherryIcon();
+});
+
+// Download .txt file button based on active window (noteInput/noteInput2)
+let lastActiveTextarea = null;
+
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+document.getElementById('DownloadButton').addEventListener('click', function() {
+    if (!lastActiveTextarea) return;
+
+    const content = lastActiveTextarea.value;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    a.href = url;
+    const today = new Date(); // get current date for filename
+    const yyyy = today.getFullYear(); // get current date for filename
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // get current date for filename
+    const dd = String(today.getDate()).padStart(2, '0'); // get current date for filename
+    a.download = 'CherryNote ' + dd + '-' + mm + '-' + yyyy + '.txt'; // filename with date
+    
+    document.body.appendChild(a);
+    a.click();
+    
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
+
+// Copy button Fullscreen
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+// Copy button functionality
+document.addEventListener("DOMContentLoaded", function() {
+    var copyButton = document.getElementById("copyButton");
+
+    copyButton.addEventListener("click", function() {
+        if (!lastActiveTextarea) return;
+
+        lastActiveTextarea.focus();
+        lastActiveTextarea.setSelectionRange(0, lastActiveTextarea.value.length);
+
+        document.execCommand("copy");
+
+        console.log("Text copied: " + lastActiveTextarea.value);
+    });
+});
+
+// paste content on active field (Input 1&2)
+document.getElementById('noteInput').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput');
+});
+
+document.getElementById('noteInput2').addEventListener('focus', () => {
+    lastActiveTextarea = document.getElementById('noteInput2');
+});
+
+document.getElementById('pasteButton').addEventListener('click', async () => {
+    try {
+        if (!lastActiveTextarea) return;
+
+        const text = await navigator.clipboard.readText();
+        const startPos = lastActiveTextarea.selectionStart;
+
+        // insert the text at the cursor position
+        lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
+        lastActiveTextarea.focus(); // ensure the textarea is focused
+        lastActiveTextarea.selectionStart = startPos + text.length; // move cursor to end of pasted text
+        lastActiveTextarea.selectionEnd = startPos + text.length;
+
+        // save the updated content to localStorage
+        if (lastActiveTextarea.id === 'noteInput') {
+            localStorage.setItem('noteInput', lastActiveTextarea.value);
+        } else if (lastActiveTextarea.id === 'noteInput2') {
+            localStorage.setItem('noteInput2', lastActiveTextarea.value);
+        }
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+    }
+});
+
+document.getElementById('noteInput').addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+        const textarea = document.getElementById('noteInput');
+        const pastedContent = JSON.parse(textarea.dataset.lastPastedContent || '{}');
+
+        if (pastedContent.text) {
+            // calculate the end position of the pasted content
+            const endPos = pastedContent.startPos + pastedContent.text.length;
+
+            // remove the pasted content
+            textarea.setRangeText('', pastedContent.startPos, endPos, 'end');
+
+            // prevent the default undo behavior
+            e.preventDefault();
+        }
+    }
+});
+
+//version buttton
+
+// when you click the version button - a message should appear (noteinput 2)
+document.addEventListener('DOMContentLoaded', function() {   //1.5.0 fix
+    const versionButton = document.getElementById('versionButton');
+    const noteInput = document.getElementById('noteInput2');
+
+    if (versionButton && noteInput) {
+        versionButton.addEventListener('click', function() {
+            const textToToggle = " 🍒 Something interesting is happening... Keep going! 🍒 ";
+            const textWithNewline = textToToggle + '\n\n';
+            const currentValue = noteInput.value;
+
+            if (currentValue.startsWith(textWithNewline)) {
+                // Remove the text and its newline if it's already at the top
+                noteInput.value = currentValue.replace(textWithNewline, '');
+            } else {
+                // Add the text to the top with a newline
+                noteInput.value = textWithNewline + currentValue;
+            }
+        });
+    }
+});
+
+// versionButton eastereggclick -> redirect
+let clickCount = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const versionButton = document.getElementById('versionButton');
+
+    versionButton.addEventListener('click', function() {
+        clickCount++;
+
+        if (clickCount === 5) {
+            window.location.href = 'hidden.html';
+        }
+    });
+});
+
+// emoji panel
+
+// emoji panel display on hover 1.5.2
+document.addEventListener('DOMContentLoaded', function() {
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const buttonsToClose = document.querySelectorAll('.button:not(#emojiButton)');
+
+    // open emoji panel when hovering over emoji button
+    emojiButton.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+
+    // close emoji panel when hovering over other buttons
+    buttonsToClose.forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+            emojiPanel.style.display = 'none';
+        });
+    });
+
+    // no collapsing when hovering overpanel
+    emojiPanel.addEventListener('mouseenter', function() {
+        emojiPanel.style.display = 'block';
+    });
+});
+
+// emoji panel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const noteInput1 = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+    let activeInput = null; // track the currently active input
+
+    // Focusing on the input fields
+    noteInput1.addEventListener('focus', function() {
+        activeInput = noteInput1;
+    });
+
+    noteInput2.addEventListener('focus', function() {
+        activeInput = noteInput2;
+    });
+
+    emojiButton.addEventListener('click', function(event) {
+        // Prevent the click from propagating to the document event listener
+        event.stopPropagation();
+        emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    emojiPanel.addEventListener('click', function(event) {
+        if (event.target.classList.contains('emoji')) {
+            // Ensure that an active input is selected
+            if (activeInput) {
+                insertAtCursor(activeInput, event.target.textContent);
+                // Save to localStorage after inserting emoji
+                if (activeInput === noteInput1) {
+                    localStorage.setItem('noteInput', activeInput.value);
+                } else if (activeInput === noteInput2) {
+                    localStorage.setItem('noteInput2', activeInput.value);
+                }
+            }
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!emojiButton.contains(event.target) && !emojiPanel.contains(event.target)) {
+            emojiPanel.style.display = 'none';
+        }
+    });
+
+    function insertAtCursor(input, textToInsert) {
+        const startPos = input.selectionStart;
+        const endPos = input.selectionEnd;
+        const beforeValue = input.value.substring(0, startPos);
+        const afterValue = input.value.substring(endPos, input.value.length);
+        input.value = beforeValue + textToInsert + afterValue;
+        // Move the cursor to the end
+        input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
+        // Refocus the textarea after inserting
+        input.focus();
+    }
+});
+
+
+
+        //Bottom Buttons CherryPad.html
+        document.addEventListener('DOMContentLoaded', function() { 
+            // go to WebStore
+            document.getElementById('WebStoreButton').addEventListener('click', function() {
+                window.open('https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd', '_blank');
+            });
+            // go to Github 
+            document.getElementById('GithubButton').addEventListener('click', function() {
+                window.open('https://github.com/cafali/CherryPad', '_blank');
+            });
+            // go to About
+            document.getElementById('AboutButton').addEventListener('click', function() {
+                window.location.href = 'about.html';
+            });
+        });
+        
+        //Clear Notes + Ask user (browser popup)
+        clearButton2.addEventListener('click', function() {
+            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
+                noteInput2.value = '';
+                localStorage.setItem('note2', '');
+                document.getElementById('saveButton').click(); 
+            }
+        });
+        
+        clearButton.addEventListener('click', function() {
+            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
+                noteInput.value = '';
+                localStorage.setItem('note', '');
+                document.getElementById('saveButton').click(); 
+            }
+        });
+        
+//CherryLogo message fullscreen when click
+const logoImage = document.getElementById('logo-image');
+
+logoImage.addEventListener('click', function () {
+    window.location.href = "hidden.html";
+});
+
+//keyboard shortcuts fullscreen
+
+//Ctrl+S for SAVE
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
+        event.preventDefault(); 
+        document.getElementById('saveButton').click();
+    }
+});
+
+//CTRL+E for Emoji Panel
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && (event.key === 'e' || event.key === 'E')) {
+        event.preventDefault(); 
+        document.getElementById('emojiButton').click(); 
+    }
+});
+
+//CTRL+D Download 
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
+        event.preventDefault(); 
+        document.getElementById('DownloadButton').click(); 
+    }
+});
+
+/*
+  CHERRY.JS
+  Manages CherryPad's core features including note saving/loading, autosave, emoji panel, 
+  copy/paste functionality, version control easter egg, and keyboard shortcuts (save, emoji, download).
+*/
+
+
+// test search bar functionality
+
+
+// Buttons and search field
+const searchButton = document.getElementById("searchButton");
+const searchBar = document.getElementById("searchBar");
+const searchInput = document.getElementById("searchInput");
+const nextBtn = document.getElementById("nextResult");
+const prevBtn = document.getElementById("prevResult");
+const closeBtn = document.getElementById("closeSearch");
+const resultCount = document.getElementById("resultCount");
+
+// Textareas to search in
+const fields = [
+    document.getElementById("noteInput"),
+    document.getElementById("noteInput2")
+];
+
+let matches = [];
+let currentIndex = -1;
+
+// Show search bar
+searchButton.onclick = () => {
+    searchBar.style.display = "flex";
+    searchInput.focus();
+};
+
+// Close search bar and clear selection
+closeBtn.onclick = () => {
+    searchBar.style.display = "none";
+    clearSearch();
+};
+
+// Clear search state
+function clearSearch() {
+    matches = [];
+    currentIndex = -1;
+    resultCount.textContent = "";
+    fields.forEach(f => f.setSelectionRange(0, 0));
+}
+
+// Perform search: collects matches but does NOT focus textarea
+function performSearch() {
+    matches = [];
+    currentIndex = -1;
+
+    const query = searchInput.value.trim();
+    if (!query) {
+        resultCount.textContent = "";
+        return;
+    }
+
+    const regex = new RegExp(query, "gi");
+
+    fields.forEach(textarea => {
+        const text = textarea.value;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            matches.push({
+                textarea: textarea,
+                start: match.index,
+                end: match.index + match[0].length
+            });
+        }
+    });
+
+    if (matches.length) {
+        resultCount.textContent = `0 / ${matches.length}`;
+    } else {
+        resultCount.textContent = "0 results";
     }
 }
 
-/* <<<<<<<<<<<<<< TOP BAR SETTINGS >>>>>>>>>>>>>>> */
+// Jump to the currently selected match
+function jumpToMatch() {
+    const match = matches[currentIndex];
+    if (!match) return;
 
-/* logo pos */
-.logo-container {
-    position: fixed;
-    top: 15px;
-    left: 23px;
-    display: flex;
-    align-items: center;
-    z-index: 1; /* cherry logo */
+    const ta = match.textarea;
+    ta.focus();
+    ta.setSelectionRange(match.start, match.end);
+    resultCount.textContent = `${currentIndex + 1} / ${matches.length}`;
 }
 
-/* top left cherry logo */
-.logo-container img {
-    width: 40px;
-    height: 40px;
-    user-select: none;
+// Navigate to next match
+function nextResult() {
+    if (!matches.length) return;
+    currentIndex = (currentIndex + 1) % matches.length;
+    jumpToMatch();
 }
 
-/* logo text */
-.logo-container span {
-    font-family: 'Bahnschrift', sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    margin-left: 10px;
-    color: #ffffff;
+// Navigate to previous match
+function prevResult() {
+    if (!matches.length) return;
+    currentIndex = (currentIndex - 1 + matches.length) % matches.length;
+    jumpToMatch();
 }
 
-/* button click/shrink effect */
-button:active {
-    transform: scale(0.95);
-}
-
-/* TOP buttons pos */
-.buttons-container {
-    position: fixed;
-    top: 15px;
-    right: 10px;
-    display: flex;
-    z-index: 1; /* buttons above other elements */
-}
-
-/* TOP buttons text */
-.button {
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    outline: none;
-    font-size: 16px;
-    font-family: 'Bahnschrift', sans-serif;
-    font-weight: bold;
-    transition: background-color 0.1s;
-    user-select: none;
-}
-
-.button i {
-    margin-right: 5px;
-}
-
-/* TOP button colors */
-.button:first-child { background-color: #539861; } /* save */
-.button:nth-child(2) { background-color: #dc5858; } /* download */
-.button:nth-child(3) { background-color: #DCA158; } /* copy */
-.button:nth-child(4) { background-color: #6A98DC; } /* paste */
-#emojiButton { background-color: #b8b43f; } /* emoji */
-#clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
-#searchButton { background-color: #4a73b100; } /* search button */
-
-/* TOP button hover colors */
-.button:hover { filter: brightness(100%); }
-#saveButton:hover { background-color: #2e6c45; } /* save */
-#DownloadButton:hover { background-color: #913535; } /* download */
-#copyButton:hover { background-color: #c47e53; } /* copy */
-#pasteButton:hover { background-color: #4A73B1; } /* paste */
-#emojiButton:hover { background-color: #949133; } /* emoji */
-#searchButton:hover { color: #9b9b9b; transform: scale(1.2);}
-
-/* clear buttons turn red on notification */
-#clearButton:active { color: #711313; background-color: #ff6d6d;}
-#clearButton2:active { color: #711313; background-color: #ff6d6d;}
-#searchButton:active { color: #ffffff;}
-
-.button:last-child {
-    margin-right: 0;
-}
-
-/* <<<<<<<<<<<<<< EMOJI PANEL SETTINGS >>>>>>>>>>>>>>> */
-
-/* emoji panel */
-.emoji-panel {
-    display: none;
-    position: fixed;
-    top: 60px;
-    right: 180px;
-    background-color: #161616;
-    border: 4px solid #212121;
-    border-radius: 15px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    user-select: none;
-}
-
-/* emoji settings */
-.emoji-panel button {
-    background: none;
-    border: none;
-    font-size: 23px;
-    cursor: pointer;
-    padding: 0px;
-    margin: 2px;
-}
-
-/* emoji on hover */
-.emoji-panel button:hover {
-transform: scale(1.2);
-z-index: 1;
-}
-
-/* emoji on click */
-.emoji-panel button:active {
-transform: scale(1.1);
-rotate: 5deg;
-}    
-
-/* <<<<<<<<<<<<<< END EMOJI PANEL SETTINGS >>>>>>>>>>>>>>> */
-
-/* text input/note fields */
-.container {
-    display: flex;
-    flex: 1;
-    width: calc(100% - 20px);
-    margin: 60px 10px 20px;
-    box-sizing: border-box;
-    position: relative;
-    padding-bottom: 40px;
-}
-
-.textarea-wrapper {
-    flex: 1;
-    padding: 10px;
-}
-
-.container textarea {
-    width: 100%;
-    height: calc(100% - 20px);
-    background-color: #0f0f0f;
-    color: white;
-    border: 4px solid #212121;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    scrollbar-color: #333 #111;
-    outline: none;
-    box-sizing: border-box;
-    resize: none;
-}
-
-.container textarea::placeholder {
-    color: #888;
-}
-
-/* logo hover effect */
-#logo-image:hover {
-    filter: brightness(130%);
-    transform: scale(0.95);
-}
-
-/* footer */
-.footer {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    font-weight: normal;
-    color: rgb(102, 102, 102);
-    text-align: center;
-    user-select: none;
-}
-
-/* bottom footer save notification */
-.last-saved {
-    color: #539861;
-    margin: 3px;
-}
-
-/* bottom footer copy notification */
-.last-copied {
-    color: #DCA158;
-    margin: 3px;
-}
-
-/* bottom footer copy notification */
-.last-download {
-    color: #dc5858;
-    margin: 3px;
-}
-
-.last-pasted {
-    color: #6A98DC;
-    margin: 3px;
-}
-
-/* bottom buttons */
-.button.version-button,
-.button.github-button,
-.button.WebStore-button,
-.button.About-button {
-    position: fixed;
-    bottom: 25px; /* test 25px for 1.5.5 to center bottom buttons*/
-    color: #666666;
-    background-color: #1a1a1a;
-}
-
-/* hover brightness bottom buttons */
-.button.version-button:hover,
-.button.github-button:hover,
-.button.WebStore-button:hover,
-.button.About-button:hover {
-    filter: brightness(90%);
-}
-
-/* pos bottom buttons */
-.button.version-button { left: 20px; }
-.button.github-button { left: 120px; }
-.button.About-button { right: 163px; }
-.button.WebStore-button { right: 20px; }
-
-/* <<<<<<<<<<<<<< SEARCH BAR SETTINGS WITH BUTTONS >>>>>>>>>>>>>>> */
-#searchBar {
-    position: fixed;
-    top: 3px;
-    right: 1%;
-    background: #1a1a1a; /* matches top buttons */
-    border: 0px solid #212121; /* same as textarea border */
-    padding: 0px 5px;
-    border-radius: 100px;
-    display: none;
-    align-items: center;
-    gap: 0px;
-    font-family: 'Bahnschrift', sans-serif;
-    color: #ffffff;
-    z-index: 2;
-    backdrop-filter: blur(1px); /* subtle frosted effect */
-}
-
-#searchBar input {
-    padding: 15px 15px;
-    border: none;
-    outline: none;
-    border-radius: 100px;
-    background-color: #1a1a1a00; /* same as textarea */
-    color: #ffffff;
-    font-size: 16px;
-    font-family: 'Bahnschrift', sans-serif;
-    font-weight: normal;
-    width: 450px;
-}
-
-#searchBar input:focus {
-    background-color: #00000000;
-}
-
-/* result count text */
-#resultCount {
-    font-size: 14px;
-    color: #539861; /* copy color accent */
-}
-
-/* buttons inside search bar */
-#searchBar button {
-    background-color: #dd0b0b00; /* dark button background */
-    border: none;
-    color: #ffffff;
-    padding: 20px 25px;
-    border-radius: 100px;
-    cursor: pointer;
-    font-family: 'Bahnschrift', sans-serif;
-    font-weight: bold;
-    font-size: 16px;
-    transition: background-color 0.15s ease, transform 0.1s ease;
-}
-
-#searchBar button:hover {
-    border-radius: 100px;
-    transform: scale(1.5);
-}
-
-#searchBar button:active {
-    transform: scale(0.95);
-    border-radius: 100px;
-}
-
-/* highlight styling */
-.highlight {
-    background: #539861; /* normal highlight */
-    color: #000000;
-    padding: 0 2px;
-    border-radius: 2px;
-}
-
-.highlight.active {
-    background: #DCA158; /* active highlight */
-    color: #000000;
-}
+// Event listeners
+searchInput.addEventListener("input", performSearch);
+nextBtn.onclick = nextResult;
+prevBtn.onclick = prevResult;
