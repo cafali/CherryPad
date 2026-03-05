@@ -14,31 +14,9 @@ body {
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(
-        120deg,
-        #000000,
-        #0d0d0d,
-        #1a1a1a,
-        #0a0a0a,
-        #0a0a0a,
-        #171717,
-        #1f1f1f
-    );
-    background-size: 400% 400%;
-    animation: gradientFlow 25s ease infinite;
 }
 
-@keyframes gradientFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/* <<<<<<<<<<<<<< TOP BAR SETTINGS >>>>>>>>>>>>>>> */
 
 /* logo pos */
 .logo-container {
@@ -124,6 +102,8 @@ button:active {
     margin-right: 0;
 }
 
+/* <<<<<<<<<<<<<< EMOJI PANEL SETTINGS >>>>>>>>>>>>>>> */
+
 /* emoji panel */
 .emoji-panel {
     display: none;
@@ -139,6 +119,7 @@ button:active {
     user-select: none;
 }
 
+/* emoji settings */
 .emoji-panel button {
     background: none;
     border: none;
@@ -148,15 +129,19 @@ button:active {
     margin: 2px;
 }
 
+/* emoji on hover */
 .emoji-panel button:hover {
 transform: scale(1.2);
 z-index: 1;
 }
 
+/* emoji on click */
 .emoji-panel button:active {
-    transform: scale(1.1);
-    rotate: 5deg;
-    }
+transform: scale(1.1);
+rotate: 5deg;
+}    
+
+/* <<<<<<<<<<<<<< END EMOJI PANEL SETTINGS >>>>>>>>>>>>>>> */
 
 /* text input/note fields */
 .container {
@@ -213,8 +198,15 @@ z-index: 1;
     user-select: none;
 }
 
+/* bottom footer save notification */
 .last-saved {
     color: #539861;
+    margin: 3px;
+}
+
+/* bottom footer copy notification */
+.last-copied {
+    color: #DCA158;
     margin: 3px;
 }
 
@@ -241,6 +233,4 @@ z-index: 1;
 .button.version-button { left: 20px; }
 .button.github-button { left: 120px; }
 .button.About-button { right: 163px; }
-
 .button.WebStore-button { right: 20px; }
-
