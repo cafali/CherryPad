@@ -109,7 +109,7 @@ button:active {
 #clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
 
 /* TOP button hover colors */
-.button:hover { filter: brightness(100%); transform: translateY(1px); }
+.button:hover { filter: brightness(100%); }
 #saveButton:hover { background-color: #2e6c45; } /* save */
 #saveTxtButton:hover { background-color: #913535; } /* download */
 #copyButton:hover { background-color: #c47e53; } /* copy */
@@ -243,3 +243,4 @@ z-index: 1;
 .button.About-button { right: 163px; }
 
 .button.WebStore-button { right: 20px; }
+
