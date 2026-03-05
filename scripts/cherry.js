@@ -35,23 +35,31 @@ document.getElementById('saveButton').addEventListener('click', function() {
 // COPY button click message
 document.getElementById('copyButton').addEventListener('click', function() {
 
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
     // hide save & download message
     document.getElementById('lastSaved').textContent = '';
     document.getElementById('lastDownload').textContent = '';
 
     // show copy message
-    document.getElementById('lastCopied').textContent = 'Your Note has been copied! (CTRL+C)';
+    document.getElementById('lastCopied').textContent = 'Copied to clipboard '  + formattedTime;
 });
 
 // DOWNLOAD button click message
 document.getElementById('DownloadButton').addEventListener('click', function() {
+
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
 
     // hide save & copy message
     document.getElementById('lastSaved').textContent = '';
     document.getElementById('lastCopied').textContent = '';
 
     // show download message
-    document.getElementById('lastDownload').textContent = 'Successfully downloaded CherryNote';
+    document.getElementById('lastDownload').textContent = 'Successfully downloaded CherryNote ' + formattedTime;
 });
 
 
