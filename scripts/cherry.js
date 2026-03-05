@@ -19,6 +19,7 @@ document.getElementById('saveButton').addEventListener('click', function() {
     // hide copy & download message
     document.getElementById('lastCopied').textContent = '';
     document.getElementById('lastDownload').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
 
     // show save message
     document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
@@ -42,9 +43,10 @@ document.getElementById('copyButton').addEventListener('click', function() {
     // hide save & download message
     document.getElementById('lastSaved').textContent = '';
     document.getElementById('lastDownload').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
 
     // show copy message
-    document.getElementById('lastCopied').textContent = 'Copied to clipboard '  + formattedTime;
+    document.getElementById('lastCopied').textContent = 'Copied to clipboard - '  + formattedTime;
 });
 
 // DOWNLOAD button click message
@@ -57,9 +59,26 @@ document.getElementById('DownloadButton').addEventListener('click', function() {
     // hide save & copy message
     document.getElementById('lastSaved').textContent = '';
     document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastPasted').textContent = '';
 
     // show download message
-    document.getElementById('lastDownload').textContent = 'Successfully downloaded CherryNote ' + formattedTime;
+    document.getElementById('lastDownload').textContent = 'Last attempted download: ' + formattedTime;
+});
+
+// PASTE button click message
+document.getElementById('pasteButton').addEventListener('click', function() {
+
+    // get current date and time
+    var now = new Date();
+    var formattedTime = now.toLocaleString();
+
+    // hide save & copy message
+    document.getElementById('lastSaved').textContent = '';
+    document.getElementById('lastCopied').textContent = '';
+    document.getElementById('lastDownload').textContent = '';
+
+    // show paste message
+    document.getElementById('lastPasted').textContent = 'Last pasted: ' + formattedTime;
 });
 
 

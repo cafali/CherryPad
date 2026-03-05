@@ -216,6 +216,11 @@ rotate: 5deg;
     margin: 3px;
 }
 
+.last-pasted {
+    color: #6A98DC;
+    margin: 3px;
+}
+
 /* bottom buttons */
 .button.version-button,
 .button.github-button,
