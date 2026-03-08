@@ -266,3 +266,23 @@ rotate: 5deg;
 .button.github-button { left: 120px; }
 .button.About-button { right: 163px; }
 .button.WebStore-button { right: 20px; }
+
+/* version button explosion */
+.emoji-particle {
+  position: fixed;
+  pointer-events: none;
+  transform: translate(0,0) rotate(0deg);
+  animation: emoji-explode 0.9s ease-out forwards;
+}
+
+@keyframes emoji-explode {
+  0% {
+    transform: translate(0,0) rotate(0deg) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.5);
+    opacity: 0;
+  }
+}
+

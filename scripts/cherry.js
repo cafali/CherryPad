@@ -429,3 +429,44 @@ document.addEventListener('keydown', function(event) {
   Manages CherryPad's core features including note saving/loading, autosave, emoji panel, 
   copy/paste functionality, version control easter egg, and keyboard shortcuts (save, emoji, download).
 */
+
+// version button hover message
+const versionButton = document.getElementById("versionButton");
+
+const emojis = [
+  "../icon/cherrypad.png",
+];
+
+versionButton.addEventListener("mouseenter", () => {
+  const rect = versionButton.getBoundingClientRect();
+
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  for (let i = 0; i < 10; i++) {
+
+    const img = document.createElement("img");
+    img.className = "emoji-particle";
+
+    img.src = emojis[Math.floor(Math.random() * emojis.length)];
+    img.style.width = "25px";
+    img.style.height = "25px";
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 90 + Math.random() * 120;
+
+    img.style.left = centerX + "px";
+    img.style.top = centerY + "px";
+
+    img.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+    img.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+
+    // random spin
+    const rotation = (Math.random() * 720 - 360) + "deg";
+    img.style.setProperty("--rot", rotation);
+
+    document.body.appendChild(img);
+
+    setTimeout(() => img.remove(), 900);
+  }
+});
