@@ -79,3 +79,14 @@ span.emoji {
   cursor: pointer; 
   user-select: none;
 }
+
+#exit {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 300;
+  color: rgb(255, 255, 255);
+  opacity: 0.8;
+}

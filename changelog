@@ -5,6 +5,8 @@ Version 1.5 (March 2026) (Current)
 -------------------------------------------------  
 1.5.9 (DEV)
 - Added the current date and time to the notification messages displayed when using the save, copy, download & paste buttons
+- Date/time notifications now reflect the color of the action, matching the color of the button used
+- Added a “how to exit” message to the hidden minigame
 - Added a moving dark gradient animation in fullscreen mode for a more dynamic and visually appealing background
 - General code cleanup and optimization
 
