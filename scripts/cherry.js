@@ -561,3 +561,21 @@ document.addEventListener("keydown", (e) => {
     }
 
 });
+
+
+// Temporarily disable privacy mode to allow copying when COPY button is clicked
+
+const copyButton = document.getElementById("copyButton");
+
+copyButton.addEventListener("click", (e) => {
+    if (privacyEnabled) {
+        // temporarily disable privacy
+        privacyButton.click();
+        // delay to let styles update before copying
+        setTimeout(() => {
+            copyButton.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        }, 10);
+        e.stopImmediatePropagation(); 
+    }
+});
+
