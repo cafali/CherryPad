@@ -494,7 +494,7 @@ wrappers.forEach(wrapper => {
     textarea.addEventListener("mouseleave", () => {
         if (privacyEnabled) {
             textarea.style.color = "transparent";
-            textarea.style.textShadow = "0 0 10px #ffffff84";
+            textarea.style.textShadow = "0 0 10px #ffffff69";
             overlay.style.opacity = "1";
         }
     });
@@ -513,7 +513,7 @@ privacyButton.addEventListener("click", () => {
 if (privacyEnabled) {
 
     textarea.style.color = "transparent";
-    textarea.style.textShadow = "0 0 10px #ffffff84";
+    textarea.style.textShadow = "0 0 10px #ffffff69";
     textarea.style.caretColor = "white";
     textarea.style.transition = "text-shadow 0.2s ease";
 
