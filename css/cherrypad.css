@@ -103,7 +103,7 @@ button:active {
 .button:nth-child(4) { background-color: #6A98DC; } /* paste */
 #emojiButton { background-color: #b8b43f; } /* emoji */
 #clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
-#searchButton { background-color: #4a73b100; } /* search button */
+#privacyButton { background-color: #00000000;scale: 1.1; } /* privacy button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -112,12 +112,12 @@ button:active {
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
 #emojiButton:hover { background-color: #949133; } /* emoji */
-#searchButton:hover { color: #9b9b9b; transform: scale(1.2);}
+#privacyButton:hover { background-color: #00000000; color: #ffffffb5; } /* privacy button */
 
 /* clear buttons turn red on notification */
 #clearButton:active { color: #711313; background-color: #ff6d6d;}
 #clearButton2:active { color: #711313; background-color: #ff6d6d;}
-#searchButton:active { color: #ffffff;}
+#privacyButton:active { color: #ffffff; transform: scale(1);}
 
 .button:last-child {
     margin-right: 0;

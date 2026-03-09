@@ -470,3 +470,57 @@ versionButton.addEventListener("mouseenter", () => {
     setTimeout(() => img.remove(), 900);
   }
 });
+
+
+const privacyButton = document.getElementById("privacyButton");
+let privacyEnabled = false;
+
+const textareas = document.querySelectorAll(".container textarea");
+
+textareas.forEach(el => {
+
+    el.addEventListener("mouseenter", () => {
+        if (privacyEnabled) {
+            el.style.color = "white";
+            el.style.textShadow = "none";
+        }
+    });
+
+    el.addEventListener("mouseleave", () => {
+        if (privacyEnabled) {
+            el.style.color = "transparent";
+            el.style.textShadow = "0 0 8px rgba(255,255,255,0.9)";
+        }
+    });
+
+});
+
+// privacy button toggle
+privacyButton.addEventListener("click", () => {
+
+    privacyEnabled = !privacyEnabled;
+
+    textareas.forEach(el => {
+        if (privacyEnabled) {
+            el.style.color = "transparent";
+            el.style.textShadow = "0 0 8px rgba(255,255,255,0.9)";
+            el.style.caretColor = "white";
+            el.style.transition = "text-shadow 0.2s ease";
+        } else {
+            el.style.color = "";
+            el.style.textShadow = "";
+            el.style.caretColor = "";
+        }
+    });
+
+    const icon = privacyButton.querySelector("i");
+
+    if (privacyEnabled) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye");
+    }
+
+});
