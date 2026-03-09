@@ -471,46 +471,70 @@ versionButton.addEventListener("mouseenter", () => {
   }
 });
 
+// Privacy Mode
 
 const privacyButton = document.getElementById("privacyButton");
 let privacyEnabled = false;
 
-const textareas = document.querySelectorAll(".container textarea");
+const wrappers = document.querySelectorAll(".textarea-wrapper");
 
-textareas.forEach(el => {
+wrappers.forEach(wrapper => {
 
-    el.addEventListener("mouseenter", () => {
+    const textarea = wrapper.querySelector("textarea");
+    const overlay = wrapper.querySelector(".privacy-overlay");
+
+    textarea.addEventListener("mouseenter", () => {
         if (privacyEnabled) {
-            el.style.color = "white";
-            el.style.textShadow = "none";
+            textarea.style.color = "white";
+            textarea.style.textShadow = "none";
+            overlay.style.opacity = "0";
         }
     });
 
-    el.addEventListener("mouseleave", () => {
+    textarea.addEventListener("mouseleave", () => {
         if (privacyEnabled) {
-            el.style.color = "transparent";
-            el.style.textShadow = "0 0 8px rgba(255,255,255,0.9)";
+            textarea.style.color = "transparent";
+            textarea.style.textShadow = "0 0 10px #ffffff84";
+            overlay.style.opacity = "1";
         }
     });
 
 });
 
-// privacy button toggle
 privacyButton.addEventListener("click", () => {
 
     privacyEnabled = !privacyEnabled;
 
-    textareas.forEach(el => {
-        if (privacyEnabled) {
-            el.style.color = "transparent";
-            el.style.textShadow = "0 0 8px rgba(255,255,255,0.9)";
-            el.style.caretColor = "white";
-            el.style.transition = "text-shadow 0.2s ease";
-        } else {
-            el.style.color = "";
-            el.style.textShadow = "";
-            el.style.caretColor = "";
-        }
+    wrappers.forEach(wrapper => {
+
+        const textarea = wrapper.querySelector("textarea");
+        const overlay = wrapper.querySelector(".privacy-overlay");
+
+if (privacyEnabled) {
+
+    textarea.style.color = "transparent";
+    textarea.style.textShadow = "0 0 10px #ffffff84";
+    textarea.style.caretColor = "white";
+    textarea.style.transition = "text-shadow 0.2s ease";
+
+    textarea.classList.add("privacy-lock");
+    overlay.style.opacity = "1";
+
+    // clear any existing selection
+    textarea.blur();
+    textarea.setSelectionRange(0, 0);
+    window.getSelection().removeAllRanges();
+
+} else {
+
+    textarea.style.color = "";
+    textarea.style.textShadow = "";
+    textarea.style.caretColor = "";
+
+    textarea.classList.remove("privacy-lock");
+    overlay.style.opacity = "0";
+}
+
     });
 
     const icon = privacyButton.querySelector("i");
@@ -519,8 +543,21 @@ privacyButton.addEventListener("click", () => {
         icon.classList.remove("fa-eye");
         icon.classList.add("fa-eye-slash");
     } else {
-        icon.classList.remove("fa-eye");
+        icon.classList.remove("fa-eye-slash");
         icon.classList.add("fa-eye");
+    }
+
+});
+
+
+/* Block CTRL+A while privacy mode is active */
+
+document.addEventListener("keydown", (e) => {
+
+    if (!privacyEnabled) return;
+
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
+        e.preventDefault();
     }
 
 });

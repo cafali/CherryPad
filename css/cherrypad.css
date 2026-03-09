@@ -178,6 +178,7 @@ rotate: 5deg;
 .textarea-wrapper {
     flex: 1;
     padding: 10px;
+    position: relative;
 }
 
 .container textarea {
@@ -197,6 +198,26 @@ rotate: 5deg;
 
 .container textarea::placeholder {
     color: #888;
+}
+
+/* privacy overlay */
+
+.privacy-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: #ffffff;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.privacy-lock {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 /* logo hover effect */
@@ -285,4 +306,3 @@ rotate: 5deg;
     opacity: 0;
   }
 }
-
