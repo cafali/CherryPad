@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 15px 20px;
-  background-color: #1a1a1a;
+  background-color: #141414;
   color: #ffffff;
 }
 
@@ -12,8 +12,8 @@ body {
   align-items: center;
   width: 571px;
   max-height: 492px;
-  background-color: #1a1a1a;
-  border-radius: 10px;
+  background-color: #141414;
+  border-radius: 0px;
   padding: 10px;
   overflow: auto;
 }
