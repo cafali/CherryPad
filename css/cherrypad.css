@@ -44,6 +44,7 @@ body {
     display: flex;
     align-items: center;
     z-index: 1; /* cherry logo */
+    transition: opacity 0.2s ease;
 }
 
 /* top left cherry logo */

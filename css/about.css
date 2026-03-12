@@ -14,14 +14,14 @@
     }
 
     /* Logo */
-    #icon {
+    #logo-image {
       width: 70px;
       height: 70px;
       margin-bottom: 20px;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    #icon:hover {
+    #logo-image:hover {
       filter: brightness(1.5);
       transform: scale(1.5) rotate(0deg);
     }
