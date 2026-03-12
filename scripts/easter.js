@@ -46,9 +46,3 @@ document.addEventListener("keydown", function(event) {
       window.location.href = "cherrypad.html";
   }
 });
-
-/*
-  EASTER.JS
-  Implements an emoji rain game with score tracking, where emojis fall and can be clicked for points. 
-  Includes an "Escape" key to return to the main CherryPad page when pressed.
-*/
