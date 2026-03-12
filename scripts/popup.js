@@ -53,14 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const originalText = buttonLabel.textContent;
 
     // Set your warning color here:
-    const warningColor = '#FF4C4C'; // bright red, adjust as needed
+    const warningColor = '#dc5858'; // bright red, adjust as needed
 
     clearButton.addEventListener('click', function() {
         if (!clearConfirmed) {
          // First click → show warning
             clearConfirmed = true;
             clearButton.style.backgroundColor = warningColor;
-            buttonLabel.textContent = ' Confirm to delete';
+            buttonLabel.textContent = ' CONFIRM NOTE DELETION';
 
             // Reset if user doesn't confirm within 2 seconds
             clearTimeoutId = setTimeout(() => {
