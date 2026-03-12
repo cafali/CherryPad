@@ -27,6 +27,7 @@ body {
   font-family: 'Bahnschrift', sans-serif; 
   font-weight: bold;
   user-select: none;
+  z-index: 300;
 }
 
 /* icon styling */
