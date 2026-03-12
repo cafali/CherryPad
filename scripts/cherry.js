@@ -579,3 +579,35 @@ copyButton.addEventListener("click", (e) => {
     }
 });
 
+// logo fadeout on button overlap
+
+const logo = document.querySelector('.logo-container');
+const buttons = document.querySelectorAll('.buttons-container .button');
+
+function isOverlapping(a, b) {
+    const r1 = a.getBoundingClientRect();
+    const r2 = b.getBoundingClientRect();
+
+    return !(
+        r1.right < r2.left ||
+        r1.left > r2.right ||
+        r1.bottom < r2.top ||
+        r1.top > r2.bottom
+    );
+}
+
+function checkOverlap() {
+    let overlap = false;
+
+    buttons.forEach(btn => {
+        if (isOverlapping(logo, btn)) {
+            overlap = true;
+        }
+    });
+
+    logo.style.opacity = overlap ? "0" : "1";
+}
+
+window.addEventListener("resize", checkOverlap);
+window.addEventListener("load", checkOverlap);
+
