@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/popup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>CherryPad Popup</title>
 </head>
 <body>
   <div class="popup-container">
     <div class="button-container">
-      <button id="saveButton"><b>Save</b></button>
-      <button id="saveTxtButton"><b>Download</b></button>
+      <button id="saveButton"><i class="fas fa-save"></i><b> Save</b></button>
+      <button id="saveTxtButton"><i class="fas fa-file-download"></i><b> Download</b></button>
     </div>
     <textarea id="noteInput" placeholder="Welcome to CherryPad! Write your note here..."></textarea>
     <div class="button-container">
-      <button id="clearButton"><b>Clear CherryPad</b></button>
+      <button id="clearButton"><i class="fas fa-eraser"></i><b> Clear CherryPad</b></button>
     </div>
     <footer>
       <p>CherryPad Makes Note-Taking Easy</p>
@@ -27,5 +28,3 @@
   <script src="scripts/popup.js"></script>
 </body>
 </html>
-
-

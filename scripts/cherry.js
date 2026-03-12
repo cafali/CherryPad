@@ -424,27 +424,20 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-/*
-  CHERRY.JS
-  Manages CherryPad's core features including note saving/loading, autosave, emoji panel, 
-  copy/paste functionality, version control easter egg, and keyboard shortcuts (save, emoji, download).
-*/
 
-// version button hover message
+// version button hover and click message 1.5.9
 const versionButton = document.getElementById("versionButton");
 
 const emojis = [
   "../icon/cherrypad.png",
 ];
 
-versionButton.addEventListener("mouseenter", () => {
+function spawnEmojiParticles() {
   const rect = versionButton.getBoundingClientRect();
-
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
 
   for (let i = 0; i < 10; i++) {
-
     const img = document.createElement("img");
     img.className = "emoji-particle";
 
@@ -469,9 +462,12 @@ versionButton.addEventListener("mouseenter", () => {
 
     setTimeout(() => img.remove(), 900);
   }
-});
+}
 
-// Privacy Mode
+versionButton.addEventListener("mouseenter", spawnEmojiParticles);
+versionButton.addEventListener("click", spawnEmojiParticles);
+
+// Privacy Mode 1.5.9
 
 const privacyButton = document.getElementById("privacyButton");
 let privacyEnabled = false;
