@@ -233,7 +233,9 @@ rotate: 5deg;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 12px;
+    
+    font-size: clamp(9px, 1vw, 12px); /* dynamic, max = 12px */
+
     font-family: Arial, sans-serif;
     font-weight: normal;
     color: rgb(102, 102, 102);
