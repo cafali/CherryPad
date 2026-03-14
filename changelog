@@ -6,7 +6,7 @@ Version 1.6 (March 2026) (DEV) (Coming soon)
 1.6.0
 - Added icons to popup buttons
 - Fixed bug where popup Clear button did not clear the note
-- Added popup two-step deletion confirmation clear button
+- Added popup two-step deletion confirmation to the clear button
 - CherryPad logo now fades when overlapping buttons during horizontal fullscreen resize
 - Adjusted redirect method for multiple elements on the About page
 
