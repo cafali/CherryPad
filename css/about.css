@@ -14,14 +14,14 @@
     }
 
     /* Logo */
-    #logo-image {
+    #icon {
       width: 70px;
       height: 70px;
       margin-bottom: 20px;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    #logo-image:hover {
+    #icon:hover {
       filter: brightness(1.5);
       transform: scale(1.5) rotate(0deg);
     }
@@ -74,7 +74,6 @@
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.1s ease;
       text-decoration: none;
-      font-family: "Bahnschrift", "Segoe UI", sans-serif;
     }
 
     .back-button:hover {
@@ -102,5 +101,3 @@
     }
 
     .cafali-link{color:inherit;text-decoration:none}.cafali-link:hover{color:rgba(255, 255, 255, 0.705)}
-
-    

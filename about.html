@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +9,9 @@
   <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
-
-    <img id="logo-image" src="icon/CherryPad.png" alt="CherryPad Logo"> 
+  <a>
+    <img id="icon" src="icon/CherryPad.png" alt="CherryPad Logo">
+  </a>
 
   <h1>CherryPad by cafali</h1>
   <h2>Your Sleek, Distraction-Free Notepad in Your Browser</h2>
@@ -28,25 +30,11 @@
     Return to CherryPad
   </a>
 
-
   <p class="thank-you">Thank you for using CherryPad!</p>
   
   <footer>
     Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
   </footer>
-
 </body>
 </html>
 <p><a href="https://cafali.art" target="_blank" rel="noopener noreferrer" class="cafali-link">Visit cafali.art for more! ➔</a></p>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const logo = document.getElementById("logo-image");
-
-    if (logo) {
-        logo.addEventListener("click", () => {
-            window.location.href = "hidden.html";
-        });
-    }
-});
-</script>
