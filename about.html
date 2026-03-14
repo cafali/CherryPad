@@ -23,10 +23,7 @@
     <a href="https://cafali.art" target="_blank">Website</a>
   </p>
 
-  <a href="cherrypad.html" class="back-button">
-<i class="fa fa-arrow-left"></i>
-    Return to CherryPad
-  </a>
+  <button id="AboutButton" class="back-button"><i class="fa fa-arrow-left"></i>Return to CherryPad</button>
 
   <p class="thank-you">Thank you for using CherryPad!</p>
   
@@ -39,12 +36,20 @@
 <p><a href="https://cafali.art" target="_blank" rel="noopener noreferrer" class="cafali-link">Visit cafali.art for more! ➔</a></p>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const logo = document.getElementById("logo-image");
 
     if (logo) {
         logo.addEventListener("click", () => {
             window.location.href = "hidden.html";
+        });
+    }
+
+    // Return button
+    const btn = document.getElementById("AboutButton");
+    if (btn) {
+        btn.addEventListener("click", () => {
+            window.open("cherrypad.html", "_self");
         });
     }
 });
