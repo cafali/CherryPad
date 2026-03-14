@@ -606,4 +606,3 @@ function checkOverlap() {
 
 window.addEventListener("resize", checkOverlap);
 window.addEventListener("load", checkOverlap);
-
