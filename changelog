@@ -1,7 +1,7 @@
 CherryPad - Browser Notepad | CHANGELOG
 -------------------------------------------------
 
-Version 1.6.X (March 2026)
+Version 1.6.X (March 2026) (Current)
 -------------------------------------------------  
 1.6.0
 - Added icons to popup buttons
@@ -10,7 +10,7 @@ Version 1.6.X (March 2026)
 - CherryPad logo now fades when overlapping buttons during horizontal fullscreen resize
 - Adjusted redirect method for multiple elements on the About page
 
-Version 1.5.X (January 2025 - March 2026) (Current)
+Version 1.5.X (January 2025 - March 2026)
 -------------------------------------------------  
 1.5.9
 - Added a privacy toggle button in fullscreen mode that allows users to hide the content of their notes
