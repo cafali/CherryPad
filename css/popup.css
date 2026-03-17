@@ -28,9 +28,13 @@ textarea {
   font-size: 15px;
   resize: none;
   color: rgb(255, 255, 255);
-    background-color: #0f0f0f;
+  background-color: #0f0f0f;
   scrollbar-color: #333 #111;
   box-sizing: border-box;
+}
+
+textarea:hover {
+    background-color: #0000004a;
 }
 
 textarea:focus {

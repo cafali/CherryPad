@@ -4,6 +4,7 @@ CherryPad - Browser Notepad | CHANGELOG
 DEV Version (Coming Soon)
 -------------------------------------------------  
 - Added visual feedback for textarea focus; active note area now darkens in all views (fullscreen/popup)
+- Added an interactive star review system & visual features to the about page
 
 Version 1.6.X (March 2026) (Current)
 -------------------------------------------------  

@@ -7,7 +7,11 @@
   <title>About CherryPad</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="css/about.css">
+  <script src="scripts/about.js" defer></script>
 </head>
+
+<div class="floating-bg" id="floating-bg"></div>
+
 <body>
   <a>
     <img id="icon" src="icon/CherryPad.png" alt="CherryPad Logo">
@@ -25,13 +29,19 @@
     <a href="https://cafali.art" target="_blank">Website</a>
   </p>
 
-  <a href="cherrypad.html" class="back-button">
-<i class="fa fa-arrow-left"></i>
-    Return to CherryPad
-  </a>
+<div id="back-button" class="back-button">
+  <i class="fa fa-arrow-left"></i> Return to CherryPad
+</div>
 
   <p class="thank-you">Thank you for using CherryPad!</p>
-  
+
+<div class="review-stars">
+  <i class="fa fa-star" data-value="1"></i>
+  <i class="fa fa-star" data-value="2"></i>
+  <i class="fa fa-star" data-value="3"></i>
+  <i class="fa fa-star" data-value="4"></i>
+  <i class="fa fa-star" data-value="5"></i>
+</div>
   <footer>
     Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
   </footer>

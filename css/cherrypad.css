@@ -197,6 +197,11 @@ rotate: 5deg;
     resize: none;
 }
 
+.container textarea:hover {
+    background-color: #0f0f0fda;
+}
+
+
 .container textarea:focus {
     border: 4px solid #212121;
     background-color: #00000079;

@@ -89,7 +89,7 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 0.85rem;
       color: #666;
-      margin-top: 40px;
+      margin-top: 25px;
       max-width: 600px;
     }
 
@@ -100,4 +100,46 @@
       color: #ffffffac;
     }
 
+
     .cafali-link{color:inherit;text-decoration:none}.cafali-link:hover{color:rgba(255, 255, 255, 0.705)}
+
+  .review-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 1.4em;
+    cursor: pointer;
+  }
+  .review-stars .fa-star {
+    color: #cccccc82;
+    transition: color 0.2s;
+  }
+  .review-stars .hovered,
+  .review-stars .selected {
+    color: #f5a623;
+  }
+
+
+  .floating-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .floating-cherry {
+    position: absolute;
+    opacity: 0.1;
+    width: 40px; /* default size, will vary */
+    transform: translateY(100vh); /* start below viewport */
+    animation: floatAnimation linear infinite;
+  }
+
+  @keyframes floatAnimation {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-20vh) rotate(360deg); }
+  }
