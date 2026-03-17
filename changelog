@@ -1,9 +1,13 @@
 CherryPad - Browser Notepad | CHANGELOG
 -------------------------------------------------
 
+DEV Version (Coming Soon)
+-------------------------------------------------  
+- Added visual feedback for textarea focus; active note area now darkens in all views (fullscreen/popup)
+
 Version 1.6.X (March 2026) (Current)
 -------------------------------------------------  
-1.6.0
+1.6.0 
 - Added icons to popup buttons
 - Fixed bug where popup Clear button did not clear the note
 - Added popup two-step deletion confirmation to the clear button
