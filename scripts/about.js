@@ -26,7 +26,7 @@ const backButton = document.getElementById('back-button');
 });
 
 
-// 
+// FLOATING CHERRY
   const bg = document.getElementById('floating-bg');
   const numCherries = 15; // number of floating images
   const imgSrc = "icon/CherryPad.png";
@@ -48,7 +48,7 @@ const backButton = document.getElementById('back-button');
     cherry.style.animationDuration = duration + 's';
 
     // Random delay
-    cherry.style.animationDelay = Math.random() * 10 + 's';
+    cherry.style.animationDelay = Math.random() * 0 + 's';
 
     bg.appendChild(cherry);
   }
