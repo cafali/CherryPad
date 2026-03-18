@@ -2,7 +2,8 @@ CherryPad - Browser Notepad | CHANGELOG
 -------------------------------------------------
 
 DEV Version (Coming Soon)
--------------------------------------------------  
+------------------------------------------------- 
+- Fixed a bug where red spelling check underlines appeared through the Privacy layer when Privacy Mode was on
 - Added visual feedback for textarea focus; active note area now darkens in all views (fullscreen/popup)
 - Added an interactive star review system & visual features to the about page
 

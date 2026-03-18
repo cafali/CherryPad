@@ -507,7 +507,6 @@ privacyButton.addEventListener("click", () => {
         const overlay = wrapper.querySelector(".privacy-overlay");
 
 if (privacyEnabled) {
-
     textarea.style.color = "transparent";
     textarea.style.textShadow = "0 0 10px #ffffff69";
     textarea.style.caretColor = "white";
@@ -516,19 +515,23 @@ if (privacyEnabled) {
     textarea.classList.add("privacy-lock");
     overlay.style.opacity = "1";
 
+    // disable spellcheck while privacy is on
+    textarea.spellcheck = false;
+
     // clear any existing selection
     textarea.blur();
     textarea.setSelectionRange(0, 0);
     window.getSelection().removeAllRanges();
-
 } else {
-
     textarea.style.color = "";
     textarea.style.textShadow = "";
     textarea.style.caretColor = "";
 
     textarea.classList.remove("privacy-lock");
     overlay.style.opacity = "0";
+
+    // re-enable spellcheck when privacy is off
+    textarea.spellcheck = true;
 }
 
     });
