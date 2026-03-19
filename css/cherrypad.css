@@ -98,12 +98,12 @@ button:active {
 }
 
 /* TOP button colors */
-.button:first-child { background-color: #539861; } /* save */
-.button:nth-child(2) { background-color: #dc5858; } /* download */
-.button:nth-child(3) { background-color: #DCA158; } /* copy */
-.button:nth-child(4) { background-color: #6A98DC; } /* paste */
-#emojiButton { background-color: #b8b43f; } /* emoji */
-#clearButton, #clearButton2 { background-color: #131313; } /* clear buttons */
+.button:first-child { background-color: #539861; color: #bcffc6; } /* save */
+.button:nth-child(2) { background-color: #dc5858; color: #ffdcdc; } /* download */
+.button:nth-child(3) { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
+.button:nth-child(4) { background-color: #6a98dc; color: #d5e7ff; } /* paste */
+#emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
+#clearButton, #clearButton2 { background-color: #131313; color: #ffffff; } /* clear buttons */
 #privacyButton { background-color: #00000000;scale: 1.1; } /* privacy button */
 
 /* TOP button hover colors */
@@ -298,7 +298,7 @@ rotate: 5deg;
 /* pos bottom buttons */
 .button.version-button { left: 20px; }
 .button.github-button { left: 120px; }
-.button.About-button { right: 163px; }
+.button.About-button { right: 168px; }
 .button.WebStore-button { right: 20px; }
 
 /* version button explosion */
