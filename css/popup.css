@@ -80,7 +80,7 @@ button:active {
 }
 
 #saveButton {
-  background-color: #539861; color: #bcffc6;
+  background-color: #478654; color: #bcffc6;
 }
 
 #saveButton:hover {
@@ -88,7 +88,7 @@ button:active {
 }
 
 #saveTxtButton {
-  background-color: #dc5858; color: #ffdcdc;
+  background-color: #b44848; color: #ffdcdc;
 }
 
 #saveTxtButton:hover {
