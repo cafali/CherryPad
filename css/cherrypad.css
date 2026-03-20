@@ -98,13 +98,13 @@ button:active {
 }
 
 /* TOP button colors */
-.button:first-child { background-color: #478654; color: #bcffc6; } /* save */
-.button:nth-child(2) { background-color: #b44848; color: #ffdcdc; } /* download */
-.button:nth-child(3) { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
-.button:nth-child(4) { background-color: #6a98dc; color: #d5e7ff; } /* paste */
-#emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
-#clearButton, #clearButton2 { background-color: #131313; color: #ffffff; } /* clear buttons */
-#privacyButton { background-color: #00000000;scale: 1.1; } /* privacy button */
+.button:first-child { background-color: #478654; color: #bcffc6; text-shadow: 0 3px 1px #0000002b; } /* save */
+.button:nth-child(2) { background-color: #b44848; color: #ffdcdc; text-shadow: 0 3px 1px #0000002b; } /* download */
+.button:nth-child(3) { background-color: #dca158; color: hsl(48, 100%, 92%); text-shadow: 0 3px 1px #0000002b; } /* copy */
+.button:nth-child(4) { background-color: #6a98dc; color: #d5e7ff; text-shadow: 0 3px 1px #0000002b; } /* paste */
+#emojiButton { background-color: #b8b43f; color: #ffffdd; text-shadow: 0 3px 1px #0000002b; } /* emoji */
+#clearButton, #clearButton2 { background-color: #131313; color: #ffffff; text-shadow: 0 3px 1px #00000059; } /* clear buttons */
+#privacyButton { background-color: #00000000; scale: 1.1; } /* privacy button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
