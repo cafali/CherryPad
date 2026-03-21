@@ -19,15 +19,15 @@ body {
 
 /* count score */
 #counter {   
-  color: white;
-  font-size: 70px;
+  color: rgba(255, 255, 255, 0.179);
+  font-size: 120px;
   position: absolute;
   top: 50px;
   left: center;
   font-family: 'Bahnschrift', sans-serif; 
   font-weight: bold;
   user-select: none;
-  z-index: 300;
+  z-index: -1; /* behind emojis */
 }
 
 /* icon styling */
