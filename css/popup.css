@@ -97,7 +97,7 @@ button:active {
 }
 
 #clearButton {
-  background-color: #232323;
+  background-color: #232323; text-shadow: 0 2px 1px #0000002b;
 }
 
 #clearButton:hover {
