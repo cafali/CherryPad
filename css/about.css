@@ -67,7 +67,8 @@
       font-weight: bold;
       font-size: 1.1rem;
       background-color: #dc5858;
-      color: #fff;
+      color: #ffdcdc;
+      text-shadow: 0 2px 1px #0000002b;
       border: none;
       border-radius: 30px;
       padding: 12px 24px;
