@@ -613,7 +613,7 @@ window.addEventListener("load", checkOverlap);
 
 // symbol panel
 
-// symbol panel display on hover 1.5.2
+// symbol panel display on hover 1.6.2
 document.addEventListener('DOMContentLoaded', function() {
     const symbolButton = document.getElementById('symbolButton');
     const symbolPanel = document.getElementById('symbolPanel');
