@@ -54,6 +54,12 @@ body {
     user-select: none;
 }
 
+/* logo hover effect */
+#logo-image:hover {
+    filter: brightness(130%);
+    transform: scale(0.95);
+}
+
 /* logo text */
 .logo-container span {
     font-family: 'Bahnschrift', sans-serif;
@@ -229,12 +235,6 @@ rotate: 5deg;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-}
-
-/* logo hover effect */
-#logo-image:hover {
-    filter: brightness(130%);
-    transform: scale(0.95);
 }
 
 /* footer */

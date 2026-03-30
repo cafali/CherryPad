@@ -1,6 +1,10 @@
 CherryPad - Browser Notepad | CHANGELOG
 -------------------------------------------------
 
+DEV 1.6.2 (coming in the future)
+- Slightly increased popup window size and padding to improve usability and available workspace
+- Fine-tuned cherry spin animation that triggers during interactions with the popup functions
+
 Version 1.6.X (March 2026) (Current)
 -------------------------------------------------  
 1.6.1
