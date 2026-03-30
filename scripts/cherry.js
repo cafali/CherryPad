@@ -609,3 +609,87 @@ function checkOverlap() {
 
 window.addEventListener("resize", checkOverlap);
 window.addEventListener("load", checkOverlap);
+
+
+// symbol panel
+
+// symbol panel display on hover 1.5.2
+document.addEventListener('DOMContentLoaded', function() {
+    const symbolButton = document.getElementById('symbolButton');
+    const symbolPanel = document.getElementById('symbolPanel');
+    const buttonsToClose = document.querySelectorAll('.button:not(#symbolButton)');
+
+    // open symbol panel when hovering over symbol button
+    symbolButton.addEventListener('mouseenter', function() {
+        symbolPanel.style.display = 'block';
+    });
+
+    // close symbol panel when hovering over other buttons
+    buttonsToClose.forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+            symbolPanel.style.display = 'none';
+        });
+    });
+
+    // no collapsing when hovering overpanel
+    symbolPanel.addEventListener('mouseenter', function() {
+        symbolPanel.style.display = 'block';
+    });
+});
+
+// symbol panel functionality 1.6.2
+document.addEventListener('DOMContentLoaded', function() {
+    const symbolButton = document.getElementById('symbolButton');
+    const symbolPanel = document.getElementById('symbolPanel');
+    const noteInput1 = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+    let activeInput = null; // track the currently active input
+
+    // Focusing on the input fields
+    noteInput1.addEventListener('focus', function() {
+        activeInput = noteInput1;
+    });
+
+    noteInput2.addEventListener('focus', function() {
+        activeInput = noteInput2;
+    });
+
+    emojiButton.addEventListener('click', function(event) {
+        // Prevent the click from propagating to the document event listener
+        event.stopPropagation();
+        emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    symbolPanel.addEventListener('click', function(event) {
+        if (event.target.classList.contains('symbol')) {
+            // Ensure that an active input is selected
+            if (activeInput) {
+                insertAtCursor(activeInput, event.target.textContent);
+                // Save to localStorage after inserting symbol
+                if (activeInput === noteInput1) {
+                    localStorage.setItem('noteInput', activeInput.value);
+                } else if (activeInput === noteInput2) {
+                    localStorage.setItem('noteInput2', activeInput.value);
+                }
+            }
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!symbolButton.contains(event.target) && !symbolPanel.contains(event.target)) {
+            symbolPanel.style.display = 'none';
+        }
+    });
+
+    function insertAtCursor(input, textToInsert) {
+        const startPos = input.selectionStart;
+        const endPos = input.selectionEnd;
+        const beforeValue = input.value.substring(0, startPos);
+        const afterValue = input.value.substring(endPos, input.value.length);
+        input.value = beforeValue + textToInsert + afterValue;
+        // Move the cursor to the end
+        input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
+        // Refocus the textarea after inserting
+        input.focus();
+    }
+});
