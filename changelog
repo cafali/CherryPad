@@ -3,7 +3,7 @@ CherryPad - Browser Notepad | CHANGELOG
 
 DEV 1.6.2 (coming in the future)
 - Added a Monochrome Symbol Panel, providing a dedicated set of Unicode symbols for marking, decorating, or expressing notes
-- Added two new “finger pointing” emojis to the emoji panel, replacing two less practical emojis.
+- Added two new “finger pointing” emojis to the emoji panel, replacing two less practical emojis
 - Slightly increased popup window size and padding to improve usability and available workspace
 - Fine-tuned cherry spin animation that triggers during interactions with popup functions
 
