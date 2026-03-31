@@ -126,8 +126,8 @@ button:active {
 #privacyButton:hover { background-color: #00000000; color: #ffffffb5; } /* privacy button */
 
 /* clear buttons turn red on notification */
-#clearButton:active { color: #711313; background-color: #ff6d6d;}
-#clearButton2:active { color: #711313; background-color: #ff6d6d;}
+#clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000}
+#clearButton2:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000}
 #privacyButton:active { color: #ffffff; transform: scale(1);}
 
 .button:last-child {
