@@ -408,14 +408,6 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-//CTRL+E for Emoji Panel
-document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && (event.key === 'e' || event.key === 'E')) {
-        event.preventDefault(); 
-        document.getElementById('emojiButton').click(); 
-    }
-});
-
 //CTRL+D Download 
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
