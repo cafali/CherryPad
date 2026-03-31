@@ -102,17 +102,17 @@ button:active {
 
 .button i {
     margin-right: 5px;
-    text-shadow: 0 2px 1px #00000032
+    text-shadow: 0 2px 1px #00000032;
 }
 
 /* TOP button colors */
-.button:first-child { background-color: #478654; color: #bcffc6; } /* save */
-.button:nth-child(2) { background-color: #b44848; color: #ffdcdc; } /* download */
-.button:nth-child(3) { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
-.button:nth-child(4) { background-color: #6a98dc; color: #d5e7ff; } /* paste */
+#saveButton { background-color: #478654; color: #bcffc6; } /* save */
+#DownloadButton { background-color: #b44848; color: #ffdcdc; } /* download */
+#copyButton { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
+#pasteButton { background-color: #6a98dc; color: #d5e7ff; } /* paste */
 #emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
-#clearButton, #clearButton2 { background-color: #131313; color: #ffffff; } /* clear buttons */
+#clearButton, #clearButton2 { background-color: #171717; color: #ffffff; border: 2px solid #212121; } /* clear buttons */
 #privacyButton { background-color: #00000000; scale: 1.1; margin-right: -10px;} /* privacy button */
 #vkeyButton { background-color: #00000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
@@ -127,10 +127,61 @@ button:active {
 #privacyButton:hover { background-color: #00000000; color: #ffffffb5; } /* privacy button */
 #vkeyButton:hover { background-color: #00000000; color: #ffffffb5; } /* virtual keyboard button */
 
+
 /* clear buttons turn red on notification */
-#clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000}
-#clearButton2:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000}
+#clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #ff4f4f;}
+#clearButton2:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #ff4f4f;}
 #privacyButton:active { color: #ffffff; transform: scale(1);}
+
+/* Dropdown container for clear buttons */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Main eraser button */
+.dropdown-toggle {
+  background-color: #13131300;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+/* Dropdown menu hidden by default */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: -50px;
+  flex-direction: column;
+  background-color: #00000000;
+  min-width: 150px;
+  z-index: 10;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Show menu on hover */
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/* Dropdown buttons */
+.dropdown-menu .button {
+  background-color: #131313bd;
+  color: #ffffff;
+  text-align: center;
+  padding: 16px 12px;
+  border: none;
+  width: 100%;
+  margin: 5px 0;
+}
+
+/* Hover effect for dropdown buttons */
+.dropdown-menu .button:hover {
+  background-color: #2c2c2c;
+}
 
 .button:last-child {
     margin-right: 0;
