@@ -109,7 +109,7 @@ button:active {
 .button:nth-child(3) { background-color: #dca158; color: hsl(48, 100%, 92%); text-shadow: 0 2px 1px #0000002b; } /* copy */
 .button:nth-child(4) { background-color: #6a98dc; color: #d5e7ff; text-shadow: 0 2px 1px #0000002b; } /* paste */
 #emojiButton { background-color: #b8b43f; color: #ffffdd; text-shadow: 0 2px 1px #0000002b; } /* emoji */
-#symbolButton { background-color: #8a3b71; color: #e9aad5; text-shadow: 0 2px 1px #0000002b; } /* symbols */
+#symbolButton { background-color: #8a3b71; color: #f3b3df; text-shadow: 0 2px 1px #0000002b; } /* symbols */
 #clearButton, #clearButton2 { background-color: #131313; color: #ffffff; text-shadow: 0 2px 1px #00000059; } /* clear buttons */
 #privacyButton { background-color: #00000000; scale: 1.1; } /* privacy button */
 
@@ -208,8 +208,9 @@ rotate: 5deg;
 
 /* symbol on hover */
 .symbol-panel button:hover {
-transform: scale(1.2);
+transform: scale(1.5);
 z-index: 1;
+color: #d560b0;
 }
 
 /* symbol on click */
