@@ -400,6 +400,14 @@ logoImage.addEventListener('click', function () {
 
 //keyboard shortcuts fullscreen
 
+//CTRL+E for Emoji Panel
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && (event.key === 'e' || event.key === 'E')) {
+        event.preventDefault(); 
+        document.getElementById('emojiButton').click(); 
+    }
+});
+
 //Ctrl+S for SAVE
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
@@ -646,10 +654,10 @@ document.addEventListener('DOMContentLoaded', function() {
         activeInput = noteInput2;
     });
 
-    emojiButton.addEventListener('click', function(event) {
+    symbolButton.addEventListener('click', function(event) {
         // Prevent the click from propagating to the document event listener
         event.stopPropagation();
-        emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+        symbolPanel.style.display = symbolPanel.style.display === 'block' ? 'none' : 'block';
     });
 
     symbolPanel.addEventListener('click', function(event) {
@@ -684,4 +692,116 @@ document.addEventListener('DOMContentLoaded', function() {
         // Refocus the textarea after inserting
         input.focus();
     }
+});
+
+
+// Virtual Keyboard 1.6.2
+
+// vkey panel display on hover 1.6.2
+document.addEventListener('DOMContentLoaded', function() {
+    const vkeyButton = document.getElementById('vkeyButton');
+    const vkeyPanel = document.getElementById('vkeyPanel');
+    const buttonsToClose = document.querySelectorAll('.button:not(#vkeyButton)');
+
+    // open virtual keyboard panel when hovering over vkey button
+    vkeyButton.addEventListener('mouseenter', function() {
+        vkeyPanel.style.display = 'block';
+    });
+
+    // close virtual keyboard panel when hovering over other buttons
+    buttonsToClose.forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+            vkeyPanel.style.display = 'none';
+        });
+    });
+
+    // no collapsing when hovering overpanel
+    vkeyPanel.addEventListener('mouseenter', function() {
+        vkeyPanel.style.display = 'block';
+    });
+});
+
+// vkey panel functionality 1.6.2
+document.addEventListener('DOMContentLoaded', function() {
+    const vkeyButton = document.getElementById('vkeyButton');
+    const vkeyPanel = document.getElementById('vkeyPanel');
+    const noteInput1 = document.getElementById('noteInput');
+    const noteInput2 = document.getElementById('noteInput2');
+    let activeInput = null; // track the currently active input
+
+    // Focusing on the input fields
+    noteInput1.addEventListener('focus', function() {
+        activeInput = noteInput1;
+    });
+
+    noteInput2.addEventListener('focus', function() {
+        activeInput = noteInput2;
+    });
+
+    symbolButton.addEventListener('click', function(event) {
+        // Prevent the click from propagating to the document event listener
+        event.stopPropagation();
+        vkeyPanel.style.display = vkeyPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    vkeyPanel.addEventListener('click', function(event) {
+        if (event.target.classList.contains('vkey')) {
+            // Ensure that an active input is selected
+            if (activeInput) {
+                insertAtCursor(activeInput, event.target.textContent);
+                // Save to localStorage after inserting symbol
+                if (activeInput === noteInput1) {
+                    localStorage.setItem('noteInput', activeInput.value);
+                } else if (activeInput === noteInput2) {
+                    localStorage.setItem('noteInput2', activeInput.value);
+                }
+            }
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!symbolButton.contains(event.target) && !symbolPanel.contains(event.target)) {
+            symbolPanel.style.display = 'none';
+        }
+    });
+
+    function insertAtCursor(input, textToInsert) {
+        const startPos = input.selectionStart;
+        const endPos = input.selectionEnd;
+        const beforeValue = input.value.substring(0, startPos);
+        const afterValue = input.value.substring(endPos, input.value.length);
+        input.value = beforeValue + textToInsert + afterValue;
+        // Move the cursor to the end
+        input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
+        // Refocus the textarea after inserting
+        input.focus();
+    }
+});
+
+
+// drag vkey panel 1.6.2
+const panel = document.querySelector('.vkeyPanel');
+
+let isDragging = false;
+let offsetX, offsetY;
+
+panel.addEventListener('mousedown', (e) => {
+    isDragging = true;
+
+    offsetX = e.clientX - panel.offsetLeft;
+    offsetY = e.clientY - panel.offsetTop;
+
+    document.body.style.userSelect = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    panel.style.left = (e.clientX - offsetX) + 'px';
+    panel.style.top = (e.clientY - offsetY) + 'px';
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    document.body.style.userSelect = '';
 });

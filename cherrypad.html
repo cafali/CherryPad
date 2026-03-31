@@ -25,7 +25,7 @@
         <button id="clearButton" class="button"><i class="fas fa-eraser"></i>Note 1</button>
         <button id="clearButton2" class="button"><i class="fas fa-eraser"></i>Note 2</button>
         <button id="privacyButton" class="button"><i class="fa-solid fa-eye"></i></button>
-        <button id="vkeyboardButton" class="button"><i class="fa-solid fa-keyboard"></i></button>
+        <button id="vkeyButton" class="button"><i class="fa-solid fa-keyboard"></i></button>
     </div>
     <div class="container">
         <div class="textarea-wrapper">
@@ -39,6 +39,7 @@ CherryPad Shortcuts:
 
 CTRL+S - Save Manually
 CTRL+D - Download Note
+CTRL+E - Emoji Panel
 CTRL+A - Select All
 CTRL+C - Copy Note
 CTRL+V - Paste Note
@@ -301,8 +302,9 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 </div>
 
 <!-- Virtual Keyboard -->
-<div id="virtualkeyboardPanel" class="virtual-keyboard-panel">
+<div id="vkeyPanel" class="vkeyPanel">
     <!-- ROW1 -->
+     <span id="vkey-label">UPPER </span><br>
     <button class="vkey">A</button>
     <button class="vkey">B</button>
     <button class="vkey">C</button>
@@ -332,10 +334,10 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
     <button class="vkey">W</button>
     <button class="vkey">X</button>
     <button class="vkey">Y</button>
-    <button class="vkey">Z</button>
-    <button class="vkey"></button><br><br>
+    <button class="vkey">Z</button><br><br>
 
     <!-- ROW4 -->
+    <span id="vkey-label">LOWER </span><br>
     <button class="vkey">a</button>
     <button class="vkey">b</button>
     <button class="vkey">c</button>
@@ -365,9 +367,44 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
     <button class="vkey">w</button>
     <button class="vkey">x</button>
     <button class="vkey">y</button>
-    <button class="vkey">z</button>
-    <button class="vkey"></button><br>
+    <button class="vkey">z</button><br><br>
+    
+    <span id="vkey-label">SPECIAL </span><br>
+    <button class="vkey">.</button>
+    <button class="vkey">!</button>
+    <button class="vkey">?</button>
+    <button class="vkey">'</button>
+    <button class="vkey">"</button>
+    <button class="vkey">/</button>
+    <button class="vkey">-</button>
+    <button class="vkey">:</button>
+    <button class="vkey">,</button><br>
+
+    <button class="vkey">@</button>
+    <button class="vkey">#</button>
+    <button class="vkey">$</button>
+    <button class="vkey">%</button>
+    <button class="vkey">&</button>
+    <button class="vkey">*</button>
+    <button class="vkey">+</button>
+    <button class="vkey">(</button>
+    <button class="vkey">)</button><br><br>
+
+    <span id="vkey-label">NUMBERS </span><br>
+    <button class="vkey">1</button>
+    <button class="vkey">2</button>
+    <button class="vkey">3</button>
+    <button class="vkey">4</button>
+    <button class="vkey">5</button>
+    <button class="vkey">6</button>
+    <button class="vkey">7</button>
+    <button class="vkey">8</button>
+    <button class="vkey">9</button>
+    <button class="vkey">0</button><br>
+
+
 </div>
+
 </body>
 </html>
 <!-- Bottom Buttons --> 

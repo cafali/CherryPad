@@ -114,7 +114,7 @@ button:active {
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
 #clearButton, #clearButton2 { background-color: #131313; color: #ffffff; } /* clear buttons */
 #privacyButton { background-color: #00000000; scale: 1.1; margin-right: -10px;} /* privacy button */
-#vkeyboardButton { background-color: #00000000; scale: 1.1; margin-right: 0px;} /* privacy button */
+#vkeyButton { background-color: #00000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -125,6 +125,7 @@ button:active {
 #emojiButton:hover { background-color: #949133; } /* emoji */
 #symbolButton:hover { background-color: #6a2c5b; } /* symbols */
 #privacyButton:hover { background-color: #00000000; color: #ffffffb5; } /* privacy button */
+#vkeyButton:hover { background-color: #00000000; color: #ffffffb5; } /* virtual keyboard button */
 
 /* clear buttons turn red on notification */
 #clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000}
@@ -223,6 +224,67 @@ rotate: 5deg;
 }    
 
 /* <<<<<<<<<<<<<< END SYMBOL PANEL SETTINGS >>>>>>>>>>>>>>> */
+
+/* <<<<<<<<<<<<<< VKEY PANEL SETTINGS >>>>>>>>>>>>>>> */
+
+/* symbol panel */
+.vkeyPanel {
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    font: optional;baseline-shift: -100%;
+    background-color: #161616f5;
+    border: 4px solid #212121;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    user-select: none;
+    overflow: auto;
+    min-width: 150px;
+    min-height: 100px;
+    cursor: grab;
+}
+
+.vkeyPanel:active {
+    cursor: grabbing;
+}
+
+.vkeyPanel button {
+    font-family: bahnschrift, sans-serif;
+    color: #ffffff;
+    background: none;
+    border: none;
+    font-size: 23px;
+    cursor: pointer;
+    margin: 2px;
+    width: 22px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    display: inline-block;
+}
+
+.vkeyPanel button:hover {
+    transform: scale(1.05);
+    z-index: 1;
+    color: #b6b6b6d6;
+}
+
+.vkeyPanel button:active {
+    transform: scale(0.85);
+    rotate: 0deg;
+}
+
+#vkey-label {
+    font-size: 20px;
+    font-family: Bahnschrift, sans-serif;
+    font-weight: bold;
+    color: #dcdcdc;
+}
+
+/* <<<<<<<<<<<<<< END VKEY PANEL SETTINGS >>>>>>>>>>>>>>> */
 
 /* text input/note fields */
 .container {
