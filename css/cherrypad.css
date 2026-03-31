@@ -227,24 +227,29 @@ rotate: 5deg;
 
 /* <<<<<<<<<<<<<< VKEY PANEL SETTINGS >>>>>>>>>>>>>>> */
 
-/* symbol panel */
+/* virtual keyboard panel */
 .vkeyPanel {
     display: none;
     position: fixed;
     top: 100px;
     left: 100px;
-    font: optional;baseline-shift: -100%;
-    background-color: #0c0c0cf9;
-    border: 4px solid #212121;
-    border-radius: 15px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font: optional; baseline-shift: -100%;
+    background-color: #0d0d0d; /* darker, sleek background */
+    border: 2px solid #1f1f1f; /* minimal border */
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* subtle depth */
     z-index: 1000;
     user-select: none;
     overflow: auto;
     min-width: 150px;
     min-height: 100px;
     cursor: grab;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vkeyPanel:hover {
+transform: scale(1.02);
 }
 
 .vkeyPanel:active {
@@ -252,36 +257,45 @@ rotate: 5deg;
 }
 
 .vkeyPanel button {
-    font-family: bahnschrift, sans-serif;
-    color: #ffffff;
-    background: none;
+    font-family: 'Bahnschrift', sans-serif;
+    color: #e0e0e0;
+    background: #1e1e1e;
     border: none;
-    font-size: 23px;
+    border-radius: 6px;
+    font-size: 22px; /* keep close to original 23px */
     cursor: pointer;
     margin: 2px;
-    width: 22px;
+    width: 24px; /* slightly wider than original 22px */
     height: 32px;
-    line-height: 32px;
     text-align: center;
-    display: inline-block;
+    display: inline-flex; /* key change for centering */
+    align-items: center; /* vertical centering */
+    justify-content: center; /* horizontal centering */
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .vkeyPanel button:hover {
-    transform: scale(1.05);
-    z-index: 1;
-    color: #b6b6b6d6;
+    transform: scale(1);
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .vkeyPanel button:active {
     transform: scale(0.85);
-    rotate: 0deg;
+    background: rgb(27, 27, 27);
+    color: #acacac;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 #vkey-label {
     font-size: 20px;
-    font-family: Bahnschrift, sans-serif;
-    font-weight: bold;
-    color: #dcdcdc;
+    font-family: 'Bahnschrift', sans-serif;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-bottom: 6px;
+    display: block;
+    letter-spacing: 0.5px;
 }
 
 /* <<<<<<<<<<<<<< END VKEY PANEL SETTINGS >>>>>>>>>>>>>>> */
