@@ -231,9 +231,8 @@ rotate: 5deg;
 .vkeyPanel {
     display: none;
     position: fixed;
-    top: 100px;
-    left: 100px;
-    font: optional; baseline-shift: -100%;
+    top: 60px;
+    left: 80.5%;
     background-color: #0d0d0d; /* darker, sleek background */
     border: 2px solid #1f1f1f; /* minimal border */
     border-radius: 12px;
