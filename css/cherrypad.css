@@ -113,7 +113,8 @@ button:active {
 #emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
 #clearButton, #clearButton2 { background-color: #131313; color: #ffffff; } /* clear buttons */
-#privacyButton { background-color: #00000000; scale: 1.1; } /* privacy button */
+#privacyButton { background-color: #00000000; scale: 1.1; margin-right: -10px;} /* privacy button */
+#vkeyboardButton { background-color: #00000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -371,3 +372,5 @@ rotate: 5deg;
     opacity: 0;
   }
 }
+
+
