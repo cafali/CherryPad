@@ -3,7 +3,7 @@ CherryPad - Browser Notepad | CHANGELOG
 
 DEV 1.6.2 Version (TBA)
 -------------------------------------------------  
-- Added Virtual Keyboard
+- Added a draggable virtual keyboard with uppercase, lowercase, special characters, and numbers
 - Added a new Unicode Symbol Panel, providing a dedicated set of Unicode symbols in the fullscreen mode
 - Added two new “finger pointing” emojis to the emoji panel, replacing two less practical emojis
 - Added more user instructions regarding keyboard shortcuts and general usage to the placeholder text when empty
