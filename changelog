@@ -7,20 +7,21 @@ DEV 1.6.2 Version (TBA)
 - Added a new Unicode Symbol Panel, providing a dedicated set of Unicode symbols in the fullscreen mode
 - Added two new “finger pointing” emojis to the emoji panel, replacing two less practical emojis
 - Added more user instructions regarding keyboard shortcuts and general usage to the placeholder text when empty
+- Redesigned the clear buttons, combining two separate buttons into one, including a dropdown hover menu
 - Slightly increased popup window size and padding to improve usability and available workspace
-- Fine-tuned cherry spin animation that triggers during interactions with popup functions
+- Fine-tuned cherry popup spin animation that triggers during different interactions
 
 Version 1.6.X (March 2026) (Current)
 -------------------------------------------------  
 1.6.1
-- Fixed a bug where red spelling check underlines appeared through the Privacy layer when Privacy Mode was on
 - Added visual feedback for textarea focus; active note area now darkens in all views (fullscreen/popup)
 - Added an interactive star review system & visual features to the about page
+- Fixed a bug where red spelling check underlines appeared through the Privacy layer when Privacy Mode was on
 
 1.6.0 
 - Added icons to popup buttons
-- Fixed bug where popup Clear button did not clear the note
 - Added popup two-step deletion confirmation to the clear button
+- Fixed bug where popup Clear button did not clear the note
 - CherryPad logo now fades when overlapping buttons during horizontal fullscreen resize
 - Adjusted redirect method for multiple elements on the About page
 
@@ -30,21 +31,20 @@ Version 1.5.X (January 2025 - March 2026)
 - Added a privacy toggle button in fullscreen mode that allows users to hide the content of their notes
 - Hidden notes can be revealed via the privacy button or hover
 - Added the current date and time to the notification messages displayed when using the save, copy, download & paste buttons
-- Date/time notifications now reflect the color of the action, matching the color of the button used
 - Added a “how to exit” message to the hidden minigame & adjusted background color
 - Added a moving dark gradient animation in fullscreen mode for a more dynamic and visually appealing background
+- Date/time notifications now reflect the color of the action, matching the color of the button used
 - Redesigned the look of the about page
 - General code cleanup and optimization
 
 1.5.8
 - Added date to downloaded .txt filename (DD-MM-YYYY)
+- Added the web store link to the About page
 - Changed "CherryPad - Notepad Extension" to "CherryPad - Browser Notepad" in the manifest file
 - Replaced local changelog file with GitHub changelog link
-- Added the web store link to the About page
-
 1.5.7
-- Updated minigame trigger in fullscreen 
 - Fixed a bug on the About page that prevented the Changelog and License file from opening properly
+- Updated minigame trigger in fullscreen 
 - Updated MIT License year to 2026
 
 1.5.6
