@@ -148,6 +148,10 @@ button:active {
   padding: 8px 12px;
 }
 
+.dropdown-toggle:hover {
+  color: #ffffffb5;
+}
+
 /* Dropdown menu hidden by default */
 .dropdown-menu {
   display: none;
@@ -172,7 +176,7 @@ button:active {
   background-color: #131313bd;
   color: #ffffff;
   text-align: center;
-  padding: 16px 12px;
+  padding: 10px 20px;
   border: none;
   width: 100%;
   margin: 5px 0;
@@ -283,8 +287,8 @@ rotate: 5deg;
     display: none;
     position: fixed;
     top: 60px;
-    left: 80.5%;
-    background-color: #0d0d0d; /* darker, sleek background */
+    left: 60%;
+    background-color: #0d0d0ddd; /* darker, sleek background */
     border: 2px solid #1f1f1f; /* minimal border */
     border-radius: 12px;
     padding: 12px;
@@ -303,7 +307,7 @@ transform: scale(1.02);
 }
 
 .vkeyPanel:active {
-    cursor: grabbing;
+    cursor: move;
 }
 
 .vkeyPanel button {
@@ -339,13 +343,12 @@ transform: scale(1.02);
 }
 
 #vkey-label {
-    font-size: 20px;
-    font-family: 'Bahnschrift', sans-serif;
-    font-weight: 600;
-    color: #f0f0f0;
-    margin-bottom: 6px;
-    display: block;
-    letter-spacing: 0.5px;
+    font-size: clamp(9px, 1vw, 12px); /* dynamic, max = 12px */
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    color: rgb(102, 102, 102);
+    text-align: center;
+    user-select: none;
 }
 
 /* <<<<<<<<<<<<<< END VKEY PANEL SETTINGS >>>>>>>>>>>>>>> */
@@ -498,5 +501,3 @@ transform: scale(1.02);
     opacity: 0;
   }
 }
-
-
