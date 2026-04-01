@@ -112,9 +112,10 @@ button:active {
 #pasteButton { background-color: #6a98dc; color: #d5e7ff; } /* paste */
 #emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
+.dropdown-toggle { background-color: #ff000000; color: #ffffff; scale: 1.1; margin-right: 0px;} /* clear dropdown toggle */
 #clearButton, #clearButton2 { background-color: #171717; color: #ffffff; border: 2px solid #212121; } /* clear buttons */
 #privacyButton { background-color: #00000000; scale: 1.1; margin-right: -10px;} /* privacy button */
-#vkeyButton { background-color: #00000000; scale: 1.1; margin-right: 0px;} /* privacy button */
+#vkeyButton { background-color: #ff000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
 /* TOP button hover colors */
 .button:hover { filter: brightness(100%); }
@@ -123,6 +124,7 @@ button:active {
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
 #emojiButton:hover { background-color: #949133; } /* emoji */
+.dropdown-toggle:hover { color: #ffffffb5;} /* clear dropdown toggle */
 #symbolButton:hover { background-color: #6a2c5b; } /* symbols */
 #privacyButton:hover { background-color: #00000000; color: #ffffffb5; } /* privacy button */
 #vkeyButton:hover { background-color: #00000000; color: #ffffffb5; } /* virtual keyboard button */
@@ -137,19 +139,6 @@ button:active {
 .dropdown {
   position: relative;
   display: inline-block;
-}
-
-/* Main eraser button */
-.dropdown-toggle {
-  background-color: #13131300;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  padding: 8px 12px;
-}
-
-.dropdown-toggle:hover {
-  color: #ffffffb5;
 }
 
 /* Dropdown menu hidden by default */
@@ -286,11 +275,17 @@ rotate: 5deg;
 .vkeyPanel {
     display: none;
     position: fixed;
-    top: 60px;
+    top: 15%;
     left: 60%;
-    background-color: #0d0d0dfb; /* darker, sleek background */
-    border: 2px solid #1f1f1f; /* minimal border */
-    border-radius: 12px;
+    background-color: #0d0d0dfb;
+        background: linear-gradient(
+        120deg,
+    #0c0c0c,#101010,#131313,#131313,#171717,#1a1a1a,#1f1f1f
+    );
+    background-size: 400% 400%;
+    animation: gradientFlow 25s ease infinite;
+    border: 2px solid #212121; /* minimal border */
+    border-radius: 10px;
     padding: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* subtle depth */
     z-index: 1000;
@@ -298,12 +293,14 @@ rotate: 5deg;
     overflow: auto;
     min-width: 150px;
     min-height: 100px;
-    cursor: grab;
+    cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .vkeyPanel:hover {
 transform: scale(1.02);
+    border: 1px solid #477186; /* minimal border */
+
 }
 
 .vkeyPanel:active {
@@ -313,8 +310,8 @@ transform: scale(1.02);
 .vkeyPanel button {
     font-family: 'Bahnschrift', sans-serif;
     color: #e0e0e0;
-    background: #1e1e1e;
-    border: none;
+    background: #292929;
+    border: 1px solid #d5d5d520;
     border-radius: 6px;
     font-size: 22px; /* keep close to original 23px */
     cursor: pointer;
@@ -326,18 +323,17 @@ transform: scale(1.02);
     align-items: center; /* vertical centering */
     justify-content: center; /* horizontal centering */
     transition: all 0.15s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);;
 }
 
-.vkeyPanel button:hover {
-    transform: scale(1);
+.vkeyPanel button:hover {    background: #1d1d1d;
     color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .vkeyPanel button:active {
-    transform: scale(0.85);
-    background: rgb(27, 27, 27);
+    scale:0.85;
+    background: #003541;
     color: #acacac;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
@@ -346,7 +342,7 @@ transform: scale(1.02);
     font-size: clamp(9px, 1vw, 12px); /* dynamic, max = 12px */
     font-family: Arial, sans-serif;
     font-weight: normal;
-    color: rgb(102, 102, 102);
+    color: rgba(255, 255, 255, 0.54);
     text-align: center;
     user-select: none;
 }
