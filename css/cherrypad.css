@@ -131,8 +131,8 @@ button:active {
 
 
 /* clear buttons turn red on notification */
-#clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #ff4f4f;}
-#clearButton2:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #ff4f4f;}
+#clearButton:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #711313;}
+#clearButton2:active { color: #711313; background-color: #ff6d6d; text-shadow: 0 0px 0px #00000000; border: 2px solid #711313;}
 #privacyButton:active { color: #ffffff; transform: scale(1);}
 
 /* Dropdown container for clear buttons */
