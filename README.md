@@ -1,4 +1,5 @@
-[![CherryBannerTop](https://github.com/user-attachments/assets/3ffc5620-5520-43cf-8351-ff3893d6ef24)](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)
+
+<img width="1497" height="369" alt="banner giothib 2" src="https://github.com/user-attachments/assets/39793056-8277-4a4d-aa24-f1bf7bd1335e" /><br>
 
 
 Welcome to CherryPad 🍒, the notepad extension for your browser!
@@ -7,7 +8,9 @@ CherryPad is designed to make your note-taking experience quick, convenient, and
 
 **Get CherryPad from the [Chrome Web Store](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)**
 ---
-[![CherryBanner](https://github.com/user-attachments/assets/22da9be6-0207-4b34-9a68-780f0089904d)](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)
+<img width="1497" height="369" alt="Github banner" src="https://github.com/user-attachments/assets/b007d8df-beec-400a-bb65-1bcd6385f0e2" /><br>
+
+
 
 Key Features:
 - Modern dark design for comfortable long-term viewing 🌒
@@ -18,7 +21,11 @@ Key Features:
 - Full-screen mode includes two separate note fields 📝📝
 
 
-![image](https://github.com/user-attachments/assets/44938819-281f-42ef-994e-3f4181fa663f)
+<img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/c64109ac-5876-4b73-87a3-d70f01c19f9a" /><br>
+
+
+
+
 
 
 
