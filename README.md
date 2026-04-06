@@ -1,5 +1,5 @@
 
-<img width="1497" height="369" alt="banner giothib 2" src="https://github.com/user-attachments/assets/39793056-8277-4a4d-aa24-f1bf7bd1335e" /><br>
+<img width="1497" height="369" alt="banner giothib 2" src="https://github.com/user-attachments/assets/28d90e57-60a6-4895-9945-476ee2d8f1a8" /><br>
 
 
 Welcome to CherryPad 🍒, the notepad extension for your browser!
