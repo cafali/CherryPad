@@ -6,7 +6,7 @@
 
 /* general */
 body {
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -14,11 +14,8 @@ body {
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(
-        120deg,
-    #0c0c0c,#101010,#131313,#131313,#171717,#1a1a1a,#1f1f1f
-    );
-    background-size: 400% 400%;
+    background-image: linear-gradient(120deg,#0c0c0c,#101010,#131313,#131313,#171717,#1a1a1a,#1f1f1f);
+    background-size: 300% 300%;
     animation: gradientFlow 25s ease infinite;
 }
 
@@ -205,7 +202,6 @@ button:active {
     padding: 0px;
     margin: 2px;
 }
-
 
 /* emoji on hover */
 .emoji-panel button:hover {
@@ -474,8 +470,8 @@ transform: scale(1.02);
 /* pos bottom buttons */
 .button.version-button { left: 20px; }
 .button.github-button { left: 120px; }
-.button.About-button { right: 167px; }
-.button.WebStore-button { right: 20px; }
+.button.WebStore-button { right: 123px; }
+.button.About-button { right: 10px; }
 
 /* version button explosion */
 .emoji-particle {

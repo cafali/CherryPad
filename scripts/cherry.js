@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
         activeInput = noteInput2;
     });
 
-    symbolButton.addEventListener('click', function(event) {
+    vkeyButton.addEventListener('click', function(event) {
         // Prevent the click from propagating to the document event listener
         event.stopPropagation();
         vkeyPanel.style.display = vkeyPanel.style.display === 'block' ? 'none' : 'block';
