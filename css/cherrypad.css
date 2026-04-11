@@ -290,7 +290,7 @@ rotate: 5deg;
 }
 
 .vkeyPanel:hover {
-transform: scale(1.02);
+transform: scale(1.1);
     background-color: #131313;
     border: 1px solid #477186; /* minimal border */
 

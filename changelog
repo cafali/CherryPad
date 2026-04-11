@@ -1,6 +1,13 @@
 CherryPad - Browser Notepad | CHANGELOG
 -------------------------------------------------
 
+DEV 1.6.3 (Coming Soon)
+- Fixed a bug where pressing the Virtual Keyboard button again would not close the keyboard
+- Fixed a bug where pressing the Symbol button would unintentionally open the virtual keyboard
+- Fixed a bug causing the active notefield to flash on each keystroke while typing on the virtual keyboard
+- Added new emojis to the emoji panel
+- Adjusted the positioning of various UI elements
+
 Version 1.6.X (March 2026 - April 2026) (Current)
 -------------------------------------------------
 1.6.2

@@ -805,3 +805,10 @@ document.addEventListener('mouseup', () => {
     isDragging = false;
     document.body.style.userSelect = '';
 });
+
+// prevent notefield focus flashing when pressing a vkey
+document.querySelectorAll(".vkey").forEach(button => {
+    button.addEventListener("mousedown", e => {
+        e.preventDefault();
+    });
+});
