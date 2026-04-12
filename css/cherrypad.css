@@ -271,15 +271,15 @@ rotate: 5deg;
     display: none;
     position: fixed;
     top: 15%;
-    left: 60%;
+    left: 55%;
     min-width: 180px;
     min-height: 110px;
     padding: 14px;
     background:
         linear-gradient(
             145deg,
-            rgb(16, 16, 16),
-            rgba(14, 14, 14, 0.868)
+            rgba(16, 16, 16, 0.924),
+            rgb(14, 14, 14)
         );
 
     border: 1px solid rgba(255,255,255,0.08);
@@ -305,7 +305,7 @@ rotate: 5deg;
     background-color: #000000;
     transform: translateY(-2px);
     box-shadow:0 14px 36px rgba(0,0,0,0.42);
-    border-color: #477186f9;
+    border-color: #3d3d3d;
     transform: scale(1.1) translateY(-2px);
 }
 
@@ -317,15 +317,14 @@ rotate: 5deg;
     width: 34px;
     height: 38px;
     margin: 3px;
-
     border-radius: 12px;
-    border: 1px solid #2a2a2a;
+    border: 1px solid #3d3d3d;
 
     background:
         linear-gradient(
             180deg,
-            rgb(26, 26, 26),
-            rgb(13, 13, 13)
+            #191919,
+            #191919
         );
 
     color: white;
