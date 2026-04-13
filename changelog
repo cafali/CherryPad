@@ -50,6 +50,7 @@ Version 1.5.X (January 2025 - March 2026)
 - Added the web store link to the About page
 - Changed "CherryPad - Notepad Extension" to "CherryPad - Browser Notepad" in the manifest file
 - Replaced local changelog file with GitHub changelog link
+
 1.5.7
 - Fixed a bug on the About page that prevented the Changelog and License file from opening properly
 - Updated minigame trigger in fullscreen 
