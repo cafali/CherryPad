@@ -299,6 +299,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// prevent notefield focus flashing when pressing a emoji   
+document.querySelectorAll(".emoji").forEach(button => {
+    button.addEventListener("mousedown", e => {
+        e.preventDefault();
+    });
+});
+
 // emoji panel functionality
 document.addEventListener('DOMContentLoaded', function() {
     const emojiButton = document.getElementById('emojiButton');
@@ -637,6 +644,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// prevent notefield focus flashing when pressing a symbol 
+document.querySelectorAll(".symbol").forEach(button => {
+    button.addEventListener("mousedown", e => {
+        e.preventDefault();
+    });
+});
+
 // symbol panel functionality 1.6.2
 document.addEventListener('DOMContentLoaded', function() {
     const symbolButton = document.getElementById('symbolButton');
@@ -812,3 +826,4 @@ document.querySelectorAll(".vkey").forEach(button => {
         e.preventDefault();
     });
 });
+
