@@ -29,7 +29,7 @@ const backButton = document.getElementById('back-button');
 // FLOATING CHERRY
   const bg = document.getElementById('floating-bg');
   const numCherries = 15; // number of floating images
-  const imgSrc = "icon/CherryPad.png";
+  const imgSrc = "icon/cherrypad.png";
 
   for (let i = 0; i < numCherries; i++) {
     const cherry = document.createElement('img');
