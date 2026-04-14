@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); 
             saveButton.click();
             setTimeout(function() {
-                window.open("CherryPad.html", '_blank');
+                window.open("cherrypad.html", '_blank');
             }, 150);
         });
     }

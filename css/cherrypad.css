@@ -195,12 +195,18 @@ button:active {
 }
 
 .emoji-panel button {
+    color: #ffffff;
     background: none;
     border: none;
     font-size: 23px;
     cursor: pointer;
-    padding: 0px;
+    padding: 0;
     margin: 2px;
+    width: 32px;       /* fixed width */
+    height: 32px;      /* fixed height */
+    line-height: 32px; /* vertically center symbol */
+    text-align: center; /* horizontally center symbol */
+    display: inline-block;
 }
 
 /* emoji on hover */
