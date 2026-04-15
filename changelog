@@ -7,7 +7,7 @@ Version 1.6.X (March 2026 - April 2026) (Current)
 - CherryPad is now fully compatible with Linux systems
 - Adapted file names to fix Linux case-sensitive path issues that prevented CherryPad from working properly
 - Fullscreen mode and other features can now be accessed on Linux and other case-sensitive operating systems
-- Assets such as logos, images, and icons now load correctly on Linux
+- Assets such as logos, images and icons now load correctly on Linux
 - Fixed emoji panel compatibility and alignment across different operating systems and emoji sets
 - Fixed a bug causing the active notefield to flash on each emoji & symbol panel selection
 
