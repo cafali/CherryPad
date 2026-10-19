@@ -3,6 +3,12 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.6.X (March 2026 - April 2026) (Current)
 -------------------------------------------------
+1.6.5
+- Made the virtual keyboard more compact by combining uppercase and lowercase letters into one set of keys
+- Added a CAPS LOCK button to switch between uppercase and lowercase letters
+- Added left and right arrow keys to move the cursor and a BACKSPACE key to delete text
+- Adjusted virtual keyboard key alignment for a more consistent layout
+
 1.6.4
 - CherryPad is now fully compatible with Linux systems
 - Adapted file names to fix Linux case-sensitive path issues that prevented CherryPad from working properly

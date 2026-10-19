@@ -742,6 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const noteInput1 = document.getElementById('noteInput');
     const noteInput2 = document.getElementById('noteInput2');
     let activeInput = null; // track the currently active input
+    let capsLockEnabled = true;
 
     // Focusing on the input fields
     noteInput1.addEventListener('focus', function() {
@@ -759,17 +760,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     vkeyPanel.addEventListener('click', function(event) {
-        if (event.target.classList.contains('vkey')) {
-            // Ensure that an active input is selected
-            if (activeInput) {
-                insertAtCursor(activeInput, event.target.textContent);
-                // Save to localStorage after inserting symbol
-                if (activeInput === noteInput1) {
-                    localStorage.setItem('noteInput', activeInput.value);
-                } else if (activeInput === noteInput2) {
-                    localStorage.setItem('noteInput2', activeInput.value);
-                }
-            }
+        const key = event.target.closest('.vkey');
+        if (!key) return;
+
+        const action = key.dataset.action;
+        if (action === 'capslock') {
+            capsLockEnabled = !capsLockEnabled;
+            vkeyPanel.querySelectorAll('.letter-key').forEach(letterKey => {
+                const letter = letterKey.dataset.letter;
+                letterKey.textContent = capsLockEnabled ? letter.toUpperCase() : letter;
+            });
+            key.setAttribute('aria-pressed', String(capsLockEnabled));
+            return;
+        }
+
+        if (!activeInput) return;
+
+        if (action) {
+            applyEditingAction(activeInput, action);
+        } else {
+            insertAtCursor(activeInput, key.textContent);
+        }
+
+        if (activeInput === noteInput1) {
+            localStorage.setItem('noteInput', activeInput.value);
+        } else if (activeInput === noteInput2) {
+            localStorage.setItem('noteInput2', activeInput.value);
         }
     });
 
@@ -790,6 +806,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Refocus the textarea after inserting
         input.focus();
     }
+
+    function applyEditingAction(input, action) {
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+
+        if (action === 'left' || action === 'right') {
+            const position = start !== end
+                ? (action === 'left' ? start : end)
+                : (action === 'left' ? Math.max(0, start - 1) : Math.min(input.value.length, end + 1));
+            input.setSelectionRange(position, position);
+        } else if (action === 'backspace') {
+            const deleteStart = start === end ? Math.max(0, start - 1) : start;
+            input.setRangeText('', deleteStart, end, 'end');
+        }
+
+        input.focus();
+    }
 });
 
 
@@ -800,6 +833,8 @@ let isDragging = false;
 let offsetX, offsetY;
 
 panel.addEventListener('mousedown', (e) => {
+    if (e.target.closest('button')) return;
+
     isDragging = true;
 
     offsetX = e.clientX - panel.offsetLeft;
@@ -826,4 +861,3 @@ document.querySelectorAll(".vkey").forEach(button => {
         e.preventDefault();
     });
 });
-

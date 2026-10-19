@@ -318,69 +318,37 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 
 <!-- Virtual Keyboard -->
 <div id="vkeyPanel" class="vkeyPanel">
-    <!-- ROW1 -->
-    <button class="vkey">A</button>
-    <button class="vkey">B</button>
-    <button class="vkey">C</button>
-    <button class="vkey">D</button>
-    <button class="vkey">E</button>
-    <button class="vkey">F</button>
-    <button class="vkey">G</button>
-    <button class="vkey">H</button>
-    <button class="vkey">I</button><br>
-    <!-- ROW2 -->
-    <button class="vkey">J</button>
-    <button class="vkey">K</button>
-    <button class="vkey">L</button>
-    <button class="vkey">M</button>
-    <button class="vkey">N</button>
-    <button class="vkey">O</button>
-    <button class="vkey">P</button>
-    <button class="vkey">Q</button>
-    <button class="vkey">R</button><br>
-
-    <!-- ROW3 -->
-    <button class="vkey">S</button>
-    <button class="vkey">T</button>
-    <button class="vkey">U</button>
-    <button class="vkey">V</button>
-    <button class="vkey">W</button>
-    <button class="vkey">X</button>
-    <button class="vkey">Y</button>
-    <button class="vkey">Z</button><br><br>
-
-    <!-- ROW4 -->
-    <button class="vkey">a</button>
-    <button class="vkey">b</button>
-    <button class="vkey">c</button>
-    <button class="vkey">d</button>
-    <button class="vkey">e</button>
-    <button class="vkey">f</button>
-    <button class="vkey">g</button>
-    <button class="vkey">h</button>
-    <button class="vkey">i</button><br>
-
-    <!-- ROW5 -->
-    <button class="vkey">j</button>
-    <button class="vkey">k</button>
-    <button class="vkey">l</button>
-    <button class="vkey">m</button>
-    <button class="vkey">n</button>
-    <button class="vkey">o</button>
-    <button class="vkey">p</button>
-    <button class="vkey">q</button>
-    <button class="vkey">r</button><br>
-
-    <!-- ROW6 -->
-    <button class="vkey">s</button>
-    <button class="vkey">t</button>
-    <button class="vkey">u</button>
-    <button class="vkey">v</button>
-    <button class="vkey">w</button>
-    <button class="vkey">x</button>
-    <button class="vkey">y</button>
-    <button class="vkey">z</button><br>
-    <br>
+    <!-- LETTERS -->
+    <button class="vkey letter-key" data-letter="a">A</button>
+    <button class="vkey letter-key" data-letter="b">B</button>
+    <button class="vkey letter-key" data-letter="c">C</button>
+    <button class="vkey letter-key" data-letter="d">D</button>
+    <button class="vkey letter-key" data-letter="e">E</button>
+    <button class="vkey letter-key" data-letter="f">F</button>
+    <button class="vkey letter-key" data-letter="g">G</button>
+    <button class="vkey letter-key" data-letter="h">H</button>
+    <button class="vkey letter-key" data-letter="i">I</button><br>
+    <button class="vkey letter-key" data-letter="j">J</button>
+    <button class="vkey letter-key" data-letter="k">K</button>
+    <button class="vkey letter-key" data-letter="l">L</button>
+    <button class="vkey letter-key" data-letter="m">M</button>
+    <button class="vkey letter-key" data-letter="n">N</button>
+    <button class="vkey letter-key" data-letter="o">O</button>
+    <button class="vkey letter-key" data-letter="p">P</button>
+    <button class="vkey letter-key" data-letter="q">Q</button>
+    <button class="vkey letter-key" data-letter="r">R</button><br>
+    <button class="vkey letter-key" data-letter="s">S</button>
+    <button class="vkey letter-key" data-letter="t">T</button>
+    <button class="vkey letter-key" data-letter="u">U</button>
+    <button class="vkey letter-key" data-letter="v">V</button>
+    <button class="vkey letter-key" data-letter="w">W</button>
+    <button class="vkey letter-key" data-letter="x">X</button>
+    <button class="vkey letter-key" data-letter="y">Y</button>
+    <button class="vkey letter-key" data-letter="z">Z</button><br><br>
+    <button class="vkey" data-action="capslock" aria-label="Caps Lock" aria-pressed="true">CAPS</button>
+        <button class="vkey" data-action="left" aria-label="Move cursor left">&larr;</button>
+    <button class="vkey" data-action="right" aria-label="Move cursor right">&rarr;</button>
+    <button class="vkey" data-action="backspace" aria-label="Backspace">BACKSPACE</button><br><br>
     <button class="vkey">.</button>
     <button class="vkey">!</button>
     <button class="vkey">?</button>
@@ -413,7 +381,6 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
     <button class="vkey">9</button>
     <button class="vkey">0</button><br>
     <br>
-    <br>
     <button class="vkey" style="width: 330px; display: block; margin: 0 auto;"> </button>
     <span id="vkey-label" style="display: block; text-align: center; margin: 15px 0;">Drag the window to reposition the Virtual Keyboard</span>
 
@@ -422,7 +389,7 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 </body>
 </html>
 <!-- Bottom Buttons --> 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.4</button>
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.5</button>
 <button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub</button>
 <button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
 <button id="AboutButton" class="button About-button"><i class="fa fa-info-circle"></i>About</button>

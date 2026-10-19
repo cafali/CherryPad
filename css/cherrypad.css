@@ -366,9 +366,30 @@ rotate: 5deg;
     background:
         linear-gradient(
             180deg,
-            rgba(71,113,134,0.40),
-            rgba(71,113,134,0.28)
+            #47718666,
+            #47718647
         );
+}
+
+.vkeyPanel button[data-action="backspace"] {
+    width: 88px;
+    font-size: 12px;
+}
+
+.vkeyPanel button[data-action="left"],
+.vkeyPanel button[data-action="right"],
+.vkeyPanel button[data-action="backspace"] {
+    vertical-align: middle;
+}
+
+.vkeyPanel button[data-action="capslock"] {
+    width: 76px;
+    font-size: 15px;
+}
+
+.vkeyPanel button[data-action="capslock"][aria-pressed="true"] {
+    background: linear-gradient(180deg, #477286ac, #477286ae);
+    border-color: #477286d5;
 }
 
 #vkey-label {
