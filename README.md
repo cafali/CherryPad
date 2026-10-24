@@ -15,7 +15,7 @@ CherryPad is designed to make your note-taking experience quick, convenient, and
 CherryPad Key Features:
 - AutoSave 
 - Privacy Mode 
-- Virtual Keyboard 
+- Virtual Keyboard with a pin toggle to keep it open while using other buttons
 - Hidden Easter Eggs 
 - Built-in emoji panel 
 - Built-in symbol panel

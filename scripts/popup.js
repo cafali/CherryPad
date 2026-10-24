@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Clear note input
         noteInput.value = '';
+        noteInput.dispatchEvent(new Event('input'));
 
         // Save cleared state to all storage keys
         localStorage.setItem('note', '');
@@ -98,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.includes("popup.html")) {
         cherryIcon.addEventListener("click", function() {
             noteInput.value += "🍒 Click! 🍒";
+            noteInput.dispatchEvent(new Event('input'));
         });
 
         // add click event to Fullscreen.png to save content and redirect to fullscreen
@@ -114,11 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // AutoSave and other handlers
 document.addEventListener('DOMContentLoaded', function() {
     const noteInput = document.getElementById('noteInput');
+    const noteStats = document.getElementById('noteStats');
     if (localStorage.getItem('noteInput')) {
         noteInput.value = localStorage.getItem('noteInput');
     }
+    function updateNoteStats() {
+        const characterCount = Array.from(noteInput.value).length;
+        const wordCount = noteInput.value.trim().match(/\S+/g)?.length || 0;
+        noteStats.textContent = `${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'}`;
+    }
+    updateNoteStats();
     noteInput.addEventListener('input', function() {
         localStorage.setItem('noteInput', noteInput.value);
+        updateNoteStats();
     });
 });
 

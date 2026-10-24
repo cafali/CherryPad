@@ -33,6 +33,7 @@
     <div class="container">
         <div class="textarea-wrapper">
             <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+            <p id="fullNoteStats" aria-live="polite">0 characters · 0 words</p>
             <i class="fa-solid fa-eye-slash privacy-overlay"></i>
         </div>
         <div class="textarea-wrapper">
@@ -319,36 +320,59 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 <!-- Virtual Keyboard -->
 <div id="vkeyPanel" class="vkeyPanel">
     <!-- LETTERS -->
-    <button class="vkey letter-key" data-letter="a">A</button>
-    <button class="vkey letter-key" data-letter="b">B</button>
-    <button class="vkey letter-key" data-letter="c">C</button>
-    <button class="vkey letter-key" data-letter="d">D</button>
+    <div class="vkey-letter-row">
+        <br>
+    <button class="vkey">1</button>
+    <button class="vkey">2</button>
+    <button class="vkey">3</button>
+    <button class="vkey">4</button>
+    <button class="vkey">5</button>
+    <button class="vkey">6</button>
+    <button class="vkey">7</button>
+    <button class="vkey">8</button>
+    <button class="vkey">9</button>
+    <button class="vkey">0</button><br><br>
+    <button class="vkey letter-key" data-letter="q">Q</button>
+    <button class="vkey letter-key" data-letter="w">W</button>
     <button class="vkey letter-key" data-letter="e">E</button>
+    <button class="vkey letter-key" data-letter="r">R</button>
+    <button class="vkey letter-key" data-letter="t">T</button>
+    <button class="vkey letter-key" data-letter="y">Y</button>
+    <button class="vkey letter-key" data-letter="u">U</button>
+    <button class="vkey letter-key" data-letter="i">I</button>
+    <button class="vkey letter-key" data-letter="o">O</button>
+    <button class="vkey letter-key" data-letter="p">P</button>
+    </div>
+    <div class="vkey-letter-row">
+    <button class="vkey letter-key" data-letter="a">A</button>
+    <button class="vkey letter-key" data-letter="s">S</button>
+    <button class="vkey letter-key" data-letter="d">D</button>
     <button class="vkey letter-key" data-letter="f">F</button>
     <button class="vkey letter-key" data-letter="g">G</button>
     <button class="vkey letter-key" data-letter="h">H</button>
-    <button class="vkey letter-key" data-letter="i">I</button><br>
     <button class="vkey letter-key" data-letter="j">J</button>
     <button class="vkey letter-key" data-letter="k">K</button>
     <button class="vkey letter-key" data-letter="l">L</button>
-    <button class="vkey letter-key" data-letter="m">M</button>
-    <button class="vkey letter-key" data-letter="n">N</button>
-    <button class="vkey letter-key" data-letter="o">O</button>
-    <button class="vkey letter-key" data-letter="p">P</button>
-    <button class="vkey letter-key" data-letter="q">Q</button>
-    <button class="vkey letter-key" data-letter="r">R</button><br>
-    <button class="vkey letter-key" data-letter="s">S</button>
-    <button class="vkey letter-key" data-letter="t">T</button>
-    <button class="vkey letter-key" data-letter="u">U</button>
-    <button class="vkey letter-key" data-letter="v">V</button>
-    <button class="vkey letter-key" data-letter="w">W</button>
+    </div>
+    <div class="vkey-letter-row">
+    <button class="vkey letter-key" data-letter="z">Z</button>
     <button class="vkey letter-key" data-letter="x">X</button>
-    <button class="vkey letter-key" data-letter="y">Y</button>
-    <button class="vkey letter-key" data-letter="z">Z</button><br><br>
-    <button class="vkey" data-action="capslock" aria-label="Caps Lock" aria-pressed="true">CAPS</button>
+    <button class="vkey letter-key" data-letter="c">C</button>
+    <button class="vkey letter-key" data-letter="v">V</button>
+    <button class="vkey letter-key" data-letter="b">B</button>
+    <button class="vkey letter-key" data-letter="n">N</button>
+    <button class="vkey letter-key" data-letter="m">M</button>
+    </div>
+    <br>
+    <div class="vkey-control-row">
+        <button class="vkey" data-action="capslock" aria-label="Caps Lock" aria-pressed="true">CAPS</button>
         <button class="vkey" data-action="left" aria-label="Move cursor left">&larr;</button>
-    <button class="vkey" data-action="right" aria-label="Move cursor right">&rarr;</button>
-    <button class="vkey" data-action="backspace" aria-label="Backspace">BACKSPACE</button><br><br>
+        <button class="vkey" data-action="enter" aria-label="Insert new line">ENTER</button>
+        <button class="vkey" data-action="right" aria-label="Move cursor right">&rarr;</button>
+        <button class="vkey" data-action="backspace" aria-label="Backspace">BACKSPACE</button><br><br>
+        <button class="vkey" data-action="space" aria-label="Space" style="width: 300px; display: block; margin: 0 auto;">SPACE</button>
+    </div>
+    <br>
     <button class="vkey">.</button>
     <button class="vkey">!</button>
     <button class="vkey">?</button>
@@ -357,6 +381,7 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
     <button class="vkey">/</button>
     <button class="vkey">-</button>
     <button class="vkey">:</button>
+    <button class="vkey">;</button>
     <button class="vkey">,</button><br>
 
     <button class="vkey">@</button>
@@ -366,30 +391,24 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
     <button class="vkey">&</button>
     <button class="vkey">*</button>
     <button class="vkey">+</button>
+    <button class="vkey">-</button>
     <button class="vkey">(</button>
-    <button class="vkey">)</button><br>
-    <br>
-    <button class="vkey">1</button>
-    <button class="vkey">2</button>
-    <button class="vkey">3</button>
-    <button class="vkey">4</button>
-    <button class="vkey">5</button><br>
-
-    <button class="vkey">6</button>
-    <button class="vkey">7</button>
-    <button class="vkey">8</button>
-    <button class="vkey">9</button>
-    <button class="vkey">0</button><br>
-    <br>
-    <button class="vkey" style="width: 330px; display: block; margin: 0 auto;"> </button>
+    <button class="vkey">)</button><br><br>
+    <button type="button" id="vkeyPinButton" class="vkey-pin-button" aria-label="Pin virtual keyboard" title="Pin virtual keyboard" aria-pressed="false">
+        <i class="fa-solid fa-thumbtack" aria-hidden="true"></i>
+        <span id="vkeyPinLabel">PIN</span>
+    </button>
+    <button type="button" id="vkeyCloseButton" class="vkey-close-button" aria-label="Close virtual keyboard">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        <span>CLOSE</span>
+    </button>
     <span id="vkey-label" style="display: block; text-align: center; margin: 15px 0;">Drag the window to reposition the Virtual Keyboard</span>
-
 </div>
 
 </body>
 </html>
 <!-- Bottom Buttons --> 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.5</button>
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.6</button>
 <button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub</button>
 <button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
 <button id="AboutButton" class="button About-button"><i class="fa fa-info-circle"></i>About</button>

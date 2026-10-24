@@ -106,7 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     noteInput2.addEventListener('input', function() {
         saveInput('noteInput2', noteInput2);
+        updateNoteStats();
     });
+
+    function updateNoteStats() {
+        const characterCount = Array.from(noteInput1.value).length + Array.from(noteInput2.value).length;
+        const wordCount = [noteInput1.value, noteInput2.value]
+            .reduce((count, value) => count + (value.trim().match(/\S+/g)?.length || 0), 0);
+        document.getElementById('fullNoteStats').textContent =
+            `${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'}`;
+    }
+
+    noteInput1.addEventListener('input', updateNoteStats);
+    updateNoteStats();
 });
 
 //blink logo Cherry when saving (fullscreen)
@@ -201,6 +213,7 @@ document.getElementById('pasteButton').addEventListener('click', async () => {
 
         // insert the text at the cursor position
         lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
+        lastActiveTextarea.dispatchEvent(new Event('input'));
         lastActiveTextarea.focus(); // ensure the textarea is focused
         lastActiveTextarea.selectionStart = startPos + text.length; // move cursor to end of pasted text
         lastActiveTextarea.selectionEnd = startPos + text.length;
@@ -254,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {   //1.5.0 fix
                 // Add the text to the top with a newline
                 noteInput.value = textWithNewline + currentValue;
             }
+            noteInput.dispatchEvent(new Event('input'));
         });
     }
 });
@@ -385,6 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearButton2.addEventListener('click', function() {
             if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
                 noteInput2.value = '';
+                noteInput2.dispatchEvent(new Event('input'));
                 localStorage.setItem('note2', '');
                 document.getElementById('saveButton').click(); 
             }
@@ -393,6 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearButton.addEventListener('click', function() {
             if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
                 noteInput.value = '';
+                noteInput.dispatchEvent(new Event('input'));
                 localStorage.setItem('note', '');
                 document.getElementById('saveButton').click(); 
             }
@@ -701,6 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const beforeValue = input.value.substring(0, startPos);
         const afterValue = input.value.substring(endPos, input.value.length);
         input.value = beforeValue + textToInsert + afterValue;
+        input.dispatchEvent(new Event('input'));
         // Move the cursor to the end
         input.selectionStart = input.selectionEnd = startPos + textToInsert.length;
         // Refocus the textarea after inserting
@@ -715,7 +732,25 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const vkeyButton = document.getElementById('vkeyButton');
     const vkeyPanel = document.getElementById('vkeyPanel');
+    const pinButton = document.getElementById('vkeyPinButton');
+    const pinLabel = document.getElementById('vkeyPinLabel');
+    const closeButton = document.getElementById('vkeyCloseButton');
     const buttonsToClose = document.querySelectorAll('.button:not(#vkeyButton)');
+    let isPinned = false;
+
+    closeButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        vkeyPanel.style.display = 'none';
+    });
+
+    pinButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        isPinned = !isPinned;
+        pinLabel.textContent = isPinned ? 'UNPIN' : 'PIN';
+        pinButton.setAttribute('aria-pressed', String(isPinned));
+        pinButton.setAttribute('aria-label', isPinned ? 'Unpin virtual keyboard' : 'Pin virtual keyboard');
+        pinButton.title = isPinned ? 'Unpin virtual keyboard' : 'Pin virtual keyboard';
+    });
 
     // open virtual keyboard panel when hovering over vkey button
     vkeyButton.addEventListener('mouseenter', function() {
@@ -725,7 +760,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // close virtual keyboard panel when hovering over other buttons
     buttonsToClose.forEach(function(button) {
         button.addEventListener('mouseenter', function() {
-            vkeyPanel.style.display = 'none';
+            if (!isPinned) {
+                vkeyPanel.style.display = 'none';
+            }
         });
     });
 
@@ -743,6 +780,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const noteInput2 = document.getElementById('noteInput2');
     let activeInput = null; // track the currently active input
     let capsLockEnabled = true;
+    const graphemeSegmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
 
     // Focusing on the input fields
     noteInput1.addEventListener('focus', function() {
@@ -814,14 +852,39 @@ document.addEventListener('DOMContentLoaded', function() {
         if (action === 'left' || action === 'right') {
             const position = start !== end
                 ? (action === 'left' ? start : end)
-                : (action === 'left' ? Math.max(0, start - 1) : Math.min(input.value.length, end + 1));
+                : (action === 'left'
+                    ? getPreviousGraphemeBoundary(input.value, start)
+                    : getNextGraphemeBoundary(input.value, end));
             input.setSelectionRange(position, position);
+        } else if (action === 'space') {
+            input.setRangeText(' ', start, end, 'end');
+        } else if (action === 'enter') {
+            input.setRangeText('\n', start, end, 'end');
         } else if (action === 'backspace') {
-            const deleteStart = start === end ? Math.max(0, start - 1) : start;
+            const deleteStart = start === end
+                ? getPreviousGraphemeBoundary(input.value, start)
+                : start;
             input.setRangeText('', deleteStart, end, 'end');
         }
 
         input.focus();
+    }
+
+    function getPreviousGraphemeBoundary(value, position) {
+        let boundary = 0;
+        for (const { index } of graphemeSegmenter.segment(value)) {
+            if (index >= position) break;
+            boundary = index;
+        }
+        return boundary;
+    }
+
+    function getNextGraphemeBoundary(value, position) {
+        for (const { index, segment } of graphemeSegmenter.segment(value)) {
+            const boundary = index + segment.length;
+            if (boundary > position) return boundary;
+        }
+        return value.length;
     }
 });
 

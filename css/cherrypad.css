@@ -280,7 +280,7 @@ rotate: 5deg;
     left: 55%;
     min-width: 180px;
     min-height: 110px;
-    padding: 14px;
+    padding: 54px 14px 14px;
     background:
         linear-gradient(
             145deg,
@@ -305,6 +305,7 @@ rotate: 5deg;
         transform 0.2s ease,
         box-shadow 0.2s ease,
         border-color 0.2s ease;
+    box-sizing: border-box;
 }
 
 .vkeyPanel:hover {
@@ -312,7 +313,7 @@ rotate: 5deg;
     transform: translateY(-2px);
     box-shadow:0 14px 36px rgba(0,0,0,0.42);
     border-color: #3d3d3d;
-    transform: scale(1.1) translateY(-2px);
+    transform: scale(1.05) translateY(-2px);
 }
 
 .vkeyPanel:active {
@@ -346,6 +347,14 @@ rotate: 5deg;
         transform 0.12s ease,
         background 0.15s ease,
         border-color 0.15s ease;
+}
+
+.vkey-letter-row {
+    text-align: center;
+}
+
+.vkey-control-row {
+    text-align: center;
 }
 
 .vkeyPanel button:hover {
@@ -382,6 +391,12 @@ rotate: 5deg;
     vertical-align: middle;
 }
 
+.vkeyPanel button[data-action="enter"] {
+    width: 58px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
 .vkeyPanel button[data-action="capslock"] {
     width: 76px;
     font-size: 15px;
@@ -390,6 +405,45 @@ rotate: 5deg;
 .vkeyPanel button[data-action="capslock"][aria-pressed="true"] {
     background: linear-gradient(180deg, #477286ac, #477286ae);
     border-color: #477286d5;
+}
+
+.vkeyPanel button.vkey-pin-button,
+.vkeyPanel button.vkey-pin-button:hover,
+.vkeyPanel button.vkey-pin-button:active,
+.vkeyPanel button.vkey-pin-button[aria-pressed="true"],
+.vkeyPanel button.vkey-close-button,
+.vkeyPanel button.vkey-close-button:hover,
+.vkeyPanel button.vkey-close-button:active {
+    position: absolute;
+    top: 12px;
+    height: 36px;
+    margin: 0;
+    font-size: 13px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transform: none;
+    cursor: pointer;
+}
+
+.vkeyPanel button.vkey-pin-button {
+    left: 14px;
+    width: 64px;
+}
+
+.vkeyPanel button.vkey-close-button {
+    right: 14px;
+    width: 72px;
+}
+
+.vkeyPanel button.vkey-pin-button:focus-visible {
+    outline: 1px dotted currentColor;
+    outline-offset: 2px;
+}
+
+.vkeyPanel button.vkey-pin-button[aria-pressed="true"] {
+    color: #477186f9;
 }
 
 #vkey-label {
@@ -430,6 +484,16 @@ rotate: 5deg;
     outline: none;
     box-sizing: border-box;
     resize: none;
+}
+
+#fullNoteStats {
+    position: absolute;
+    left: 14px;
+    bottom: 10px;
+    margin: 0 4px;
+    color: #999;
+    font-size: 12px;
+    line-height: 14px;
 }
 
 .container textarea:hover {
