@@ -4,7 +4,7 @@ CherryPad - Browser Notepad | CHANGELOG
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
 1.6.7
-- Added the Cherry Sticky Notes dashboard with a large, pannable board for creating, editing, moving, resizing and organizing notes
+- Added Cherry StickyBoard, a pannable board for creating, editing, moving, resizing and organizing notes
 - Added note connections, board navigation, and JSON import/export for backing up and restoring boards
 - Added line counter to the fullscreen and popup character and word counter
 - Added today's date to the fullscreen character and word counter
@@ -17,7 +17,6 @@ Version 1.6.X (March 2026 - October 2026) (Current)
 1.6.6
 - Fixed a bug causing the virtual keyboard's backspace key to delete emojis incorrectly
 - Adjusted the virtual keyboard button layout
-- Added a pin/unpin button to keep the virtual keyboard open while using other buttons
 - Added a close button to the virtual keyboard
 - Added an Enter key to the virtual keyboard
 - Added word and character counter to fullscreen and popup
