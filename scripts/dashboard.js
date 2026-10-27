@@ -502,15 +502,24 @@
   }
 
   function loadBoard() {
+    let isFirstLaunch = false;
+    let updatedWelcomeNote = false;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
+      if (saved !== null) {
         const parsed = JSON.parse(saved);
         if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.notes)) throw new Error('Unsupported board data.');
         const seenIds = new Set();
         model.notes = parsed.notes.map(function (note, index) {
           return normalizeNote(note, index, seenIds);
         }).filter(Boolean);
+        model.notes.forEach(function (note) {
+          if (note.title === 'Welcome to CherryPad'
+            && note.content === 'This is your sticky-note board. Edit, move, resize, recolor, duplicate, or delete these starter notes to explore.') {
+            note.title = 'Welcome';
+            updatedWelcomeNote = true;
+          }
+        });
         model.connections = normalizeConnections(parsed.connections, model.notes);
         if (parsed.camera && Number.isFinite(parsed.camera.x) && Number.isFinite(parsed.camera.y)) {
           model.x = parsed.camera.x;
@@ -520,7 +529,46 @@
           centerBoard();
         }
       } else {
+        isFirstLaunch = true;
         centerBoard();
+        const welcomeNote = {
+          id: makeId(),
+          title: 'Welcome',
+          content: 'This is your sticky-note board. Edit, move, resize, recolor, duplicate, or delete these starter notes to explore.',
+          color: '#f8df85',
+          width: 248,
+          height: 252,
+          x: BOARD_WIDTH / 2 - 124,
+          y: BOARD_HEIGHT / 2 - 390,
+          updatedAt: Date.now()
+        };
+        const organizeNote = {
+          id: makeId(),
+          title: 'Make it yours',
+          content: 'Drag notes around the board and use the corner handle to resize them by up to 30%. Your changes save automatically.',
+          color: '#b9dfc2',
+          width: 248,
+          height: 252,
+          x: BOARD_WIDTH / 2 - 420,
+          y: BOARD_HEIGHT / 2 - 30,
+          updatedAt: Date.now()
+        };
+        const connectNote = {
+          id: makeId(),
+          title: 'Connect ideas',
+          content: 'Select a note to reveal its connection points, then drag from one point to another note. Select a line to remove it.',
+          color: '#b9d6f1',
+          width: 248,
+          height: 252,
+          x: BOARD_WIDTH / 2 + 172,
+          y: BOARD_HEIGHT / 2 - 30,
+          updatedAt: Date.now()
+        };
+        model.notes = [welcomeNote, organizeNote, connectNote];
+        model.connections = [
+          { id: makeId(), from: { noteId: welcomeNote.id, side: 'bottom' }, to: { noteId: organizeNote.id, side: 'top' } },
+          { id: makeId(), from: { noteId: welcomeNote.id, side: 'bottom' }, to: { noteId: connectNote.id, side: 'top' } }
+        ];
       }
     } catch (error) {
       console.error('Unable to load the CherryPad board.', error);
@@ -532,6 +580,7 @@
     renderConnections();
     updateCount();
     updateView();
+    if (isFirstLaunch || updatedWelcomeNote) saveBoard();
   }
 
   function setZoom(nextZoom, clientX, clientY) {
