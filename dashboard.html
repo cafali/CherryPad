@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>StickyBoard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="scripts/dashboard.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand">
+      <img src="icon/cherrypad.png" alt="">
+      <span><span class="brand-name">CherryPad</span> <span class="brand-light">StickyBoard</span></span>
+    </a>
+
+    <div class="toolbar" aria-label="Board tools">
+      <button class="tool-button primary" id="addNoteButton" type="button" title="Add a note (N)">
+        <i class="fa-solid fa-plus" aria-hidden="true"></i> New note
+      </button>
+      <button class="tool-button next-button" id="nextNoteButton" type="button" title="Center the next note"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Next Note</button>
+      <button class="tool-button reset-button" id="resetViewButton" type="button" title="Reset the board view"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset View</button>
+      <button class="tool-button export-button" id="exportButton" type="button" title="Download a backup of this board"><i class="fa-solid fa-download" aria-hidden="true"></i> Export Notes</button>
+      <label class="tool-button import-button" for="importInput" title="Restore a board backup"><i class="fa-solid fa-upload" aria-hidden="true"></i> Import Notes</label>
+      <input id="importInput" type="file" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="board-viewport" id="boardViewport" aria-label="Sticky note board. Drag the empty board to move around.">
+      <div class="board-world" id="boardWorld"></div>
+    </div>
+    <button class="return-button" id="returnToCherryPadButton" type="button" title="Return to CherryPad fullscreen mode">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Return
+    </button>
+    <div class="board-hint" id="boardHint">
+      <span><strong id="noteCount">0 notes</strong><span class="hint-separator">·</span><span id="saveStatus" aria-live="polite">All changes saved</span></span>
+      <span class="hint-instructions">Drag the board to move around <span>·</span> Scroll to zoom <span>·</span> Next centers notes one by one</span>
+    </div>
+  </main>
+</body>
+</html>

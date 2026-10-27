@@ -4,6 +4,8 @@ CherryPad - Browser Notepad | CHANGELOG
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
 1.6.7
+- Added the Cherry Sticky Notes dashboard with a large, pannable board for creating, editing, moving, resizing and organizing notes
+- Added note connections, board navigation, and JSON import/export for backing up and restoring boards
 - Added line counter to the fullscreen and popup character and word counter
 - Added today's date to the fullscreen character and word counter
 - Added a button to switch between note fields in the popup

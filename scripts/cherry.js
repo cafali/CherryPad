@@ -63,6 +63,10 @@ document.getElementById('pasteButton').addEventListener('click', function() {
     showStatusMessage('Last pasted: ' + formattedTime, 'paste');
 });
 
+document.getElementById('dashboardButton').addEventListener('click', function() {
+    window.location.assign('dashboard.html');
+});
+
 
 // AutoSave both fields
 document.addEventListener('DOMContentLoaded', function() {
@@ -820,7 +824,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Virtual Keyboard 1.6.2
 
-// vkey panel display on hover 1.6.2
+// Virtual keyboard panel controls
 document.addEventListener('DOMContentLoaded', function() {
     const vkeyButton = document.getElementById('vkeyButton');
     const vkeyPanel = document.getElementById('vkeyPanel');
@@ -844,11 +848,6 @@ document.addEventListener('DOMContentLoaded', function() {
         pinButton.title = isPinned ? 'Unpin virtual keyboard' : 'Pin virtual keyboard';
     });
 
-    // open virtual keyboard panel when hovering over vkey button
-    vkeyButton.addEventListener('mouseenter', function() {
-        vkeyPanel.style.display = 'block';
-    });
-
     // close virtual keyboard panel when hovering over other buttons
     buttonsToClose.forEach(function(button) {
         button.addEventListener('mouseenter', function() {
@@ -858,10 +857,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // no collapsing when hovering overpanel
-    vkeyPanel.addEventListener('mouseenter', function() {
-        vkeyPanel.style.display = 'block';
-    });
 });
 
 // vkey panel functionality 1.6.2

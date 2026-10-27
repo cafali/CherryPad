@@ -107,6 +107,7 @@ button:active {
 #DownloadButton { background-color: #b44848; color: #ffdcdc; } /* download */
 #copyButton { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
 #pasteButton { background-color: #6a98dc; color: #d5e7ff; } /* paste */
+#dashboardButton { background-color: #3e7354; color: #86eeb0; } /* dashboard */
 #emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
 .dropdown-toggle { background-color: #ff000000; color: #ffffff; scale: 1.1; margin-right: 0px;} /* clear dropdown toggle */
@@ -121,6 +122,7 @@ button:active {
 #DownloadButton:hover { background-color: #913535; } /* download */
 #copyButton:hover { background-color: #c47e53; } /* copy */
 #pasteButton:hover { background-color: #4A73B1; } /* paste */
+#dashboardButton:hover { background-color: #315b42; } /* dashboard */
 #emojiButton:hover { background-color: #949133; } /* emoji */
 .dropdown-toggle:hover { color: #ffffffb5;} /* clear dropdown toggle */
 #symbolButton:hover { background-color: #6a2c5b; } /* symbols */
