@@ -32,6 +32,18 @@ textarea {
   box-sizing: border-box;
 }
 
+#noteInput2 {
+  display: none;
+}
+
+.popup-container[data-note-field="second"] #noteInput {
+  display: none;
+}
+
+.popup-container[data-note-field="second"] #noteInput2 {
+  display: block;
+}
+
 textarea:hover {
     background-color: #0000004a;
 }
@@ -107,7 +119,17 @@ button:active {
   background-color: #232323; text-shadow: 0 2px 1px #0000002b;
 }
 
+#noteFieldViewButton {
+  flex: 0 0 48px;
+  background-color: #232323;
+  text-shadow: 0 2px 1px #0000002b;
+}
+
 #clearButton:hover {
+  background-color: #131313;
+}
+
+#noteFieldViewButton:hover {
   background-color: #131313;
 }
 

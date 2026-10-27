@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+function showStatusMessage(message, type) {
+    const statusMessage = document.getElementById('statusMessage');
+    statusMessage.textContent = message;
+    statusMessage.className = `status-message status-${type}`;
+}
+
 // SAVE button click message
 document.getElementById('saveButton').addEventListener('click', function() {
     
@@ -16,13 +22,7 @@ document.getElementById('saveButton').addEventListener('click', function() {
     var now = new Date();
     var formattedTime = now.toLocaleString();
 
-    // hide copy & download message
-    document.getElementById('lastCopied').textContent = '';
-    document.getElementById('lastDownload').textContent = '';
-    document.getElementById('lastPasted').textContent = '';
-
-    // show save message
-    document.getElementById('lastSaved').textContent = 'Last saved: ' + formattedTime;
+    showStatusMessage('Last saved: ' + formattedTime, 'save');
 
     // get values
     var noteInputValue = document.getElementById('noteInput').value;
@@ -40,13 +40,7 @@ document.getElementById('copyButton').addEventListener('click', function() {
     var now = new Date();
     var formattedTime = now.toLocaleString();
 
-    // hide save & download message
-    document.getElementById('lastSaved').textContent = '';
-    document.getElementById('lastDownload').textContent = '';
-    document.getElementById('lastPasted').textContent = '';
-
-    // show copy message
-    document.getElementById('lastCopied').textContent = 'Copied to clipboard - '  + formattedTime;
+    showStatusMessage('Copied to clipboard - ' + formattedTime, 'copy');
 });
 
 // DOWNLOAD button click message
@@ -56,13 +50,7 @@ document.getElementById('DownloadButton').addEventListener('click', function() {
     var now = new Date();
     var formattedTime = now.toLocaleString();
 
-    // hide save & copy message
-    document.getElementById('lastSaved').textContent = '';
-    document.getElementById('lastCopied').textContent = '';
-    document.getElementById('lastPasted').textContent = '';
-
-    // show download message
-    document.getElementById('lastDownload').textContent = 'Last attempted download: ' + formattedTime;
+    showStatusMessage('Last attempted download: ' + formattedTime, 'download');
 });
 
 // PASTE button click message
@@ -72,13 +60,7 @@ document.getElementById('pasteButton').addEventListener('click', function() {
     var now = new Date();
     var formattedTime = now.toLocaleString();
 
-    // hide save & copy message
-    document.getElementById('lastSaved').textContent = '';
-    document.getElementById('lastCopied').textContent = '';
-    document.getElementById('lastDownload').textContent = '';
-
-    // show paste message
-    document.getElementById('lastPasted').textContent = 'Last pasted: ' + formattedTime;
+    showStatusMessage('Last pasted: ' + formattedTime, 'paste');
 });
 
 
@@ -95,6 +77,78 @@ document.addEventListener('DOMContentLoaded', function() {
         noteInput2.value = localStorage.getItem('noteInput2');
     }
 
+    const lineNumberMirror = document.createElement('div');
+    lineNumberMirror.setAttribute('aria-hidden', 'true');
+    Object.assign(lineNumberMirror.style, {
+        position: 'fixed',
+        top: '0',
+        left: '-10000px',
+        visibility: 'hidden',
+        overflow: 'hidden',
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word',
+        boxSizing: 'content-box',
+        margin: '0',
+        padding: '0',
+        border: '0'
+    });
+    document.body.appendChild(lineNumberMirror);
+
+    function updateLineNumbers(textarea) {
+        const lineNumbers = textarea.parentElement.querySelector('.line-numbers');
+        const lineNumberList = lineNumbers.querySelector('.line-number-list');
+        const styles = getComputedStyle(textarea);
+        const lineHeight = parseFloat(styles.lineHeight);
+        const contentWidth = textarea.clientWidth - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight);
+
+        Object.assign(lineNumberMirror.style, {
+            width: `${contentWidth}px`,
+            font: styles.font,
+            lineHeight: styles.lineHeight,
+            letterSpacing: styles.letterSpacing,
+            tabSize: styles.tabSize
+        });
+
+        const measurementFragment = document.createDocumentFragment();
+        const measuredLines = textarea.value.split(/\r\n|\r|\n/).map((line) => {
+            const measuredLine = document.createElement('div');
+            measuredLine.textContent = line || ' ';
+            measuredLine.style.whiteSpace = 'pre-wrap';
+            measurementFragment.appendChild(measuredLine);
+            return measuredLine;
+        });
+        lineNumberMirror.replaceChildren(measurementFragment);
+
+        const wrappedRows = measuredLines.map((line) =>
+            Math.max(1, Math.ceil(line.getBoundingClientRect().height / lineHeight - 0.01))
+        );
+        const labels = [];
+        wrappedRows.forEach((rowCount, index) => {
+            labels.push(String(index + 1));
+            for (let row = 1; row < rowCount; row++) {
+                labels.push('');
+            }
+        });
+
+        lineNumberList.textContent = labels.join('\n');
+        lineNumberList.style.transform = `translateY(-${textarea.scrollTop}px)`;
+        lineNumberMirror.replaceChildren();
+    }
+
+    [noteInput1, noteInput2].forEach(textarea => {
+        textarea.addEventListener('input', () => updateLineNumbers(textarea));
+        textarea.addEventListener('scroll', () => {
+            textarea.parentElement.querySelector('.line-number-list').style.transform =
+                `translateY(-${textarea.scrollTop}px)`;
+        });
+        updateLineNumbers(textarea);
+    });
+    const lineNumberResizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => updateLineNumbers(entry.target));
+    });
+    lineNumberResizeObserver.observe(noteInput1);
+    lineNumberResizeObserver.observe(noteInput2);
+
     // Save to localStorage on input
     function saveInput(key, element) {
         localStorage.setItem(key, element.value);
@@ -109,16 +163,52 @@ document.addEventListener('DOMContentLoaded', function() {
         updateNoteStats();
     });
 
+    let currentNoteView = 'both';
+
     function updateNoteStats() {
-        const characterCount = Array.from(noteInput1.value).length + Array.from(noteInput2.value).length;
-        const wordCount = [noteInput1.value, noteInput2.value]
+        const countedNotes = currentNoteView === 'first'
+            ? [noteInput1.value]
+            : currentNoteView === 'second'
+                ? [noteInput2.value]
+                : [noteInput1.value, noteInput2.value];
+        const lineCount = countedNotes.reduce((count, value) => count + (value.length > 0 ? value.split(/\r\n|\r|\n/).length : 0), 0);
+        const characterCount = countedNotes.reduce((count, value) => count + Array.from(value).length, 0);
+        const wordCount = countedNotes
             .reduce((count, value) => count + (value.trim().match(/\S+/g)?.length || 0), 0);
+        const currentDate = new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        }).format(new Date());
         document.getElementById('fullNoteStats').textContent =
-            `${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'}`;
+            `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${currentDate}`;
     }
 
     noteInput1.addEventListener('input', updateNoteStats);
     updateNoteStats();
+
+    const noteFieldViews = ['both', 'first', 'second'];
+    const viewButton = document.getElementById('noteFieldViewButton');
+    const viewTitles = {
+        both: '',
+        first: '',
+        second: ''
+    };
+    const viewMessages = {
+        both: 'Defaut View',
+        first: 'Showing Note Field 1',
+        second: 'Showing Note Field 2'
+    };
+    let currentViewIndex = 0;
+    viewButton.addEventListener('click', function() {
+        currentViewIndex = (currentViewIndex + 1) % noteFieldViews.length;
+        const view = noteFieldViews[currentViewIndex];
+        currentNoteView = view;
+        document.querySelector('.container').dataset.noteView = view;
+        viewButton.title = viewTitles[view];
+        showStatusMessage(viewMessages[view], 'note-view');
+        updateNoteStats();
+    });
 });
 
 //blink logo Cherry when saving (fullscreen)
@@ -568,6 +658,8 @@ if (privacyEnabled) {
         icon.classList.remove("fa-eye-slash");
         icon.classList.add("fa-eye");
     }
+
+    showStatusMessage(`Privacy Mode ${privacyEnabled ? "ON" : "OFF"}`, 'privacy');
 
 });
 

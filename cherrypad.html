@@ -28,15 +28,17 @@
         <button id="clearButton" class="button"><i class="fas fa-eraser"></i>Field 1</button>
         <button id="clearButton2" class="button"><i class="fas fa-eraser"></i>Field 2</button></div></div>
         <!-- Clear Buttons Menu -->
+        <button id="noteFieldViewButton" class="button" type="button" aria-label="Cycle note field visibility" title=""><i class="fa-solid fa-table-columns" aria-hidden="true"></i></button>
         <button id="privacyButton" class="button"><i class="fa-solid fa-eye"></i></button>
     </div>
     <div class="container">
         <div class="textarea-wrapper">
+            <div class="line-numbers" aria-hidden="true"><div class="line-number-list"></div></div>
             <textarea id="noteInput" placeholder="Write your note here..."></textarea>
-            <p id="fullNoteStats" aria-live="polite">0 characters · 0 words</p>
             <i class="fa-solid fa-eye-slash privacy-overlay"></i>
         </div>
         <div class="textarea-wrapper">
+            <div class="line-numbers" aria-hidden="true"><div class="line-number-list"></div></div>
             <textarea id="noteInput2" placeholder="Hidden Note - This note won't appear in the popup... 
  
 CherryPad Shortcuts: 
@@ -56,12 +58,10 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 ...also make sure to find all the Easter Eggs!"></textarea>
 <i class="fa-solid fa-eye-slash privacy-overlay"></i>
         </div>
+        <p id="fullNoteStats" aria-live="polite">0 lines · 0 characters · 0 words</p>
     </div>
     <div class="footer">
-        <div id="lastSaved" class="last-saved"></div>
-        <div id="lastCopied" class="last-copied"></div>
-        <div id="lastDownload" class="last-download"></div>
-        <div id="lastPasted" class="last-pasted"></div>
+        <div id="statusMessage" class="status-message" aria-live="polite"></div>
         
         CherryPad Makes Note-Taking Easy<br>
         Button icons used in this project: Font Awesome (https://fontawesome.com), licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0)
@@ -408,7 +408,7 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 </body>
 </html>
 <!-- Bottom Buttons --> 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.6</button>
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.6.7</button>
 <button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub</button>
 <button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
 <button id="AboutButton" class="button About-button"><i class="fa fa-info-circle"></i>About</button>
