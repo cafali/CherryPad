@@ -494,23 +494,51 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        //Clear Notes + Ask user (browser popup)
-        clearButton2.addEventListener('click', function() {
-            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
-                noteInput2.value = '';
-                noteInput2.dispatchEvent(new Event('input'));
-                localStorage.setItem('note2', '');
-                document.getElementById('saveButton').click(); 
-            }
-        });
-        
-        clearButton.addEventListener('click', function() {
-            if (confirm("This action will erase your note. Are you sure you want to proceed?")) {
-                noteInput.value = '';
-                noteInput.dispatchEvent(new Event('input'));
-                localStorage.setItem('note', '');
-                document.getElementById('saveButton').click(); 
-            }
+        const noteFieldsToClear = [
+            { button: document.getElementById('clearButton'), input: document.getElementById('noteInput'), label: 'Field 1' },
+            { button: document.getElementById('clearButton2'), input: document.getElementById('noteInput2'), label: 'Field 2' }
+        ];
+
+        let pendingNoteClear = null;
+        let noteClearConfirmationTimer;
+        noteFieldsToClear.forEach(function (field) {
+            const buttonLabel = field.button.querySelector('span');
+            const originalLabel = field.label;
+
+            field.button.addEventListener('click', function () {
+                if (pendingNoteClear !== field) {
+                    if (pendingNoteClear) {
+                        pendingNoteClear.button.classList.remove('is-confirming');
+                        pendingNoteClear.button.setAttribute('aria-label', pendingNoteClear.label);
+                        pendingNoteClear.button.title = 'Clear ' + pendingNoteClear.label;
+                        pendingNoteClear.button.querySelector('span').textContent = pendingNoteClear.label;
+                    }
+                    window.clearTimeout(noteClearConfirmationTimer);
+                    pendingNoteClear = field;
+                    field.button.classList.add('is-confirming');
+                    field.button.setAttribute('aria-label', 'Confirm clear ' + originalLabel);
+                    field.button.title = 'Click again to clear ' + originalLabel;
+                    buttonLabel.textContent = 'Confirm';
+                    noteClearConfirmationTimer = window.setTimeout(function () {
+                        field.button.classList.remove('is-confirming');
+                        field.button.setAttribute('aria-label', originalLabel);
+                        field.button.title = 'Clear ' + originalLabel;
+                        buttonLabel.textContent = originalLabel;
+                        pendingNoteClear = null;
+                    }, 3000);
+                    return;
+                }
+
+                window.clearTimeout(noteClearConfirmationTimer);
+                pendingNoteClear = null;
+                field.button.classList.remove('is-confirming');
+                field.button.setAttribute('aria-label', originalLabel);
+                field.button.title = 'Clear ' + originalLabel;
+                buttonLabel.textContent = originalLabel;
+                field.input.value = '';
+                field.input.dispatchEvent(new Event('input'));
+                document.getElementById('saveButton').click();
+            });
         });
         
 //CherryLogo message fullscreen when click

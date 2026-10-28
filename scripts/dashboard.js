@@ -8,14 +8,34 @@
   const MAX_ZOOM = 1.6;
   const NOTE_COLORS = ['#f8df85', '#f4b8b8', '#b9dfc2', '#b9d6f1', '#ddc3ed', '#f3c89e'];
   const NOTE_COLOR_NAMES = ['Yellow', 'Pink', 'Green', 'Blue', 'Purple', 'Orange'];
+  const DRAW_COLORS = [
+    { name: 'Red', value: '#ff4040' },
+    { name: 'Green', value: '#35d46a' },
+    { name: 'Blue', value: '#438aff' },
+    { name: 'Yellow', value: '#ffe34d' },
+    { name: 'White', value: '#ffffff' },
+    { name: 'Pink', value: '#ff69b4' },
+    { name: 'Violet', value: '#9b59d0' },
+    { name: 'Cyan', value: '#35d5e5' }
+  ];
   const boardViewport = document.getElementById('boardViewport');
   const boardWorld = document.getElementById('boardWorld');
   document.addEventListener('pointerdown', function (event) {
-    if (event.target.closest('.note-color-picker')) return;
-    boardWorld.querySelectorAll('.note-color-menu:not([hidden])').forEach(function (menu) {
-      menu.hidden = true;
-      menu.parentElement.querySelector('.note-color-trigger').setAttribute('aria-expanded', 'false');
-    });
+    if (!event.target.closest('.toolbar-dropdown')) {
+      document.querySelectorAll('.toolbar-dropdown-menu:not([hidden])').forEach(function (menu) {
+        menu.hidden = true;
+        menu.parentElement.querySelectorAll('[aria-expanded="true"]').forEach(function (button) {
+          button.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+    if (!event.target.closest('.draw-tool')) drawColorMenu.hidden = true;
+    if (!event.target.closest('.note-color-picker')) {
+      boardWorld.querySelectorAll('.note-color-menu:not([hidden])').forEach(function (menu) {
+        menu.hidden = true;
+        menu.parentElement.querySelector('.note-color-trigger').setAttribute('aria-expanded', 'false');
+      });
+    }
   });
   const boardCenterMarker = document.createElement('span');
   boardCenterMarker.className = 'board-center-marker';
@@ -25,10 +45,97 @@
   const connectionLayer = document.createElementNS(SVG_NS, 'svg');
   connectionLayer.classList.add('connection-layer');
   boardWorld.appendChild(connectionLayer);
+  const drawingLayer = document.createElementNS(SVG_NS, 'svg');
+  drawingLayer.classList.add('drawing-layer');
+  boardWorld.appendChild(drawingLayer);
   const noteCount = document.getElementById('noteCount');
   const saveStatus = document.getElementById('saveStatus');
   const importInput = document.getElementById('importInput');
-  const model = { notes: [], connections: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+  const drawButton = document.getElementById('drawButton');
+  const drawMenuToggle = document.getElementById('drawMenuToggle');
+  const drawColorMenu = document.getElementById('drawColorMenu');
+  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: DRAW_COLORS[0].value, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+
+  function setToolbarMenuOpen(menu, isOpen) {
+    if (isOpen) {
+      document.querySelectorAll('.toolbar-dropdown-menu:not([hidden])').forEach(function (openMenu) {
+        if (openMenu !== menu) setToolbarMenuOpen(openMenu, false);
+      });
+    }
+    menu.hidden = !isOpen;
+    menu.parentElement.querySelectorAll('[aria-controls="' + menu.id + '"]').forEach(function (button) {
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    if (isOpen && window.matchMedia('(max-width: 900px)').matches) {
+      const toggle = menu.parentElement.querySelector('.dropdown-toggle');
+      const buttonRect = toggle.getBoundingClientRect();
+      const maxLeft = Math.max(8, window.innerWidth - menu.offsetWidth - 8);
+      const maxTop = Math.max(8, window.innerHeight - menu.offsetHeight - 8);
+      menu.style.left = `${clamp(buttonRect.left, 8, maxLeft)}px`;
+      menu.style.top = `${clamp(buttonRect.bottom + 8, 8, maxTop)}px`;
+    } else {
+      menu.style.left = '';
+      menu.style.top = '';
+    }
+  }
+
+  document.querySelectorAll('.toolbar-dropdown').forEach(function (dropdown) {
+    const menu = dropdown.querySelector('.toolbar-dropdown-menu');
+    dropdown.querySelectorAll('[aria-controls="' + menu.id + '"]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        setToolbarMenuOpen(menu, menu.hidden);
+      });
+    });
+  });
+
+  function setDrawMenuOpen(isOpen) {
+    drawColorMenu.hidden = !isOpen;
+    drawMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen && window.matchMedia('(max-width: 900px)').matches) {
+      const buttonRect = drawMenuToggle.getBoundingClientRect();
+      const maxLeft = Math.max(8, window.innerWidth - drawColorMenu.offsetWidth - 8);
+      const maxTop = Math.max(8, window.innerHeight - drawColorMenu.offsetHeight - 8);
+      drawColorMenu.style.left = `${clamp(buttonRect.left, 8, maxLeft)}px`;
+      drawColorMenu.style.top = `${clamp(buttonRect.bottom + 8, 8, maxTop)}px`;
+    } else {
+      drawColorMenu.style.left = '';
+      drawColorMenu.style.top = '';
+    }
+  }
+
+  function setDrawingMode(isActive) {
+    model.drawingActive = isActive;
+    drawButton.classList.toggle('is-active', isActive);
+    drawButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    boardViewport.classList.toggle('is-drawing', isActive);
+    setStatus(isActive ? 'Drawing mode on · select a line to remove it' : 'Drawing mode off');
+  }
+
+  DRAW_COLORS.forEach(function (color) {
+    const option = document.createElement('button');
+    option.className = 'draw-color-option';
+    option.type = 'button';
+    option.setAttribute('aria-label', color.name);
+    option.title = color.name;
+    option.setAttribute('aria-pressed', color.value === model.drawColor ? 'true' : 'false');
+    option.style.setProperty('--draw-color', color.value);
+    option.addEventListener('click', function () {
+      model.drawColor = color.value;
+      drawColorMenu.querySelectorAll('.draw-color-option').forEach(function (item) {
+        item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
+      });
+      setDrawingMode(true);
+      setDrawMenuOpen(false);
+    });
+    drawColorMenu.appendChild(option);
+  });
+
+  drawButton.addEventListener('click', function () {
+    setDrawingMode(!model.drawingActive);
+  });
+  drawMenuToggle.addEventListener('click', function () {
+    setDrawMenuOpen(drawColorMenu.hidden);
+  });
 
   function setStatus(message, isError) {
     window.clearTimeout(model.statusTimer);
@@ -68,6 +175,7 @@
           version: 1,
           notes: model.notes,
           connections: model.connections,
+          strokes: model.strokes,
           camera: { x: model.x, y: model.y, zoom: model.zoom }
         }));
         setStatus('All changes saved');
@@ -79,8 +187,9 @@
   }
 
   function updateCount() {
-    const count = model.notes.length;
-    noteCount.textContent = `${count} ${count === 1 ? 'note' : 'notes'}`;
+    const noteTotal = model.notes.length;
+    const strokeTotal = model.strokes.length;
+    noteCount.textContent = `${noteTotal} ${noteTotal === 1 ? 'note' : 'notes'} · ${strokeTotal} ${strokeTotal === 1 ? 'drawing' : 'drawings'}`;
   }
 
   function formatDate(timestamp) {
@@ -218,6 +327,107 @@
       connectionLayer.appendChild(group);
     });
     updateConnectionPorts();
+  }
+
+  function getStrokeRemovePoint(path) {
+    const totalLength = path.getTotalLength();
+    let bestPoint = path.getPointAtLength(totalLength / 2);
+    let bestClearance = -1;
+    for (let index = 0; index <= 40; index++) {
+      const point = path.getPointAtLength(totalLength * index / 40);
+      const clearance = model.notes.reduce(function (nearest, note) {
+        const dx = Math.max(note.x - point.x, 0, point.x - (note.x + note.width));
+        const dy = Math.max(note.y - point.y, 0, point.y - (note.y + note.height));
+        return Math.min(nearest, Math.hypot(dx, dy));
+      }, Infinity);
+      if (clearance > bestClearance) {
+        bestPoint = point;
+        bestClearance = clearance;
+      }
+      if (clearance >= 16) return point;
+    }
+    return bestPoint;
+  }
+
+  function renderStrokes() {
+    drawingLayer.replaceChildren();
+    model.strokes.forEach(function (stroke) {
+      const group = document.createElementNS(SVG_NS, 'g');
+      group.classList.add('drawing-group');
+      if (stroke.id === model.selectedStrokeId) group.classList.add('is-selected');
+      group.dataset.strokeId = stroke.id;
+
+      const path = document.createElementNS(SVG_NS, 'path');
+      path.classList.add('drawing-stroke');
+      path.setAttribute('d', stroke.points.map(function (point, index) {
+        return `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`;
+      }).join(' '));
+      path.setAttribute('stroke', stroke.color);
+      path.setAttribute('tabindex', '0');
+      path.setAttribute('role', 'button');
+      path.setAttribute('aria-label', `Select ${DRAW_COLORS.find(function (color) { return color.value === stroke.color; }).name} drawing to remove`);
+      path.setAttribute('title', 'Select drawing to remove');
+      path.addEventListener('click', function () {
+        model.selectedStrokeId = model.selectedStrokeId === stroke.id ? null : stroke.id;
+        renderStrokes();
+        if (model.selectedStrokeId) {
+          const selectedPath = drawingLayer.querySelector(`[data-stroke-id="${CSS.escape(stroke.id)}"] .drawing-stroke`);
+          if (selectedPath) selectedPath.focus();
+          setStatus('Drawing selected · press Delete or use × to remove');
+        } else {
+          setStatus('Drawing deselected');
+        }
+      });
+      path.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          model.selectedStrokeId = stroke.id;
+          renderStrokes();
+          const selectedPath = drawingLayer.querySelector(`[data-stroke-id="${CSS.escape(stroke.id)}"] .drawing-stroke`);
+          if (selectedPath) selectedPath.focus();
+          setStatus('Drawing selected · press Delete or use × to remove');
+        }
+      });
+      group.appendChild(path);
+      drawingLayer.appendChild(group);
+
+      const removePoint = getStrokeRemovePoint(path);
+      const removeButton = document.createElementNS(SVG_NS, 'g');
+      removeButton.classList.add('drawing-remove');
+      removeButton.setAttribute('role', 'button');
+      removeButton.setAttribute('tabindex', stroke.id === model.selectedStrokeId ? '0' : '-1');
+      removeButton.setAttribute('aria-label', 'Remove drawing');
+      removeButton.setAttribute('title', 'Remove drawing');
+      const removeBackground = document.createElementNS(SVG_NS, 'circle');
+      removeBackground.setAttribute('cx', removePoint.x);
+      removeBackground.setAttribute('cy', removePoint.y);
+      removeBackground.setAttribute('r', 11);
+      const removeLabel = document.createElementNS(SVG_NS, 'text');
+      removeLabel.setAttribute('x', removePoint.x);
+      removeLabel.setAttribute('y', removePoint.y + 1);
+      removeLabel.textContent = '×';
+      removeButton.append(removeBackground, removeLabel);
+      removeButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        removeStroke(stroke.id);
+      });
+      removeButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          removeStroke(stroke.id);
+        }
+      });
+      group.appendChild(removeButton);
+    });
+  }
+
+  function removeStroke(strokeId) {
+    model.strokes = model.strokes.filter(function (stroke) { return stroke.id !== strokeId; });
+    model.selectedStrokeId = null;
+    renderStrokes();
+    updateCount();
+    saveBoard();
+    setStatus('Drawing removed');
   }
 
   function makeId() {
@@ -585,6 +795,29 @@
     });
   }
 
+  function normalizeStrokes(values) {
+    if (!Array.isArray(values)) return [];
+    const seenIds = new Set();
+    return values.filter(function (stroke) {
+      if (!stroke || typeof stroke.id !== 'string' || seenIds.has(stroke.id)
+        || !DRAW_COLORS.some(function (color) { return color.value === stroke.color; })
+        || !Array.isArray(stroke.points) || stroke.points.length === 0
+        || !stroke.points.every(function (point) {
+          return point && Number.isFinite(point.x) && Number.isFinite(point.y);
+        })) return false;
+      seenIds.add(stroke.id);
+      return true;
+    }).map(function (stroke) {
+      return {
+        id: stroke.id,
+        color: stroke.color,
+        points: stroke.points.map(function (point) {
+          return { x: clamp(point.x, 0, BOARD_WIDTH), y: clamp(point.y, 0, BOARD_HEIGHT) };
+        })
+      };
+    });
+  }
+
   function loadBoard() {
     let isFirstLaunch = false;
     let updatedWelcomeNote = false;
@@ -605,6 +838,7 @@
           }
         });
         model.connections = normalizeConnections(parsed.connections, model.notes);
+        model.strokes = normalizeStrokes(parsed.strokes);
         if (parsed.camera && Number.isFinite(parsed.camera.x) && Number.isFinite(parsed.camera.y)) {
           model.x = parsed.camera.x;
           model.y = parsed.camera.y;
@@ -662,6 +896,7 @@
     }
     model.notes.forEach(createNoteElement);
     renderConnections();
+    renderStrokes();
     updateCount();
     updateView();
     if (isFirstLaunch || updatedWelcomeNote) saveBoard();
@@ -683,36 +918,55 @@
     saveBoard();
   }
 
-  function exportBoard() {
-    const data = JSON.stringify({ version: 1, notes: model.notes, connections: model.connections, camera: { x: model.x, y: model.y, zoom: model.zoom } }, null, 2);
-    const url = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
+  function downloadJson(data, filename, statusMessage) {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
     const link = document.createElement('a');
     link.href = url;
-    link.download = `CherryPad-board-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = filename;
     link.click();
     URL.revokeObjectURL(url);
-    setStatus('Board exported');
+    setStatus(statusMessage);
+  }
+
+  function exportBoard() {
+    const date = new Date().toISOString().slice(0, 10);
+    downloadJson(
+      { version: 1, notes: model.notes, connections: model.connections, strokes: model.strokes, camera: { x: model.x, y: model.y, zoom: model.zoom } },
+      `CherryPad-board-${date}.json`,
+      'Board exported'
+    );
   }
 
   async function importBoard(file) {
     try {
       const parsed = JSON.parse(await file.text());
       if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.notes)) {
-        throw new Error('This file is not a supported CherryPad board backup.');
+        throw new Error('This file is not a supported CherryPad backup.');
       }
+
       const seenIds = new Set();
       const importedNotes = parsed.notes.map(function (note, index) {
         return normalizeNote(note, index, seenIds);
       }).filter(Boolean);
+      const importedConnections = normalizeConnections(parsed.connections, importedNotes);
+      const importedStrokes = normalizeStrokes(parsed.strokes === undefined ? [] : parsed.strokes);
+      if (parsed.strokes !== undefined && !Array.isArray(parsed.strokes)) {
+        throw new Error('This file contains invalid CherryPad drawings.');
+      }
+
       model.notes = importedNotes;
-      model.connections = normalizeConnections(parsed.connections, model.notes);
+      model.connections = importedConnections;
+      model.strokes = importedStrokes;
       model.selectedNoteId = null;
       model.currentNoteId = null;
+      model.selectedStrokeId = null;
       boardWorld.replaceChildren();
       boardWorld.appendChild(boardCenterMarker);
       boardWorld.appendChild(connectionLayer);
+      boardWorld.appendChild(drawingLayer);
       model.notes.forEach(createNoteElement);
       renderConnections();
+      renderStrokes();
       if (parsed.camera && Number.isFinite(parsed.camera.x) && Number.isFinite(parsed.camera.y)) {
         model.x = parsed.camera.x;
         model.y = parsed.camera.y;
@@ -745,36 +999,92 @@
     centerBoard();
     saveBoard();
   });
-  const clearBoardButton = document.getElementById('clearBoardButton');
-  let clearBoardConfirmationTimer;
-  clearBoardButton.addEventListener('click', function () {
-    if (!clearBoardButton.classList.contains('is-confirming')) {
-      clearBoardButton.classList.add('is-confirming');
-      clearBoardButton.setAttribute('aria-label', 'Confirm clear board');
-      clearBoardButton.title = 'Click again to clear the board';
-      clearBoardConfirmationTimer = window.setTimeout(function () {
-        clearBoardButton.classList.remove('is-confirming');
-        clearBoardButton.setAttribute('aria-label', 'Clear board');
-        clearBoardButton.title = 'Clear board';
-      }, 3000);
-      return;
+  const clearMenu = document.getElementById('clearMenu');
+  let clearConfirmationTimer;
+  let pendingClearType = null;
+  const clearActions = {
+    notes: {
+      label: 'Notes',
+      status: 'Notes cleared',
+      run: function () {
+        model.notes = [];
+        model.connections = [];
+        model.selectedNoteId = null;
+        model.currentNoteId = null;
+        boardWorld.querySelectorAll('.sticky-note').forEach(function (card) {
+          card.remove();
+        });
+        renderConnections();
+        updateCount();
+        saveBoard();
+      }
+    },
+    drawings: {
+      label: 'Drawing',
+      status: 'Drawings cleared',
+      run: function () {
+        model.strokes = [];
+        model.selectedStrokeId = null;
+        renderStrokes();
+        updateCount();
+        saveBoard();
+      }
+    },
+    all: {
+      label: 'All',
+      status: 'Board cleared',
+      run: function () {
+        model.notes = [];
+        model.connections = [];
+        model.strokes = [];
+        model.selectedNoteId = null;
+        model.currentNoteId = null;
+        model.selectedStrokeId = null;
+        boardWorld.querySelectorAll('.sticky-note').forEach(function (card) {
+          card.remove();
+        });
+        renderConnections();
+        renderStrokes();
+        updateCount();
+        saveBoard();
+      }
     }
+  };
+  clearMenu.querySelectorAll('[data-clear-type]').forEach(function (button) {
+    const type = button.dataset.clearType;
+    const action = clearActions[type];
+    button.addEventListener('click', function () {
+      if (pendingClearType !== type) {
+        window.clearTimeout(clearConfirmationTimer);
+        clearMenu.querySelectorAll('[data-clear-type]').forEach(function (item) {
+          item.querySelector('span').textContent = clearActions[item.dataset.clearType].label;
+        });
+        pendingClearType = type;
+        button.querySelector('span').textContent = 'Confirm';
+        clearConfirmationTimer = window.setTimeout(function () {
+          pendingClearType = null;
+          button.querySelector('span').textContent = action.label;
+        }, 3000);
+        return;
+      }
 
-    window.clearTimeout(clearBoardConfirmationTimer);
-    clearBoardButton.classList.remove('is-confirming');
-    clearBoardButton.setAttribute('aria-label', 'Clear board');
-    clearBoardButton.title = 'Clear board';
-    model.notes = [];
-    model.connections = [];
-    model.selectedNoteId = null;
-    model.currentNoteId = null;
-    boardWorld.querySelectorAll('.sticky-note').forEach(function (card) {
-      card.remove();
+      window.clearTimeout(clearConfirmationTimer);
+      pendingClearType = null;
+      button.querySelector('span').textContent = action.label;
+      setToolbarMenuOpen(clearMenu, false);
+      action.run();
+      setStatus(action.status);
     });
-    renderConnections();
-    updateCount();
-    saveBoard();
-    setStatus('Board cleared');
+  });
+  document.querySelectorAll('[data-backup-action]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      setToolbarMenuOpen(document.getElementById('backupMenu'), false);
+      if (button.dataset.backupAction === 'export') exportBoard();
+      else importInput.click();
+    });
+  });
+  importInput.addEventListener('change', function () {
+    if (importInput.files && importInput.files[0]) importBoard(importInput.files[0]);
   });
   document.getElementById('nextNoteButton').addEventListener('click', function () {
     if (model.notes.length === 0) {
@@ -797,12 +1107,33 @@
     updateView();
     saveBoard();
   });
-  document.getElementById('exportButton').addEventListener('click', exportBoard);
-  importInput.addEventListener('change', function () {
-    if (importInput.files && importInput.files[0]) importBoard(importInput.files[0]);
-  });
   boardViewport.addEventListener('pointerdown', function (event) {
-    if (event.button !== 0 || event.target.closest('.sticky-note, .connection-group')) return;
+    if (model.drawingActive && event.button === 0
+      && !event.target.closest('.sticky-note, .drawing-group')) {
+      event.preventDefault();
+      selectNote(null);
+      model.selectedStrokeId = null;
+      renderStrokes();
+      const rect = boardViewport.getBoundingClientRect();
+      const point = {
+        x: clamp((event.clientX - rect.left - model.x) / model.zoom, 0, BOARD_WIDTH),
+        y: clamp((event.clientY - rect.top - model.y) / model.zoom, 0, BOARD_HEIGHT)
+      };
+      const preview = document.createElementNS(SVG_NS, 'path');
+      preview.classList.add('drawing-stroke', 'drawing-preview');
+      preview.setAttribute('stroke', model.drawColor);
+      preview.setAttribute('d', `M ${point.x} ${point.y} L ${point.x} ${point.y}`);
+      drawingLayer.appendChild(preview);
+      boardViewport.setPointerCapture(event.pointerId);
+      model.drag = {
+        type: 'draw',
+        pointerId: event.pointerId,
+        stroke: { id: makeId(), color: model.drawColor, points: [point] },
+        preview: preview
+      };
+      return;
+    }
+    if (event.button !== 0 || event.target.closest('.sticky-note, .connection-group, .drawing-group')) return;
     selectNote(null);
     boardViewport.classList.add('is-panning');
     boardViewport.setPointerCapture(event.pointerId);
@@ -834,7 +1165,20 @@
 
     const drag = model.drag;
     if (!drag || drag.pointerId !== event.pointerId) return;
-    if (drag.type === 'connection') {
+    if (drag.type === 'draw') {
+      const viewportRect = boardViewport.getBoundingClientRect();
+      const point = {
+        x: clamp((event.clientX - viewportRect.left - model.x) / model.zoom, 0, BOARD_WIDTH),
+        y: clamp((event.clientY - viewportRect.top - model.y) / model.zoom, 0, BOARD_HEIGHT)
+      };
+      const previousPoint = drag.stroke.points[drag.stroke.points.length - 1];
+      if (Math.hypot(point.x - previousPoint.x, point.y - previousPoint.y) >= 1) {
+        drag.stroke.points.push(point);
+        drag.preview.setAttribute('d', drag.stroke.points.map(function (item, index) {
+          return `${index === 0 ? 'M' : 'L'} ${item.x} ${item.y}`;
+        }).join(' '));
+      }
+    } else if (drag.type === 'connection') {
       const viewportRect = boardViewport.getBoundingClientRect();
       const end = {
         x: (event.clientX - viewportRect.left - model.x) / model.zoom,
@@ -876,6 +1220,25 @@
       model.pendingNoteDrag = null;
     }
     if (!model.drag || model.drag.pointerId !== event.pointerId) return;
+    if (model.drag.type === 'draw') {
+      const drag = model.drag;
+      const viewportRect = boardViewport.getBoundingClientRect();
+      const endPoint = {
+        x: clamp((event.clientX - viewportRect.left - model.x) / model.zoom, 0, BOARD_WIDTH),
+        y: clamp((event.clientY - viewportRect.top - model.y) / model.zoom, 0, BOARD_HEIGHT)
+      };
+      const lastPoint = drag.stroke.points[drag.stroke.points.length - 1];
+      if (Math.hypot(endPoint.x - lastPoint.x, endPoint.y - lastPoint.y) >= 1) {
+        drag.stroke.points.push(endPoint);
+      }
+      model.strokes.push(drag.stroke);
+      model.drag = null;
+      renderStrokes();
+      updateCount();
+      saveBoard();
+      setStatus('Drawing saved');
+      return;
+    }
     if (model.drag.type === 'connection') {
       const drag = model.drag;
       model.drag = null;
@@ -908,6 +1271,7 @@
       model.pendingNoteDrag = null;
     }
     if (model.drag && model.drag.pointerId === event.pointerId) {
+      if (model.drag.type === 'draw') model.drag.preview.remove();
       if (model.drag.type === 'connection') renderConnections();
       if (model.drag.type === 'board') boardViewport.classList.remove('is-panning');
       if (model.drag.type === 'note') {
@@ -925,6 +1289,13 @@
   }, { passive: false });
 
   document.addEventListener('keydown', function (event) {
+    if ((event.key === 'Delete' || event.key === 'Backspace')
+      && model.selectedStrokeId
+      && !event.target.matches('input, textarea, [contenteditable="true"]')) {
+      event.preventDefault();
+      removeStroke(model.selectedStrokeId);
+      return;
+    }
     if (event.key.toLowerCase() === 'n' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.matches('input, textarea')) {
       event.preventDefault();
       addNote();
@@ -932,6 +1303,7 @@
   });
 
   window.addEventListener('resize', function () {
+    if (!drawColorMenu.hidden) setDrawMenuOpen(true);
     if (model.notes.length === 0 && !localStorage.getItem(STORAGE_KEY)) centerBoard();
   });
 

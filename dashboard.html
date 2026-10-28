@@ -22,9 +22,28 @@
       </button>
       <button class="tool-button next-button" id="nextNoteButton" type="button" title="Center the next note"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Next Note</button>
       <button class="tool-button reset-button" id="resetViewButton" type="button" title="Center the board view"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> Center View</button>
-      <button class="tool-button export-button" id="exportButton" type="button" title="Download a backup of this board"><i class="fa-solid fa-download" aria-hidden="true"></i> Export Notes</button>
-      <label class="tool-button import-button" for="importInput" title="Restore a board backup"><i class="fa-solid fa-upload" aria-hidden="true"></i> Import Notes</label>
-      <button class="tool-button clear-board-button" id="clearBoardButton" type="button" title="Clear board" aria-label="Clear board"><i class="fa-solid fa-trash-can" aria-hidden="true"></i> Clear Board</button>
+      <div class="draw-tool">
+        <button class="tool-button draw-button" id="drawButton" type="button" aria-pressed="false" title="Toggle drawing mode"><i class="fa-solid fa-pen" aria-hidden="true"></i> Draw</button>
+        <button class="tool-button draw-menu-toggle" id="drawMenuToggle" type="button" aria-label="Choose drawing color" aria-controls="drawColorMenu" aria-expanded="false" title="Choose drawing color"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        <div class="draw-color-menu" id="drawColorMenu" role="group" aria-label="Drawing colors" hidden></div>
+      </div>
+      <div class="toolbar-dropdown">
+        <button class="tool-button export-button dropdown-main" id="backupMenuToggle" type="button" aria-haspopup="true" aria-controls="backupMenu" aria-expanded="false"><i class="fa-solid fa-box-archive" aria-hidden="true"></i> Backup</button>
+        <button class="tool-button export-button dropdown-toggle" type="button" aria-label="Choose backup action" aria-haspopup="true" aria-controls="backupMenu" aria-expanded="false"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        <div class="toolbar-dropdown-menu" id="backupMenu" role="group" aria-label="Backup options" hidden>
+          <button type="button" data-backup-action="export"><i class="fa-solid fa-download" aria-hidden="true"></i><span>Export Board</span></button>
+          <button type="button" data-backup-action="import"><i class="fa-solid fa-upload" aria-hidden="true"></i><span>Import Board</span></button>
+        </div>
+      </div>
+      <div class="toolbar-dropdown">
+        <button class="tool-button clear-board-button dropdown-main" id="clearMenuToggle" type="button" aria-haspopup="true" aria-controls="clearMenu" aria-expanded="false"><i class="fa-solid fa-eraser" aria-hidden="true"></i> Clear</button>
+        <button class="tool-button clear-board-button dropdown-toggle" type="button" aria-label="Choose what to clear" aria-haspopup="true" aria-controls="clearMenu" aria-expanded="false"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        <div class="toolbar-dropdown-menu" id="clearMenu" role="group" aria-label="Clear options" hidden>
+          <button type="button" data-clear-type="notes"><i class="fa-solid fa-eraser" aria-hidden="true"></i><span>Notes</span></button>
+          <button type="button" data-clear-type="drawings"><i class="fa-solid fa-eraser" aria-hidden="true"></i><span>Drawing</span></button>
+          <button type="button" data-clear-type="all"><i class="fa-solid fa-eraser" aria-hidden="true"></i><span>All</span></button>
+        </div>
+      </div>
       <input id="importInput" type="file" accept="application/json,.json" hidden>
     </div>
   </header>
@@ -38,7 +57,7 @@
     </button>
     <div class="board-hint" id="boardHint">
       <span><strong id="noteCount">0 notes</strong><span class="hint-separator">·</span><span id="saveStatus" aria-live="polite">All changes saved</span></span>
-      <span class="hint-instructions">Drag the board to move around <span>·</span> Scroll to zoom <span>·</span> Next centers notes one by one</span>
+      <span class="hint-instructions">Drag the board to move around <span>·</span> Scroll to zoom <span>·</span> Draw lines and select them to remove</span>
     </div>
   </main>
 </body>
