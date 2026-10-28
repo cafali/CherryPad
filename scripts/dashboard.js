@@ -8,16 +8,56 @@
   const MAX_ZOOM = 1.6;
   const NOTE_COLORS = ['#f8df85', '#f4b8b8', '#b9dfc2', '#b9d6f1', '#ddc3ed', '#f3c89e'];
   const NOTE_COLOR_NAMES = ['Yellow', 'Pink', 'Green', 'Blue', 'Purple', 'Orange'];
-  const DRAW_COLORS = [
-    { name: 'Red', value: '#ff4040' },
-    { name: 'Green', value: '#35d46a' },
-    { name: 'Blue', value: '#438aff' },
-    { name: 'Yellow', value: '#ffe34d' },
-    { name: 'White', value: '#ffffff' },
-    { name: 'Pink', value: '#ff69b4' },
-    { name: 'Violet', value: '#9b59d0' },
-    { name: 'Cyan', value: '#35d5e5' }
+  const DRAW_COLOR_ROWS = [
+    { name: 'Red shades', colors: [
+      { name: 'Dark red', value: '#7f1d1d' }, { name: 'Red', value: '#b91c1c' },
+      { name: 'Bright red', value: '#ef4444' }, { name: 'Light red', value: '#ff4040' },
+      { name: 'Soft red', value: '#f87171' }, { name: 'Pale red', value: '#fecaca' }
+    ] },
+    { name: 'Orange shades', colors: [
+      { name: 'Dark orange', value: '#7c2d12' }, { name: 'Burnt orange', value: '#c2410c' },
+      { name: 'Orange', value: '#f97316' }, { name: 'Light orange', value: '#fb923c' },
+      { name: 'Soft orange', value: '#fdba74' }, { name: 'Pale orange', value: '#ffedd5' }
+    ] },
+    { name: 'Yellow shades', colors: [
+      { name: 'Dark yellow', value: '#854d0e' }, { name: 'Golden yellow', value: '#ca8a04' },
+      { name: 'Yellow', value: '#eab308' }, { name: 'Bright yellow', value: '#ffe34d' },
+      { name: 'Soft yellow', value: '#fde047' }, { name: 'Pale yellow', value: '#fef9c3' }
+    ] },
+    { name: 'Green shades', colors: [
+      { name: 'Dark green', value: '#14532d' }, { name: 'Green', value: '#15803d' },
+      { name: 'Bright green', value: '#22c55e' }, { name: 'Light green', value: '#35d46a' },
+      { name: 'Soft green', value: '#86efac' }, { name: 'Pale green', value: '#dcfce7' }
+    ] },
+    { name: 'Cyan shades', colors: [
+      { name: 'Dark cyan', value: '#164e63' }, { name: 'Deep cyan', value: '#0e7490' },
+      { name: 'Cyan', value: '#06b6d4' }, { name: 'Light cyan', value: '#35d5e5' },
+      { name: 'Soft cyan', value: '#67e8f9' }, { name: 'Pale cyan', value: '#cffafe' }
+    ] },
+    { name: 'Blue shades', colors: [
+      { name: 'Dark blue', value: '#1e3a8a' }, { name: 'Blue', value: '#1d4ed8' },
+      { name: 'Bright blue', value: '#3b82f6' }, { name: 'Light blue', value: '#438aff' },
+      { name: 'Soft blue', value: '#93c5fd' }, { name: 'Pale blue', value: '#dbeafe' }
+    ] },
+    { name: 'Violet shades', colors: [
+      { name: 'Dark violet', value: '#4c1d95' }, { name: 'Violet', value: '#6d28d9' },
+      { name: 'Bright violet', value: '#8b5cf6' }, { name: 'Light violet', value: '#9b59d0' },
+      { name: 'Soft violet', value: '#c4b5fd' }, { name: 'Pale violet', value: '#ede9fe' }
+    ] },
+    { name: 'Pink shades', colors: [
+      { name: 'Dark pink', value: '#831843' }, { name: 'Pink', value: '#be185d' },
+      { name: 'Bright pink', value: '#ec4899' }, { name: 'Light pink', value: '#ff69b4' },
+      { name: 'Soft pink', value: '#f9a8d4' }, { name: 'Pale pink', value: '#fce7f3' }
+    ] },
+    { name: 'Gray and white shades', colors: [
+      { name: 'Dark gray', value: '#262626' }, { name: 'Gray', value: '#525252' },
+      { name: 'Medium gray', value: '#737373' }, { name: 'Light gray', value: '#a3a3a3' },
+      { name: 'Pale gray', value: '#d4d4d4' }, { name: 'White', value: '#ffffff' }
+    ] }
   ];
+  const DRAW_COLORS = DRAW_COLOR_ROWS.reduce(function (colors, row) {
+    return colors.concat(row.colors);
+  }, []);
   const boardViewport = document.getElementById('boardViewport');
   const boardWorld = document.getElementById('boardWorld');
   document.addEventListener('pointerdown', function (event) {
@@ -54,7 +94,28 @@
   const drawButton = document.getElementById('drawButton');
   const drawMenuToggle = document.getElementById('drawMenuToggle');
   const drawColorMenu = document.getElementById('drawColorMenu');
-  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: DRAW_COLORS[0].value, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+  const drawThicknessControl = document.getElementById('drawThicknessControl');
+  const drawThicknessSlider = document.getElementById('drawThicknessSlider');
+  const drawThicknessValue = document.getElementById('drawThicknessValue');
+  const drawColorIndicator = document.getElementById('drawColorIndicator');
+  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ff4040', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+
+  function updateDrawColorIndicator() {
+    const red = parseInt(model.drawColor.slice(1, 3), 16) / 255;
+    const green = parseInt(model.drawColor.slice(3, 5), 16) / 255;
+    const blue = parseInt(model.drawColor.slice(5, 7), 16) / 255;
+    const luminance = [red, green, blue].map(function (channel) {
+      return channel <= 0.04045 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+    }).reduce(function (total, channel, index) {
+      return total + channel * [0.2126, 0.7152, 0.0722][index];
+    }, 0);
+    const blackContrast = (luminance + 0.05) / 0.05;
+    const whiteContrast = 1.05 / (luminance + 0.05);
+    drawColorIndicator.style.setProperty('--draw-color', model.drawColor);
+    drawColorIndicator.style.setProperty('--draw-color-text', whiteContrast > blackContrast ? '#fff' : '#111');
+  }
+
+  updateDrawColorIndicator();
 
   function setToolbarMenuOpen(menu, isOpen) {
     if (isOpen) {
@@ -108,26 +169,40 @@
     drawButton.classList.toggle('is-active', isActive);
     drawButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     boardViewport.classList.toggle('is-drawing', isActive);
+    drawThicknessControl.hidden = !isActive;
     setStatus(isActive ? 'Drawing mode on · select a line to remove it' : 'Drawing mode off');
   }
 
-  DRAW_COLORS.forEach(function (color) {
-    const option = document.createElement('button');
-    option.className = 'draw-color-option';
-    option.type = 'button';
-    option.setAttribute('aria-label', color.name);
-    option.title = color.name;
-    option.setAttribute('aria-pressed', color.value === model.drawColor ? 'true' : 'false');
-    option.style.setProperty('--draw-color', color.value);
-    option.addEventListener('click', function () {
-      model.drawColor = color.value;
-      drawColorMenu.querySelectorAll('.draw-color-option').forEach(function (item) {
-        item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
+  DRAW_COLOR_ROWS.forEach(function (row) {
+    const colorRow = document.createElement('div');
+    colorRow.className = 'draw-color-row';
+    colorRow.setAttribute('role', 'group');
+    colorRow.setAttribute('aria-label', row.name);
+    row.colors.forEach(function (color) {
+      const option = document.createElement('button');
+      option.className = 'draw-color-option';
+      option.type = 'button';
+      option.setAttribute('aria-label', color.name);
+      option.title = color.name;
+      option.setAttribute('aria-pressed', color.value === model.drawColor ? 'true' : 'false');
+      option.style.setProperty('--draw-color', color.value);
+      option.addEventListener('click', function () {
+        model.drawColor = color.value;
+        updateDrawColorIndicator();
+        drawColorMenu.querySelectorAll('.draw-color-option').forEach(function (item) {
+          item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
+        });
+        setDrawingMode(true);
+        setDrawMenuOpen(false);
       });
-      setDrawingMode(true);
-      setDrawMenuOpen(false);
+      colorRow.appendChild(option);
     });
-    drawColorMenu.appendChild(option);
+    drawColorMenu.appendChild(colorRow);
+  });
+
+  drawThicknessSlider.addEventListener('input', function () {
+    model.drawWidth = Number(drawThicknessSlider.value);
+    drawThicknessValue.value = `${model.drawWidth}px`;
   });
 
   drawButton.addEventListener('click', function () {
@@ -363,6 +438,7 @@
         return `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`;
       }).join(' '));
       path.setAttribute('stroke', stroke.color);
+      path.style.setProperty('--stroke-width', `${stroke.width}px`);
       path.setAttribute('tabindex', '0');
       path.setAttribute('role', 'button');
       path.setAttribute('aria-label', `Select ${DRAW_COLORS.find(function (color) { return color.value === stroke.color; }).name} drawing to remove`);
@@ -801,6 +877,7 @@
     return values.filter(function (stroke) {
       if (!stroke || typeof stroke.id !== 'string' || seenIds.has(stroke.id)
         || !DRAW_COLORS.some(function (color) { return color.value === stroke.color; })
+        || (stroke.width !== undefined && (!Number.isInteger(stroke.width) || stroke.width < 1 || stroke.width > 15))
         || !Array.isArray(stroke.points) || stroke.points.length === 0
         || !stroke.points.every(function (point) {
           return point && Number.isFinite(point.x) && Number.isFinite(point.y);
@@ -811,6 +888,7 @@
       return {
         id: stroke.id,
         color: stroke.color,
+        width: stroke.width === undefined ? 5 : stroke.width,
         points: stroke.points.map(function (point) {
           return { x: clamp(point.x, 0, BOARD_WIDTH), y: clamp(point.y, 0, BOARD_HEIGHT) };
         })
@@ -1122,13 +1200,14 @@
       const preview = document.createElementNS(SVG_NS, 'path');
       preview.classList.add('drawing-stroke', 'drawing-preview');
       preview.setAttribute('stroke', model.drawColor);
+      preview.style.setProperty('--stroke-width', `${model.drawWidth}px`);
       preview.setAttribute('d', `M ${point.x} ${point.y} L ${point.x} ${point.y}`);
       drawingLayer.appendChild(preview);
       boardViewport.setPointerCapture(event.pointerId);
       model.drag = {
         type: 'draw',
         pointerId: event.pointerId,
-        stroke: { id: makeId(), color: model.drawColor, points: [point] },
+        stroke: { id: makeId(), color: model.drawColor, width: model.drawWidth, points: [point] },
         preview: preview
       };
       return;
