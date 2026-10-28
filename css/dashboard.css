@@ -72,6 +72,10 @@ textarea:focus-visible,
   white-space: nowrap;
 }
 
+.brand > span {
+  transform: translateY(-2px);
+}
+
 .brand img {
   width: 40px;
   height: 40px;
@@ -1080,6 +1084,10 @@ textarea:focus-visible,
     flex-direction: column;
     gap: 10px;
     padding: 10px 14px;
+  }
+
+  .brand > span {
+    transform: none;
   }
 
   .toolbar {
