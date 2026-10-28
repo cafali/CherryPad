@@ -184,8 +184,13 @@ document.addEventListener('DOMContentLoaded', function() {
             month: 'short',
             year: 'numeric'
         }).format(new Date());
+        const fieldLabel = currentNoteView === 'first'
+            ? ' · Field 1'
+            : currentNoteView === 'second'
+                ? ' · Field 2'
+                : '';
         document.getElementById('fullNoteStats').textContent =
-            `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${currentDate}`;
+            `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${currentDate}${fieldLabel}`;
     }
 
     noteInput1.addEventListener('input', updateNoteStats);

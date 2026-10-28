@@ -156,6 +156,24 @@ textarea:focus-visible,
   background: #98c7a4;
 }
 
+.clear-board-button {
+  background: #f3c89e;
+  color: #633d1f;
+}
+
+.clear-board-button:hover {
+  background: #e8b47e;
+}
+
+.clear-board-button.is-confirming {
+  background: #d9904e;
+  color: #fff;
+}
+
+.clear-board-button.is-confirming:hover {
+  background: #bd7436;
+}
+
 .export-button {
   background: #b9d6f1;
   color: #263d55;
@@ -240,6 +258,19 @@ textarea:focus-visible,
   background-size: 24px 24px;
   box-shadow: 0 0 0 1px #303030, 0 20px 70px #00000050;
   will-change: transform;
+}
+
+.board-center-marker {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ff447d;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
 .connection-layer {
@@ -478,7 +509,7 @@ textarea:focus-visible,
   justify-content: center;
   border: 0;
   border-radius: 6px;
-  background: #0000000c;
+  background: #00000040;
   color: #413b2b;
 }
 
@@ -500,17 +531,79 @@ textarea:focus-visible,
 }
 
 .note-color-picker {
-  padding: 3px;
+  position: relative;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+}
+
+.note-color-trigger,
+.note-color-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #00000040;
   cursor: pointer;
 }
 
-.note-color-picker::-webkit-color-swatch-wrapper {
-  padding: 0;
+.note-color-trigger {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #00000030;
 }
 
-.note-color-picker::-webkit-color-swatch {
+.note-color-option::before {
+  width: 17px;
+  height: 17px;
   border: 1px solid #00000030;
   border-radius: 50%;
+  content: "";
+}
+
+.note-color-menu {
+  position: absolute;
+  z-index: 8;
+  top: 33px;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 28px);
+  gap: 5px;
+  padding: 7px;
+  border: 1px solid #00000040;
+  border-radius: 8px;
+  background: #29251b;
+  box-shadow: 0 5px 14px #00000060;
+  transform: translateX(-50%);
+}
+
+.note-color-menu[hidden] {
+  display: none;
+}
+
+.note-color-option {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+}
+
+.note-color-option::before {
+  width: 20px;
+  height: 20px;
+  background: var(--swatch-color);
+}
+
+.note-color-option[aria-selected="true"]::before {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.note-color-trigger:focus-visible,
+.note-color-option:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .note-action {
@@ -520,14 +613,8 @@ textarea:focus-visible,
 }
 
 .delete-note.is-confirming {
-  width: auto;
-  gap: 4px;
-  padding: 0 7px;
   background: #b44848;
   color: #fff;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
 }
 
 .delete-note.is-confirming:hover {
@@ -535,7 +622,7 @@ textarea:focus-visible,
 }
 
 .note-action:hover,
-.note-color-picker:hover {
+.note-color-trigger:hover {
   background: #00000020;
 }
 
@@ -578,6 +665,7 @@ textarea:focus-visible,
   align-items: flex-end;
   gap: 4px;
   color: #898989;
+  font-family: Arial, sans-serif;
   font-size: 12px;
   pointer-events: none;
   text-shadow: 0 1px 5px #000;
@@ -592,6 +680,10 @@ textarea:focus-visible,
 .board-hint strong {
   color: #d3d3d3;
   font-weight: 600;
+}
+
+.board-hint #saveStatus {
+  color: #478654;
 }
 
 .hint-separator {

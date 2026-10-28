@@ -7,8 +7,20 @@
   const MIN_ZOOM = 0.4;
   const MAX_ZOOM = 1.6;
   const NOTE_COLORS = ['#f8df85', '#f4b8b8', '#b9dfc2', '#b9d6f1', '#ddc3ed', '#f3c89e'];
+  const NOTE_COLOR_NAMES = ['Yellow', 'Pink', 'Green', 'Blue', 'Purple', 'Orange'];
   const boardViewport = document.getElementById('boardViewport');
   const boardWorld = document.getElementById('boardWorld');
+  document.addEventListener('pointerdown', function (event) {
+    if (event.target.closest('.note-color-picker')) return;
+    boardWorld.querySelectorAll('.note-color-menu:not([hidden])').forEach(function (menu) {
+      menu.hidden = true;
+      menu.parentElement.querySelector('.note-color-trigger').setAttribute('aria-expanded', 'false');
+    });
+  });
+  const boardCenterMarker = document.createElement('span');
+  boardCenterMarker.className = 'board-center-marker';
+  boardCenterMarker.setAttribute('aria-hidden', 'true');
+  boardWorld.appendChild(boardCenterMarker);
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const connectionLayer = document.createElementNS(SVG_NS, 'svg');
   connectionLayer.classList.add('connection-layer');
@@ -258,12 +270,94 @@
     dragHandle.title = 'Drag to move note';
     dragHandle.setAttribute('aria-label', 'Drag to move note');
 
-    const colorPicker = document.createElement('input');
+    const colorPicker = document.createElement('div');
     colorPicker.className = 'note-color-picker';
-    colorPicker.type = 'color';
-    colorPicker.value = note.color;
-    colorPicker.title = 'Change note color';
-    colorPicker.setAttribute('aria-label', 'Change note color');
+    const colorTrigger = document.createElement('button');
+    colorTrigger.className = 'note-color-trigger';
+    colorTrigger.type = 'button';
+    colorTrigger.title = 'Change note color';
+    colorTrigger.setAttribute('aria-label', 'Change note color');
+    colorTrigger.setAttribute('aria-haspopup', 'listbox');
+    colorTrigger.setAttribute('aria-expanded', 'false');
+    colorTrigger.style.backgroundColor = note.color;
+
+    const colorMenu = document.createElement('div');
+    colorMenu.className = 'note-color-menu';
+    colorMenu.setAttribute('role', 'listbox');
+    colorMenu.setAttribute('aria-label', 'Note colors');
+    colorMenu.hidden = true;
+    const colorOptions = NOTE_COLORS.map(function (color, index) {
+      const option = document.createElement('button');
+      option.className = 'note-color-option';
+      option.type = 'button';
+      option.setAttribute('role', 'option');
+      option.setAttribute('aria-label', NOTE_COLOR_NAMES[index]);
+      option.setAttribute('title', NOTE_COLOR_NAMES[index]);
+      option.setAttribute('aria-selected', color === note.color ? 'true' : 'false');
+      option.tabIndex = color === note.color ? 0 : -1;
+      option.style.setProperty('--swatch-color', color);
+      option.addEventListener('click', function () {
+        note.color = color;
+        colorTrigger.style.backgroundColor = color;
+        card.style.setProperty('--note-color', color);
+        colorOptions.forEach(function (colorOption) {
+          const isSelected = colorOption === option;
+          colorOption.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+          colorOption.tabIndex = isSelected ? 0 : -1;
+        });
+        closeColorMenu(true);
+        saveBoard();
+      });
+      colorMenu.appendChild(option);
+      return option;
+    });
+    colorPicker.append(colorTrigger, colorMenu);
+
+    function closeColorMenu(returnFocus) {
+      colorMenu.hidden = true;
+      colorTrigger.setAttribute('aria-expanded', 'false');
+      if (returnFocus) colorTrigger.focus();
+    }
+
+    function openColorMenu() {
+      colorMenu.hidden = false;
+      colorTrigger.setAttribute('aria-expanded', 'true');
+      const selectedOption = colorOptions.find(function (option) {
+        return option.getAttribute('aria-selected') === 'true';
+      });
+      if (selectedOption) selectedOption.focus();
+    }
+
+    colorTrigger.addEventListener('click', function () {
+      if (colorMenu.hidden) openColorMenu();
+      else closeColorMenu(false);
+    });
+
+    colorMenu.addEventListener('keydown', function (event) {
+      const currentIndex = colorOptions.indexOf(document.activeElement);
+      let nextIndex = currentIndex;
+      if (event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % colorOptions.length;
+      else if (event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + colorOptions.length) % colorOptions.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = colorOptions.length - 1;
+      else if (event.key === 'Escape') {
+        event.preventDefault();
+        closeColorMenu(true);
+        return;
+      } else {
+        return;
+      }
+      event.preventDefault();
+      colorOptions[nextIndex].focus();
+    });
+
+    colorPicker.addEventListener('pointerdown', function (event) {
+      event.stopPropagation();
+    });
+
+    colorPicker.addEventListener('focusout', function (event) {
+      if (!colorPicker.contains(event.relatedTarget)) closeColorMenu(false);
+    });
 
     const duplicateButton = document.createElement('button');
     duplicateButton.className = 'note-action duplicate-note';
@@ -354,12 +448,6 @@
       saveBoard();
     });
 
-    colorPicker.addEventListener('input', function () {
-      note.color = colorPicker.value;
-      card.style.setProperty('--note-color', note.color);
-      saveBoard();
-    });
-
     duplicateButton.addEventListener('click', function () {
       addNote({ ...note, id: undefined, x: note.x + 32, y: note.y + 32, title: note.title ? `${note.title} copy` : '' });
     });
@@ -370,14 +458,10 @@
         deleteButton.classList.add('is-confirming');
         deleteButton.setAttribute('aria-label', 'Confirm delete note');
         deleteButton.title = 'Click again to delete this note';
-        const label = document.createElement('span');
-        label.textContent = 'Delete?';
-        deleteButton.appendChild(label);
         deleteConfirmationTimer = window.setTimeout(function () {
           deleteButton.classList.remove('is-confirming');
           deleteButton.setAttribute('aria-label', 'Delete note');
           deleteButton.title = 'Delete note';
-          label.remove();
         }, 3000);
         return;
       }
@@ -432,7 +516,7 @@
       id: values && values.id ? values.id : (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
       title: values && typeof values.title === 'string' ? values.title : '',
       content: values && typeof values.content === 'string' ? values.content : '',
-      color: values && isValidColor(values.color) ? values.color : NOTE_COLORS[model.notes.length % NOTE_COLORS.length],
+      color: values && isDefaultNoteColor(values.color) ? values.color : NOTE_COLORS[model.notes.length % NOTE_COLORS.length],
       width: width,
       height: height,
       x: values && Number.isFinite(values.x) ? clamp(values.x, 0, BOARD_WIDTH - width) : clamp((rect.width / 2 - model.x) / model.zoom - width / 2 + offsetX, 0, BOARD_WIDTH - width),
@@ -450,8 +534,8 @@
     return note;
   }
 
-  function isValidColor(value) {
-    return typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value);
+  function isDefaultNoteColor(value) {
+    return NOTE_COLORS.includes(value);
   }
 
   function clamp(value, min, max) {
@@ -468,7 +552,7 @@
       id,
       title: typeof value.title === 'string' ? value.title.slice(0, 100) : '',
       content: typeof value.content === 'string' ? value.content.slice(0, 10000) : '',
-      color: isValidColor(value.color) ? value.color : NOTE_COLORS[index % NOTE_COLORS.length],
+      color: isDefaultNoteColor(value.color) ? value.color : NOTE_COLORS[index % NOTE_COLORS.length],
       width: width,
       height: height,
       x: Number.isFinite(value.x) ? clamp(value.x, 0, BOARD_WIDTH - width) : 120 + index * 24,
@@ -625,6 +709,7 @@
       model.selectedNoteId = null;
       model.currentNoteId = null;
       boardWorld.replaceChildren();
+      boardWorld.appendChild(boardCenterMarker);
       boardWorld.appendChild(connectionLayer);
       model.notes.forEach(createNoteElement);
       renderConnections();
@@ -659,6 +744,37 @@
     });
     centerBoard();
     saveBoard();
+  });
+  const clearBoardButton = document.getElementById('clearBoardButton');
+  let clearBoardConfirmationTimer;
+  clearBoardButton.addEventListener('click', function () {
+    if (!clearBoardButton.classList.contains('is-confirming')) {
+      clearBoardButton.classList.add('is-confirming');
+      clearBoardButton.setAttribute('aria-label', 'Confirm clear board');
+      clearBoardButton.title = 'Click again to clear the board';
+      clearBoardConfirmationTimer = window.setTimeout(function () {
+        clearBoardButton.classList.remove('is-confirming');
+        clearBoardButton.setAttribute('aria-label', 'Clear board');
+        clearBoardButton.title = 'Clear board';
+      }, 3000);
+      return;
+    }
+
+    window.clearTimeout(clearBoardConfirmationTimer);
+    clearBoardButton.classList.remove('is-confirming');
+    clearBoardButton.setAttribute('aria-label', 'Clear board');
+    clearBoardButton.title = 'Clear board';
+    model.notes = [];
+    model.connections = [];
+    model.selectedNoteId = null;
+    model.currentNoteId = null;
+    boardWorld.querySelectorAll('.sticky-note').forEach(function (card) {
+      card.remove();
+    });
+    renderConnections();
+    updateCount();
+    saveBoard();
+    setStatus('Board cleared');
   });
   document.getElementById('nextNoteButton').addEventListener('click', function () {
     if (model.notes.length === 0) {

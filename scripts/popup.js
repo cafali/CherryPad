@@ -9,7 +9,8 @@ function updateNoteStats() {
     const lineCount = text.length > 0 ? text.split(/\r\n|\r|\n/).length : 0;
     const characterCount = Array.from(text).length;
     const wordCount = text.trim().match(/\S+/g)?.length || 0;
-    noteStats.textContent = `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'}`;
+    const fieldLabel = showingSecondField ? 'Field 2' : 'Field 1';
+    noteStats.textContent = `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${fieldLabel}`;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
