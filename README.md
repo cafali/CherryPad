@@ -13,18 +13,24 @@ CherryPad is designed to make your note-taking experience quick, convenient, and
 
 
 CherryPad Key Features:
-- AutoSave 
-- Privacy Mode 
-- Virtual Keyboard with a pin toggle to keep it open while using other buttons
-- Sticky Notes Dashboard
-- Hidden Easter Eggs 
-- Built-in emoji panel 
-- Built-in symbol panel
-- Capture notes within your browser
-- Comfortable design for long-term viewing
-- Full-screen mode includes two separate note fields
+- AutoSave
+- Privacy Mode
+- Character, Word & Line Counters
+- Virtual Keyboard
+- Hidden Easter Eggs
+- Interactive StickyBoard
+- Built-in Sticky Note Colors & Drawing Tools
+- Connect Sticky Notes with Lines
+- Import & Export StickyBoards as JSON
+- Lightweight and Fast
+- Built-in Emoji Panel
+- Built-in Unicode Symbol Panel
+- Capture notes directly within your browser
+- Comfortable design for everyday use
+- Fullscreen mode with two separate note fields
 - Save notes directly in the extension or download them as a .txt file
-- Create notes using the extension popup or access the full-screen mode for a larger workspace
+- No ads, no trackers — a lightweight tool that doesn’t follow you around-
+- Create notes using the extension popup or access fullscreen mode for a larger workspace
 
 <img width="2557" height="1437" alt="image" src="https://github.com/user-attachments/assets/6ee9da06-ecfd-4ec8-b28a-33e628371f5c" /><br>
 
