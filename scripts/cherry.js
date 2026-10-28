@@ -43,16 +43,6 @@ document.getElementById('copyButton').addEventListener('click', function() {
     showStatusMessage('Copied to clipboard - ' + formattedTime, 'copy');
 });
 
-// DOWNLOAD button click message
-document.getElementById('DownloadButton').addEventListener('click', function() {
-
-    // get current date and time
-    var now = new Date();
-    var formattedTime = now.toLocaleString();
-
-    showStatusMessage('Last attempted download: ' + formattedTime, 'download');
-});
-
 // PASTE button click message
 document.getElementById('pasteButton').addEventListener('click', function() {
 
@@ -236,7 +226,7 @@ saveButton.addEventListener('click', function() {
     blinkCherryIcon();
 });
 
-// Download .txt file button based on active window (noteInput/noteInput2)
+// Download the selected field, or the active field from the keyboard shortcut.
 let lastActiveTextarea = null;
 
 document.getElementById('noteInput').addEventListener('focus', () => {
@@ -247,10 +237,60 @@ document.getElementById('noteInput2').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput2');
 });
 
-document.getElementById('DownloadButton').addEventListener('click', function() {
-    if (!lastActiveTextarea) return;
+const downloadButton = document.getElementById('DownloadButton');
+const downloadMenu = document.getElementById('downloadMenu');
 
-    const content = lastActiveTextarea.value;
+function setDownloadMenuOpen(isOpen) {
+    downloadMenu.hidden = !isOpen;
+    downloadButton.setAttribute('aria-expanded', String(isOpen));
+}
+
+downloadButton.addEventListener('click', function() {
+    setDownloadMenuOpen(downloadMenu.hidden);
+});
+
+document.addEventListener('pointerdown', function(event) {
+    if (!event.target.closest('.download-dropdown')) {
+        setDownloadMenuOpen(false);
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && !downloadMenu.hidden) {
+        setDownloadMenuOpen(false);
+        downloadButton.focus();
+    }
+});
+
+const clearMenuToggle = document.getElementById('clearMenuToggle');
+const clearMenu = document.getElementById('clearMenu');
+
+function setClearMenuOpen(isOpen) {
+    clearMenu.hidden = !isOpen;
+    clearMenuToggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+clearMenuToggle.addEventListener('click', function() {
+    setClearMenuOpen(clearMenu.hidden);
+});
+
+document.addEventListener('pointerdown', function(event) {
+    if (!event.target.closest('.clear-dropdown')) {
+        setClearMenuOpen(false);
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && !clearMenu.hidden) {
+        setClearMenuOpen(false);
+        clearMenuToggle.focus();
+    }
+});
+
+function downloadNote(textarea) {
+    if (!textarea) return;
+
+    const content = textarea.value;
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -267,6 +307,17 @@ document.getElementById('DownloadButton').addEventListener('click', function() {
     
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    showStatusMessage('Last attempted download: ' + new Date().toLocaleString(), 'download');
+}
+
+document.querySelectorAll('[data-download-field]').forEach(function(button) {
+    button.addEventListener('click', function() {
+        const textarea = document.getElementById(button.dataset.downloadField);
+        setDownloadMenuOpen(false);
+        downloadButton.focus();
+        downloadNote(textarea);
+    });
 });
 
 // Copy button Fullscreen
@@ -570,7 +621,7 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
         event.preventDefault(); 
-        document.getElementById('DownloadButton').click(); 
+        downloadNote(lastActiveTextarea);
     }
 });
 

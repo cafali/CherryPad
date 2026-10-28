@@ -9,6 +9,8 @@ Version 1.6.X (March 2026 - October 2026) (Current)
 - Expanded the drawing color palette with additional shades, organized into color rows
 - Added a color swatch to the drawing controls that opens the color palette
 - Refined the drawing controls with a compact, translucent design
+- Added a download menu to choose which note field to download in fullscreen mode
+- Changed the clear-field menu to open on click instead of hover
 
 1.6.7
 - Added Cherry StickyBoard, a pannable board for creating, editing, moving, resizing and organizing sticky notes
