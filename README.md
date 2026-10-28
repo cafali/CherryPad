@@ -8,14 +8,15 @@ CherryPad is designed to make your note-taking experience quick, convenient, and
 
 **Get CherryPad from the [Chrome Web Store](https://chromewebstore.google.com/detail/cherrypad/fhneekooapbagkckacdlemielahijgfd?authuser=0&hl=en)**
 ---
-<img width="1497" height="369" alt="Github banner" src="https://github.com/user-attachments/assets/b007d8df-beec-400a-bb65-1bcd6385f0e2" /><br>
 
+<img width="2557" height="1437" alt="image" src="https://github.com/user-attachments/assets/15c843b1-1eb3-47f7-9234-fce38ee7a3ad" />
 
 
 CherryPad Key Features:
 - AutoSave 
 - Privacy Mode 
 - Virtual Keyboard with a pin toggle to keep it open while using other buttons
+- Sticky Notes Dashboard
 - Hidden Easter Eggs 
 - Built-in emoji panel 
 - Built-in symbol panel
@@ -25,8 +26,8 @@ CherryPad Key Features:
 - Save notes directly in the extension or download them as a .txt file
 - Create notes using the extension popup or access the full-screen mode for a larger workspace
 
+<img width="2557" height="1437" alt="image" src="https://github.com/user-attachments/assets/6ee9da06-ecfd-4ec8-b28a-33e628371f5c" /><br>
 
-<img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/c64109ac-5876-4b73-87a3-d70f01c19f9a" /><br>
 
 
 
