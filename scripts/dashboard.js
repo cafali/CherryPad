@@ -211,6 +211,9 @@
   drawMenuToggle.addEventListener('click', function () {
     setDrawMenuOpen(drawColorMenu.hidden);
   });
+  drawColorIndicator.addEventListener('click', function () {
+    setDrawMenuOpen(true);
+  });
 
   function setStatus(message, isError) {
     window.clearTimeout(model.statusTimer);
