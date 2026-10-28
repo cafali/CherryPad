@@ -1068,8 +1068,17 @@
   }
 
   document.getElementById('addNoteButton').addEventListener('click', function () { addNote(); });
-  document.getElementById('returnToCherryPadButton').addEventListener('click', function () {
+  function returnToCherryPad() {
     window.location.assign('cherrypad.html');
+  }
+  document.getElementById('returnToCherryPadButton').addEventListener('click', returnToCherryPad);
+  const dashboardCherryPadLogo = document.getElementById('dashboardCherryPadLogo');
+  dashboardCherryPadLogo.addEventListener('click', returnToCherryPad);
+  dashboardCherryPadLogo.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      returnToCherryPad();
+    }
   });
   document.getElementById('resetViewButton').addEventListener('click', function () {
     model.zoom = 1;

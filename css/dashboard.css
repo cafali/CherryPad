@@ -66,6 +66,7 @@ textarea:focus-visible,
   gap: 10px;
   color: #f7f7f7;
   font-size: 24px;
+  font-family: "Segoe UI", Arial, sans-serif;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -75,10 +76,17 @@ textarea:focus-visible,
   width: 40px;
   height: 40px;
   object-fit: contain;
+  cursor: pointer;
+  transition: filter 0.1s, transform 0.1s;
+}
+
+.brand img:hover {
+  filter: brightness(130%);
+  transform: scale(0.95);
 }
 
 .brand-name {
-  font-family: "Bahnschrift", sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   font-weight: bold;
 }
 
