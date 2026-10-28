@@ -861,32 +861,18 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const vkeyButton = document.getElementById('vkeyButton');
     const vkeyPanel = document.getElementById('vkeyPanel');
-    const pinButton = document.getElementById('vkeyPinButton');
-    const pinLabel = document.getElementById('vkeyPinLabel');
     const closeButton = document.getElementById('vkeyCloseButton');
     const buttonsToClose = document.querySelectorAll('.button:not(#vkeyButton)');
-    let isPinned = false;
 
     closeButton.addEventListener('click', function(event) {
         event.stopPropagation();
         vkeyPanel.style.display = 'none';
     });
 
-    pinButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        isPinned = !isPinned;
-        pinLabel.textContent = isPinned ? 'UNPIN' : 'PIN';
-        pinButton.setAttribute('aria-pressed', String(isPinned));
-        pinButton.setAttribute('aria-label', isPinned ? 'Unpin virtual keyboard' : 'Pin virtual keyboard');
-        pinButton.title = isPinned ? 'Unpin virtual keyboard' : 'Pin virtual keyboard';
-    });
-
     // close virtual keyboard panel when hovering over other buttons
     buttonsToClose.forEach(function(button) {
         button.addEventListener('mouseenter', function() {
-            if (!isPinned) {
-                vkeyPanel.style.display = 'none';
-            }
+            vkeyPanel.style.display = 'none';
         });
     });
 

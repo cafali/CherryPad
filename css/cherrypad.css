@@ -420,10 +420,6 @@ rotate: 5deg;
     border-color: #477286d5;
 }
 
-.vkeyPanel button.vkey-pin-button,
-.vkeyPanel button.vkey-pin-button:hover,
-.vkeyPanel button.vkey-pin-button:active,
-.vkeyPanel button.vkey-pin-button[aria-pressed="true"],
 .vkeyPanel button.vkey-close-button,
 .vkeyPanel button.vkey-close-button:hover,
 .vkeyPanel button.vkey-close-button:active {
@@ -440,23 +436,9 @@ rotate: 5deg;
     cursor: pointer;
 }
 
-.vkeyPanel button.vkey-pin-button {
-    left: 14px;
-    width: 64px;
-}
-
 .vkeyPanel button.vkey-close-button {
     right: 14px;
     width: 72px;
-}
-
-.vkeyPanel button.vkey-pin-button:focus-visible {
-    outline: 1px dotted currentColor;
-    outline-offset: 2px;
-}
-
-.vkeyPanel button.vkey-pin-button[aria-pressed="true"] {
-    color: #477186f9;
 }
 
 #vkey-label {
