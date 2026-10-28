@@ -3,6 +3,13 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
+1.6.8 (DEV)
+- Added a drawing thickness slider with adjustable 1px to 15px lines and a 6px default
+- Changed the default drawing color to white
+- Expanded the drawing color palette with additional shades, organized into color rows
+- Added a color swatch to the drawing controls that opens the color palette
+- Refined the drawing controls with a compact, translucent design
+
 1.6.7
 - Added Cherry StickyBoard, a pannable board for creating, editing, moving, resizing and organizing sticky notes
 - Added StickyNote color selector

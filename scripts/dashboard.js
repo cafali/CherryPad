@@ -98,7 +98,7 @@
   const drawThicknessSlider = document.getElementById('drawThicknessSlider');
   const drawThicknessValue = document.getElementById('drawThicknessValue');
   const drawColorIndicator = document.getElementById('drawColorIndicator');
-  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ff4040', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ffffff', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
 
   function updateDrawColorIndicator() {
     const red = parseInt(model.drawColor.slice(1, 3), 16) / 255;
