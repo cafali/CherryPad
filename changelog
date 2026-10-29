@@ -3,7 +3,7 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
-1.6.8 (DEV)
+1.6.8
 - Added a drawing thickness slider with adjustable 1px to 15px lines and a 6px default
 - Added a color swatch to the drawing controls that opens the color palette
 - Added a download menu to choose which note field to download in fullscreen mode
