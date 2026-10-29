@@ -60,6 +60,36 @@
   }, []);
   const boardViewport = document.getElementById('boardViewport');
   const boardWorld = document.getElementById('boardWorld');
+  const brand = document.querySelector('.brand');
+  const toolbar = document.querySelector('.toolbar');
+  const toolbarButtons = document.querySelectorAll('.toolbar .tool-button');
+
+  function isOverlapping(first, second) {
+    const firstBounds = first.getBoundingClientRect();
+    const secondBounds = second.getBoundingClientRect();
+
+    return !(
+      firstBounds.right < secondBounds.left ||
+      firstBounds.left > secondBounds.right ||
+      firstBounds.bottom < secondBounds.top ||
+      firstBounds.top > secondBounds.bottom
+    );
+  }
+
+  function checkBrandOverlap() {
+    const toolbarIsCompressed = toolbar.scrollWidth > toolbar.clientWidth;
+    const overlaps = toolbarIsCompressed || Array.from(toolbarButtons).some(function (button) {
+      return isOverlapping(brand, button);
+    });
+
+    brand.style.opacity = overlaps ? '0' : '1';
+  }
+
+  window.addEventListener('resize', checkBrandOverlap);
+  window.addEventListener('load', checkBrandOverlap);
+  toolbar.addEventListener('scroll', checkBrandOverlap);
+  checkBrandOverlap();
+
   document.addEventListener('pointerdown', function (event) {
     if (!event.target.closest('.toolbar-dropdown')) {
       document.querySelectorAll('.toolbar-dropdown-menu:not([hidden])').forEach(function (menu) {

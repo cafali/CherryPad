@@ -65,6 +65,9 @@ textarea:focus {
   margin: 8px 10px;
   color: #999;
   font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .button-container {
