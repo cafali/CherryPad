@@ -17,14 +17,14 @@
     </a>
 
     <div class="toolbar" aria-label="Board tools">
-      <button class="tool-button primary" id="addNoteButton" type="button" title="Add a note (N)">
+      <button class="tool-button primary" id="addNoteButton" type="button">
         <i class="fa-solid fa-note-sticky" aria-hidden="true"></i> New note
       </button>
-      <button class="tool-button next-button" id="nextNoteButton" type="button" title="Center the next note"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Next Note</button>
-      <button class="tool-button reset-button" id="resetViewButton" type="button" title="Center the board view"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> Center View</button>
+      <button class="tool-button next-button" id="nextNoteButton" type="button"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Next Note</button>
+      <button class="tool-button reset-button" id="resetViewButton" type="button"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> Center View</button>
       <div class="draw-tool">
-        <button class="tool-button draw-button" id="drawButton" type="button" aria-pressed="false" title="Toggle drawing mode"><i class="fa-solid fa-pen" aria-hidden="true"></i> Draw</button>
-        <button class="tool-button draw-menu-toggle" id="drawMenuToggle" type="button" aria-label="Choose drawing color" aria-controls="drawColorMenu" aria-expanded="false" title="Choose drawing color"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        <button class="tool-button draw-button" id="drawButton" type="button" aria-pressed="false"><i class="fa-solid fa-pen" aria-hidden="true"></i> Draw</button>
+        <button class="tool-button draw-menu-toggle" id="drawMenuToggle" type="button" aria-label="Choose drawing color" aria-controls="drawColorMenu" aria-expanded="false"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         <div class="draw-color-menu" id="drawColorMenu" role="group" aria-label="Drawing colors" hidden></div>
       </div>
       <div class="toolbar-dropdown">
@@ -53,12 +53,12 @@
       <div class="board-world" id="boardWorld"></div>
     </div>
     <aside class="draw-thickness-control" id="drawThicknessControl" aria-label="Drawing settings" hidden>
-      <button class="draw-thickness-icon" id="drawColorIndicator" type="button" aria-label="Choose drawing color" title="Choose drawing color"></button>
+      <button class="draw-thickness-icon" id="drawColorIndicator" type="button" aria-label="Choose drawing color"></button>
       <label class="draw-thickness-label" for="drawThicknessSlider">Line thickness</label>
       <input id="drawThicknessSlider" type="range" min="1" max="15" step="1" value="6" aria-label="Drawing line thickness">
       <output class="draw-thickness-value" id="drawThicknessValue" for="drawThicknessSlider">6px</output>
     </aside>
-    <button class="return-button" id="returnToCherryPadButton" type="button" title="Return to CherryPad fullscreen mode">
+    <button class="return-button" id="returnToCherryPadButton" type="button">
       <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Return
     </button>
     <div class="board-hint" id="boardHint">
