@@ -33,6 +33,17 @@ textarea {
 }
 
 button,
+button *,
+.brand,
+.brand *,
+.board-hint,
+.board-hint * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+button,
 .import-button {
   -webkit-tap-highlight-color: transparent;
 }

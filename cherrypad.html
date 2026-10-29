@@ -24,7 +24,13 @@
                 <button class="button download-option" type="button" data-download-field="noteInput2"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i><span>Field 2</span></button>
             </div>
         </div>
-        <button id="copyButton" class="button"><i class="fas fa-copy"></i>Copy All</button>
+        <div class="copy-dropdown">
+            <button id="copyButton" class="button" type="button" aria-haspopup="true" aria-controls="copyMenu" aria-expanded="false" title="Choose a field to copy"><i class="fas fa-copy"></i>Copy</button>
+            <div class="copy-menu" id="copyMenu" role="group" aria-label="Copy options" hidden>
+                <button class="button copy-option" type="button" data-copy-field="noteInput"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i><span>Field 1</span></button>
+                <button class="button copy-option" type="button" data-copy-field="noteInput2"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i><span>Field 2</span></button>
+            </div>
+        </div>
         <button id="pasteButton" class="button"><i class="fas fa-paste"></i>Paste</button>
         <button id="emojiButton" class="button"><i class="fas fa-smile"></i>Emoji</button>
         <button id="symbolButton" class="button"><i class="fas fa-font"></i>Symbol</button>

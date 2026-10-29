@@ -116,7 +116,8 @@ button:active {
 #privacyButton { background-color: #00000000; scale: 1.1; margin-right: -10px;} /* privacy button */
 #vkeyButton { background-color: #ff000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
-.download-dropdown {
+.download-dropdown,
+.copy-dropdown {
     position: relative;
     display: inline-flex;
     flex: 0 0 auto;
@@ -128,7 +129,12 @@ button:active {
     margin-right: 0;
 }
 
-.download-dropdown .download-menu {
+.copy-dropdown #copyButton {
+    margin-right: 0;
+}
+
+.download-dropdown .download-menu,
+.copy-dropdown .copy-menu {
     position: absolute;
     z-index: 10;
     top: calc(100% + 8px);
@@ -147,7 +153,8 @@ button:active {
     box-shadow: none;
 }
 
-.download-dropdown .download-menu[hidden] {
+.download-dropdown .download-menu[hidden],
+.copy-dropdown .copy-menu[hidden] {
     display: none;
 }
 
@@ -215,7 +222,8 @@ button:active {
   background-color: #2c2c2c;
 }
 
-#downloadMenu .download-option {
+#downloadMenu .download-option,
+#copyMenu .copy-option {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,7 +242,17 @@ button:active {
   background-color: #913535;
 }
 
-#downloadMenu .download-option i {
+#copyMenu .copy-option {
+  background-color: #dca158;
+  color: hsl(48, 100%, 92%);
+}
+
+#copyMenu .copy-option:hover {
+  background-color: #c47e53;
+}
+
+#downloadMenu .download-option i,
+#copyMenu .copy-option i {
   flex: 0 0 auto;
   margin-right: 0;
 }
@@ -535,6 +553,9 @@ rotate: 5deg;
     color: #999;
     font-size: 12px;
     line-height: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .textarea-wrapper {

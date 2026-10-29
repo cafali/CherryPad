@@ -33,26 +33,6 @@ document.getElementById('saveButton').addEventListener('click', function() {
     localStorage.setItem('noteInput2', noteInput2Value);
 });
 
-// COPY button click message
-document.getElementById('copyButton').addEventListener('click', function() {
-
-    // get current date and time
-    var now = new Date();
-    var formattedTime = now.toLocaleString();
-
-    showStatusMessage('Copied to clipboard - ' + formattedTime, 'copy');
-});
-
-// PASTE button click message
-document.getElementById('pasteButton').addEventListener('click', function() {
-
-    // get current date and time
-    var now = new Date();
-    var formattedTime = now.toLocaleString();
-
-    showStatusMessage('Last pasted: ' + formattedTime, 'paste');
-});
-
 document.getElementById('dashboardButton').addEventListener('click', function() {
     window.location.assign('dashboard.html');
 });
@@ -253,12 +233,19 @@ document.addEventListener('pointerdown', function(event) {
     if (!event.target.closest('.download-dropdown')) {
         setDownloadMenuOpen(false);
     }
+    if (!event.target.closest('.copy-dropdown')) {
+        setCopyMenuOpen(false);
+    }
 });
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape' && !downloadMenu.hidden) {
         setDownloadMenuOpen(false);
         downloadButton.focus();
+    }
+    if (event.key === 'Escape' && !copyMenu.hidden) {
+        setCopyMenuOpen(false);
+        copyButton.focus();
     }
 });
 
@@ -329,20 +316,43 @@ document.getElementById('noteInput2').addEventListener('focus', () => {
     lastActiveTextarea = document.getElementById('noteInput2');
 });
 
-// Copy button functionality
-document.addEventListener("DOMContentLoaded", function() {
-    var copyButton = document.getElementById("copyButton");
+const copyButton = document.getElementById('copyButton');
+const copyMenu = document.getElementById('copyMenu');
 
-    copyButton.addEventListener("click", function() {
-        if (!lastActiveTextarea) return;
+function setCopyMenuOpen(isOpen) {
+    copyMenu.hidden = !isOpen;
+    copyButton.setAttribute('aria-expanded', String(isOpen));
+}
 
-        lastActiveTextarea.focus();
-        lastActiveTextarea.setSelectionRange(0, lastActiveTextarea.value.length);
+copyButton.addEventListener('click', function() {
+    setCopyMenuOpen(copyMenu.hidden);
+});
 
-        document.execCommand("copy");
+copyMenu.addEventListener('click', function(event) {
+    const option = event.target.closest('[data-copy-field]');
+    if (!option) return;
 
-        console.log("Text copied: " + lastActiveTextarea.value);
-    });
+    const textarea = document.getElementById(option.dataset.copyField);
+    const wasPrivacyEnabled = privacyEnabled;
+    if (wasPrivacyEnabled) privacyButton.click();
+
+    textarea.focus();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    let copied;
+    try {
+        copied = document.execCommand('copy');
+    } finally {
+        if (wasPrivacyEnabled) privacyButton.click();
+    }
+
+    if (copied) {
+        showStatusMessage('Copied to clipboard - ' + new Date().toLocaleString(), 'copy');
+    } else {
+        console.error('Failed to copy note field to clipboard.');
+        showStatusMessage('Could not copy to clipboard', 'copy');
+    }
+    setCopyMenuOpen(false);
 });
 
 // paste content on active field (Input 1&2)
@@ -355,27 +365,27 @@ document.getElementById('noteInput2').addEventListener('focus', () => {
 });
 
 document.getElementById('pasteButton').addEventListener('click', async () => {
+    const textarea = lastActiveTextarea;
+    if (!textarea) {
+        showStatusMessage('Select a note field before pasting', 'paste');
+        return;
+    }
+
+    const startPos = textarea.selectionStart;
+    const endPos = textarea.selectionEnd;
+
     try {
-        if (!lastActiveTextarea) return;
-
         const text = await navigator.clipboard.readText();
-        const startPos = lastActiveTextarea.selectionStart;
 
-        // insert the text at the cursor position
-        lastActiveTextarea.setRangeText(text, startPos, startPos, 'end');
-        lastActiveTextarea.dispatchEvent(new Event('input'));
-        lastActiveTextarea.focus(); // ensure the textarea is focused
-        lastActiveTextarea.selectionStart = startPos + text.length; // move cursor to end of pasted text
-        lastActiveTextarea.selectionEnd = startPos + text.length;
+        textarea.focus();
+        textarea.setRangeText(text, startPos, endPos, 'end');
+        textarea.dispatchEvent(new Event('input'));
 
-        // save the updated content to localStorage
-        if (lastActiveTextarea.id === 'noteInput') {
-            localStorage.setItem('noteInput', lastActiveTextarea.value);
-        } else if (lastActiveTextarea.id === 'noteInput2') {
-            localStorage.setItem('noteInput2', lastActiveTextarea.value);
-        }
+        localStorage.setItem(textarea.id, textarea.value);
+        showStatusMessage('Last pasted: ' + new Date().toLocaleString(), 'paste');
     } catch (err) {
         console.error('Failed to read clipboard contents: ', err);
+        showStatusMessage('Could not paste clipboard contents', 'paste');
     }
 });
 
@@ -764,22 +774,6 @@ document.addEventListener("keydown", (e) => {
 
 });
 
-
-// Temporarily disable privacy mode to allow copying when COPY button is clicked
-
-const copyButton = document.getElementById("copyButton");
-
-copyButton.addEventListener("click", (e) => {
-    if (privacyEnabled) {
-        // temporarily disable privacy
-        privacyButton.click();
-        // delay to let styles update before copying
-        setTimeout(() => {
-            copyButton.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-        }, 10);
-        e.stopImmediatePropagation(); 
-    }
-});
 
 // logo fadeout on button overlap
 
