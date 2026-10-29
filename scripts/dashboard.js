@@ -180,16 +180,20 @@
   });
 
   function setDrawMenuOpen(isOpen) {
-    drawColorMenu.hidden = !isOpen;
-    drawMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     if (isOpen) {
+      drawColorMenu.style.visibility = 'hidden';
+      drawColorMenu.hidden = false;
+      drawMenuToggle.setAttribute('aria-expanded', 'true');
       const drawToolRect = drawMenuToggle.parentElement.getBoundingClientRect();
       const maxLeft = Math.max(8, window.innerWidth - drawColorMenu.offsetWidth - 8);
       const maxTop = Math.max(8, window.innerHeight - drawColorMenu.offsetHeight - 8);
       const centeredLeft = drawToolRect.left + (drawToolRect.width - drawColorMenu.offsetWidth) / 2;
       drawColorMenu.style.left = `${clamp(centeredLeft, 8, maxLeft)}px`;
       drawColorMenu.style.top = `${clamp(drawToolRect.bottom + 8, 8, maxTop)}px`;
+      drawColorMenu.style.visibility = '';
     } else {
+      drawColorMenu.hidden = true;
+      drawMenuToggle.setAttribute('aria-expanded', 'false');
       drawColorMenu.style.left = '';
       drawColorMenu.style.top = '';
     }
