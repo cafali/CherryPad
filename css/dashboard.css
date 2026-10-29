@@ -238,9 +238,9 @@ textarea:focus-visible,
 }
 
 .draw-color-menu {
-  position: absolute;
+  position: fixed;
   z-index: 10;
-  top: calc(100% + 8px);
+  top: auto;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -404,10 +404,10 @@ textarea:focus-visible,
 }
 
 .toolbar-dropdown-menu {
-  position: absolute;
+  position: fixed;
   z-index: 10;
-  top: calc(100% + 8px);
-  right: 0;
+  top: auto;
+  right: auto;
   display: grid;
   min-width: 150px;
   gap: 4px;
@@ -796,7 +796,7 @@ textarea:focus-visible,
   opacity: 0;
   pointer-events: none;
   transform: scale(0.65);
-  transition: background-color 0.12s ease, transform 0.12s ease, opacity 0.12s ease, visibility 0.12s ease;
+  transition: background-color 0.12s ease, width 0.12s ease, height 0.12s ease, transform 0.12s ease, opacity 0.12s ease, visibility 0.12s ease;
 }
 
 .connection-port.is-visible {
@@ -806,11 +806,36 @@ textarea:focus-visible,
   transform: scale(1);
 }
 
+.board-world.is-connecting .connection-port.is-visible {
+  width: 20px;
+  height: 20px;
+}
+
 .connection-port:hover,
 .connection-port:focus-visible {
   z-index: 7;
   background: #fff0c1;
   transform: scale(1.35);
+}
+
+.board-world.is-connecting .port-top {
+  top: -11px;
+  left: calc(50% - 10px);
+}
+
+.board-world.is-connecting .port-right {
+  top: calc(50% - 10px);
+  right: -11px;
+}
+
+.board-world.is-connecting .port-bottom {
+  bottom: -11px;
+  left: calc(50% - 10px);
+}
+
+.board-world.is-connecting .port-left {
+  top: calc(50% - 10px);
+  left: -11px;
 }
 
 .port-top {

@@ -157,13 +157,13 @@
     menu.parentElement.querySelectorAll('[aria-controls="' + menu.id + '"]').forEach(function (button) {
       button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
-    if (isOpen && window.matchMedia('(max-width: 900px)').matches) {
-      const toggle = menu.parentElement.querySelector('.dropdown-toggle');
-      const buttonRect = toggle.getBoundingClientRect();
+    if (isOpen) {
+      const dropdownRect = menu.parentElement.getBoundingClientRect();
       const maxLeft = Math.max(8, window.innerWidth - menu.offsetWidth - 8);
       const maxTop = Math.max(8, window.innerHeight - menu.offsetHeight - 8);
-      menu.style.left = `${clamp(buttonRect.left, 8, maxLeft)}px`;
-      menu.style.top = `${clamp(buttonRect.bottom + 8, 8, maxTop)}px`;
+      const centeredLeft = dropdownRect.left + (dropdownRect.width - menu.offsetWidth) / 2;
+      menu.style.left = `${clamp(centeredLeft, 8, maxLeft)}px`;
+      menu.style.top = `${clamp(dropdownRect.bottom + 8, 8, maxTop)}px`;
     } else {
       menu.style.left = '';
       menu.style.top = '';
@@ -182,12 +182,13 @@
   function setDrawMenuOpen(isOpen) {
     drawColorMenu.hidden = !isOpen;
     drawMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    if (isOpen && window.matchMedia('(max-width: 900px)').matches) {
-      const buttonRect = drawMenuToggle.getBoundingClientRect();
+    if (isOpen) {
+      const drawToolRect = drawMenuToggle.parentElement.getBoundingClientRect();
       const maxLeft = Math.max(8, window.innerWidth - drawColorMenu.offsetWidth - 8);
       const maxTop = Math.max(8, window.innerHeight - drawColorMenu.offsetHeight - 8);
-      drawColorMenu.style.left = `${clamp(buttonRect.left, 8, maxLeft)}px`;
-      drawColorMenu.style.top = `${clamp(buttonRect.bottom + 8, 8, maxTop)}px`;
+      const centeredLeft = drawToolRect.left + (drawToolRect.width - drawColorMenu.offsetWidth) / 2;
+      drawColorMenu.style.left = `${clamp(centeredLeft, 8, maxLeft)}px`;
+      drawColorMenu.style.top = `${clamp(drawToolRect.bottom + 8, 8, maxTop)}px`;
     } else {
       drawColorMenu.style.left = '';
       drawColorMenu.style.top = '';
@@ -338,6 +339,8 @@
   }
 
   function updateConnectionPorts() {
+    boardWorld.classList.toggle('is-connecting', Boolean(model.drag && model.drag.type === 'connection'));
+
     const connectedPorts = new Set();
     model.connections.forEach(function (connection) {
       connectedPorts.add(`${connection.from.noteId}:${connection.from.side}`);
@@ -1400,6 +1403,7 @@
         if (card) card.classList.remove('is-dragging');
       }
       model.drag = null;
+      updateConnectionPorts();
     }
   });
 
