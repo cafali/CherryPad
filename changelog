@@ -12,6 +12,9 @@ Version 1.6.X (March 2026 - October 2026) (Current)
 - Expanded the drawing color palette with additional shades, organized into color rows
 - Changed the default drawing color to white
 - Changed the clear-field menu to open on click instead of hover in fullscreen mode
+- Fixed the virtual keyboard closing when hovering over other buttons in fullscreen mode
+- Changed the virtual keyboard to use mobile-style one-letter capitalization by default
+- Matched sticky-note scrollbar colors to each note and removed the note editor focus border while preserving connection points
 
 1.6.7
 - Added Cherry StickyBoard, a pannable board for creating, editing, moving, resizing and organizing sticky notes
