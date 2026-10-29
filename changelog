@@ -7,6 +7,7 @@ Version 1.6.X (March 2026 - October 2026) (Current)
 - Fixed sticky-note text selection so dragging within the writing area no longer moves the note
 - Added a focus border around the active note writing area, aligned with its editable bounds
 - Made the area outside the writing border draggable while keeping text selection inside the border
+- Added sticky-board telemetry in the bottom-right corner showing coordinates and last edited time
 - Adjusted some colors in color picker
 - Adjusted some UI elements for better visibility
 

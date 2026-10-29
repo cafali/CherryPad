@@ -120,6 +120,8 @@
   boardWorld.appendChild(drawingLayer);
   const noteCount = document.getElementById('noteCount');
   const saveStatus = document.getElementById('saveStatus');
+  const boardCoordinates = document.getElementById('boardCoordinates');
+  const lastEdited = document.getElementById('lastEdited');
   const importInput = document.getElementById('importInput');
   const drawButton = document.getElementById('drawButton');
   const drawMenuToggle = document.getElementById('drawMenuToggle');
@@ -128,7 +130,7 @@
   const drawThicknessSlider = document.getElementById('drawThicknessSlider');
   const drawThicknessValue = document.getElementById('drawThicknessValue');
   const drawColorIndicator = document.getElementById('drawColorIndicator');
-  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ffffff', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null };
+  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ffffff', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pointer: { x: 0, y: 0 }, lastEditedAt: Date.now() };
 
   function updateDrawColorIndicator() {
     const red = parseInt(model.drawColor.slice(1, 3), 16) / 255;
@@ -271,6 +273,7 @@
 
   function updateView() {
     boardWorld.style.transform = `translate(${model.x}px, ${model.y}px) scale(${model.zoom})`;
+    updateBoardTelemetry();
   }
 
   function centerBoard() {
@@ -281,6 +284,8 @@
   }
 
   function saveBoard() {
+    model.lastEditedAt = Date.now();
+    updateBoardTelemetry();
     window.clearTimeout(model.saveTimer);
     model.saveTimer = window.setTimeout(function () {
       try {
@@ -303,6 +308,22 @@
     const noteTotal = model.notes.length;
     const strokeTotal = model.strokes.length;
     noteCount.textContent = `${noteTotal} ${noteTotal === 1 ? 'note' : 'notes'} · ${strokeTotal} ${strokeTotal === 1 ? 'drawing' : 'drawings'}`;
+  }
+
+  function formatTime(timestamp) {
+    return new Intl.DateTimeFormat(undefined, {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).format(new Date(timestamp));
+  }
+
+  function updateBoardTelemetry() {
+    const rect = boardViewport.getBoundingClientRect();
+    const worldX = clamp((model.pointer.x - rect.left - model.x) / model.zoom, 0, BOARD_WIDTH);
+    const worldY = clamp((model.pointer.y - rect.top - model.y) / model.zoom, 0, BOARD_HEIGHT);
+    boardCoordinates.textContent = `Coordinates: ${Math.round(worldX)}, ${Math.round(worldY)}`;
+    lastEdited.textContent = `Last edited: ${formatTime(model.lastEditedAt || Date.now())}`;
   }
 
   function formatDate(timestamp) {
@@ -1033,6 +1054,9 @@
     renderConnections();
     renderStrokes();
     updateCount();
+    model.lastEditedAt = Math.max.apply(null, [Date.now()].concat(model.notes.map(function (note) {
+      return Number(note.updatedAt) || Date.now();
+    })));
     updateView();
     if (isFirstLaunch || updatedWelcomeNote) saveBoard();
   }
@@ -1283,6 +1307,19 @@
     boardViewport.classList.add('is-panning');
     boardViewport.setPointerCapture(event.pointerId);
     model.drag = { type: 'board', pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, x: model.x, y: model.y };
+  });
+
+  boardViewport.addEventListener('pointermove', function (event) {
+    model.pointer.x = event.clientX;
+    model.pointer.y = event.clientY;
+    updateBoardTelemetry();
+  });
+
+  boardViewport.addEventListener('pointerleave', function () {
+    const rect = boardViewport.getBoundingClientRect();
+    model.pointer.x = rect.left + rect.width / 2;
+    model.pointer.y = rect.top + rect.height / 2;
+    updateBoardTelemetry();
   });
 
   document.addEventListener('pointermove', function (event) {
