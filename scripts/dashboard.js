@@ -41,7 +41,7 @@
     ] },
     { name: 'Violet shades', colors: [
       { name: 'Dark violet', value: '#4c1d95' }, { name: 'Violet', value: '#6d28d9' },
-      { name: 'Bright violet', value: '#8b5cf6' }, { name: 'Light violet', value: '#9b59d0' },
+      { name: 'Bright violet', value: '#8b5cf6' }, { name: 'Light violet', value: '#a887f3' },
       { name: 'Soft violet', value: '#c4b5fd' }, { name: 'Pale violet', value: '#ede9fe' }
     ] },
     { name: 'Pink shades', colors: [
@@ -128,7 +128,7 @@
   const drawThicknessSlider = document.getElementById('drawThicknessSlider');
   const drawThicknessValue = document.getElementById('drawThicknessValue');
   const drawColorIndicator = document.getElementById('drawColorIndicator');
-  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ffffff', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null, pendingNoteDrag: null };
+  const model = { notes: [], connections: [], strokes: [], x: 0, y: 0, zoom: 1, currentNoteId: null, selectedNoteId: null, selectedStrokeId: null, drawColor: '#ffffff', drawWidth: 6, drawingActive: false, saveTimer: null, statusTimer: null, drag: null };
 
   function updateDrawColorIndicator() {
     const red = parseInt(model.drawColor.slice(1, 3), 16) / 255;
@@ -805,26 +805,43 @@
       saveBoard();
     });
 
-    dragHandle.addEventListener('pointerdown', function (event) {
+    function startNoteDrag(event, handle) {
       if (event.button !== 0) return;
       event.preventDefault();
       card.classList.add('is-dragging');
-      dragHandle.setPointerCapture(event.pointerId);
+      handle.setPointerCapture(event.pointerId);
       model.drag = { type: 'note', id: note.id, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, x: note.x, y: note.y };
+    }
+
+    dragHandle.addEventListener('pointerdown', function (event) {
+      startNoteDrag(event, dragHandle);
     });
 
     content.addEventListener('pointerdown', function (event) {
-      if (event.button !== 0 || event.target !== content) return;
-      model.pendingNoteDrag = {
-        id: note.id,
-        pointerId: event.pointerId,
-        startX: event.clientX,
-        startY: event.clientY,
-        x: note.x,
-        y: note.y,
-        content: content,
-        card: card
+      if (event.button !== 0) return;
+      const cardRect = card.getBoundingClientRect();
+      const scaleX = cardRect.width / card.offsetWidth;
+      const scaleY = cardRect.height / card.offsetHeight;
+      const frameInsets = getComputedStyle(card);
+      const frameTop = parseFloat(frameInsets.getPropertyValue('--note-content-frame-top')) * scaleY;
+      const frameRight = parseFloat(frameInsets.getPropertyValue('--note-content-frame-right')) * scaleX;
+      const frameBottom = parseFloat(frameInsets.getPropertyValue('--note-content-frame-bottom')) * scaleY;
+      const frameLeft = parseFloat(frameInsets.getPropertyValue('--note-content-frame-left')) * scaleX;
+      const frameBounds = {
+        left: cardRect.left + frameLeft,
+        top: cardRect.top + frameTop,
+        right: cardRect.right - frameRight,
+        bottom: cardRect.bottom - frameBottom
       };
+
+      if (event.clientX < frameBounds.left || event.clientX > frameBounds.right
+        || event.clientY < frameBounds.top || event.clientY > frameBounds.bottom) {
+        startNoteDrag(event, content);
+      }
+    });
+
+    header.addEventListener('pointerdown', function (event) {
+      if (event.target === header) startNoteDrag(event, header);
     });
 
     return card;
@@ -1269,28 +1286,6 @@
   });
 
   document.addEventListener('pointermove', function (event) {
-    const pendingDrag = model.pendingNoteDrag;
-    if (pendingDrag && pendingDrag.pointerId === event.pointerId && !model.drag) {
-      const deltaX = event.clientX - pendingDrag.startX;
-      const deltaY = event.clientY - pendingDrag.startY;
-      if (Math.hypot(deltaX, deltaY) >= 6) {
-        event.preventDefault();
-        pendingDrag.content.setSelectionRange(pendingDrag.content.selectionEnd, pendingDrag.content.selectionEnd);
-        pendingDrag.card.setPointerCapture(event.pointerId);
-        pendingDrag.card.classList.add('is-dragging');
-        model.drag = {
-          type: 'note',
-          id: pendingDrag.id,
-          pointerId: pendingDrag.pointerId,
-          startX: pendingDrag.startX,
-          startY: pendingDrag.startY,
-          x: pendingDrag.x,
-          y: pendingDrag.y
-        };
-        model.pendingNoteDrag = null;
-      }
-    }
-
     const drag = model.drag;
     if (!drag || drag.pointerId !== event.pointerId) return;
     if (drag.type === 'draw') {
@@ -1344,9 +1339,6 @@
   });
 
   document.addEventListener('pointerup', function (event) {
-    if (model.pendingNoteDrag && model.pendingNoteDrag.pointerId === event.pointerId) {
-      model.pendingNoteDrag = null;
-    }
     if (!model.drag || model.drag.pointerId !== event.pointerId) return;
     if (model.drag.type === 'draw') {
       const drag = model.drag;
@@ -1395,9 +1387,6 @@
   });
 
   document.addEventListener('pointercancel', function (event) {
-    if (model.pendingNoteDrag && model.pendingNoteDrag.pointerId === event.pointerId) {
-      model.pendingNoteDrag = null;
-    }
     if (model.drag && model.drag.pointerId === event.pointerId) {
       if (model.drag.type === 'draw') model.drag.preview.remove();
       if (model.drag.type === 'connection') renderConnections();

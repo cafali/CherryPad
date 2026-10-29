@@ -3,6 +3,13 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
+1.6.9 (DEV)
+- Fixed sticky-note text selection so dragging within the writing area no longer moves the note
+- Added a focus border around the active note writing area, aligned with its editable bounds
+- Made the area outside the writing border draggable while keeping text selection inside the border
+- Adjusted some colors in color picker
+- Adjusted some UI elements for better visibility
+
 1.6.8
 - Added a drawing thickness slider with adjustable 1px to 15px lines and a 6px default
 - Added a color swatch to the drawing controls that opens the color palette
