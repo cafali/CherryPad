@@ -904,21 +904,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Virtual keyboard panel controls
 document.addEventListener('DOMContentLoaded', function() {
-    const vkeyButton = document.getElementById('vkeyButton');
     const vkeyPanel = document.getElementById('vkeyPanel');
     const closeButton = document.getElementById('vkeyCloseButton');
-    const buttonsToClose = document.querySelectorAll('.button:not(#vkeyButton)');
 
     closeButton.addEventListener('click', function(event) {
         event.stopPropagation();
         vkeyPanel.style.display = 'none';
-    });
-
-    // close virtual keyboard panel when hovering over other buttons
-    buttonsToClose.forEach(function(button) {
-        button.addEventListener('mouseenter', function() {
-            vkeyPanel.style.display = 'none';
-        });
     });
 
 });
@@ -932,6 +923,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let activeInput = null; // track the currently active input
     let capsLockEnabled = true;
     const graphemeSegmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+    function updateLetterKeys() {
+        vkeyPanel.querySelectorAll('.letter-key').forEach(letterKey => {
+            const letter = letterKey.dataset.letter;
+            letterKey.textContent = capsLockEnabled ? letter.toUpperCase() : letter;
+        });
+        vkeyPanel.querySelector('[data-action="capslock"]')
+            .setAttribute('aria-pressed', String(capsLockEnabled));
+    }
+    updateLetterKeys();
 
     // Focusing on the input fields
     noteInput1.addEventListener('focus', function() {
@@ -955,11 +956,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const action = key.dataset.action;
         if (action === 'capslock') {
             capsLockEnabled = !capsLockEnabled;
-            vkeyPanel.querySelectorAll('.letter-key').forEach(letterKey => {
-                const letter = letterKey.dataset.letter;
-                letterKey.textContent = capsLockEnabled ? letter.toUpperCase() : letter;
-            });
-            key.setAttribute('aria-pressed', String(capsLockEnabled));
+            updateLetterKeys();
             return;
         }
 
@@ -969,6 +966,11 @@ document.addEventListener('DOMContentLoaded', function() {
             applyEditingAction(activeInput, action);
         } else {
             insertAtCursor(activeInput, key.textContent);
+        }
+
+        if (key.classList.contains('letter-key') && capsLockEnabled) {
+            capsLockEnabled = false;
+            updateLetterKeys();
         }
 
         if (activeInput === noteInput1) {

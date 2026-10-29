@@ -1064,6 +1064,33 @@ textarea:focus-visible,
   line-height: 1.55;
 }
 
+.note-content:focus-visible {
+  outline: none;
+}
+
+.note-content {
+  scrollbar-color: color-mix(in srgb, var(--note-color, #f8df85) 90%, #000) var(--note-color, #f8df85);
+  scrollbar-width: thin;
+}
+
+.note-content::-webkit-scrollbar {
+  width: 14px;
+}
+
+.note-content::-webkit-scrollbar-track {
+  background: var(--note-color, #f8df85);
+}
+
+.note-content::-webkit-scrollbar-thumb,
+.note-content::-webkit-scrollbar-button {
+  background-color: color-mix(in srgb, var(--note-color, #f8df85) 90%, #000);
+}
+
+.note-content::-webkit-scrollbar-thumb {
+  border: 3px solid var(--note-color, #f8df85);
+  border-radius: 7px;
+}
+
 .note-content::placeholder {
   color: #514a3580;
 }
