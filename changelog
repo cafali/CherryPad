@@ -3,7 +3,12 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
-1.6.9
+1.7.0 (DEV)
+- Adjusted some StickyNotes UI elements for better visibility
+- Changed StickyNotes max resize value from 30% to 90%
+- Adjusted green center-dot marker for better visibility
+
+1.6.9 (Current)
 - Fixed sticky-note text selection so dragging within the writing area no longer moves the note
 - Added a focus border around the active note writing area, aligned with its editable bounds
 - Made the area outside the writing border draggable while keeping text selection inside the border

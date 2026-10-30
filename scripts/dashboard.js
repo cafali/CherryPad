@@ -756,7 +756,7 @@
     const resizeHandle = document.createElement('button');
     resizeHandle.className = 'note-resize-handle';
     resizeHandle.type = 'button';
-    resizeHandle.title = 'Resize note up to 30% larger';
+    resizeHandle.title = 'Resize note';
     resizeHandle.setAttribute('aria-label', 'Resize note');
     resizeHandle.addEventListener('pointerdown', function (event) {
       if (event.button !== 0) return;
@@ -874,8 +874,8 @@
     const row = Math.floor(model.notes.length / 4);
     const offsetX = (column - 1.5) * 272;
     const offsetY = (row - 0.5) * 276;
-    const width = values && Number.isFinite(values.width) ? clamp(values.width, 248, 248 * 1.3) : 248;
-    const height = values && Number.isFinite(values.height) ? clamp(values.height, 252, 252 * 1.3) : 252;
+    const width = values && Number.isFinite(values.width) ? clamp(values.width, 248, 248 * 1.9) : 248; //Notesize is 248x252, but allow up to 30% larger for imported notes
+    const height = values && Number.isFinite(values.height) ? clamp(values.height, 252, 252 * 1.9) : 252; //Notesize is 248x252, but allow up to 30% larger for imported notes
     const note = {
       id: values && values.id ? values.id : (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
       title: values && typeof values.title === 'string' ? values.title : '',
@@ -909,8 +909,8 @@
   function normalizeNote(value, index, seenIds) {
     if (!value || typeof value !== 'object') return null;
     const id = typeof value.id === 'string' && value.id && !seenIds.has(value.id) ? value.id : `import-${Date.now()}-${index}`;
-    const width = Number.isFinite(value.width) ? clamp(value.width, 248, 248 * 1.3) : 248;
-    const height = Number.isFinite(value.height) ? clamp(value.height, 252, 252 * 1.3) : 252;
+    const width = Number.isFinite(value.width) ? clamp(value.width, 248, 248 * 1.9) : 248; //Notesize is 248x252, but allow up to 30% larger for imported notes
+    const height = Number.isFinite(value.height) ? clamp(value.height, 252, 252 * 1.9) : 252; //Notesize is 248x252, but allow up to 30% larger for imported notes
     seenIds.add(id);
     return {
       id,
@@ -1355,7 +1355,7 @@
       const scale = clamp(
         1 + Math.max((event.clientX - drag.startX) / (248 * model.zoom), (event.clientY - drag.startY) / (252 * model.zoom)),
         1,
-        1.3
+        1.9
       );
       note.width = 248 * scale;
       note.height = 252 * scale;
