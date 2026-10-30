@@ -1008,7 +1008,7 @@
         const welcomeNote = {
           id: makeId(),
           title: 'Welcome',
-          content: 'This is your sticky-note board. Edit, move, resize, recolor, duplicate, or delete these starter notes to explore.',
+          content: 'This is your sticky-note board. Edit, move, resize, draw, recolor, duplicate, or delete these starter notes to explore.',
           color: '#f8df85',
           width: 248,
           height: 252,
