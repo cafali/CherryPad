@@ -25,9 +25,14 @@
       <img class="cherry-icon" src="icon/cherrypad.png" alt="Cherry Icon">
     </footer>
   </div>
-  <a id="Fullscreen" href="cherrypad.html" target="_blank">
-    <img class="fullscreen-icon" src="icon/fullscreen.png" alt="Fullscreen" width="15" height="15">
-  </a>
+  <nav class="popup-navigation" aria-label="Open CherryPad views">
+    <a id="Fullscreen" href="cherrypad.html" target="_blank" aria-label="Fullscreen">
+      <i class="fa-solid fa-expand fullscreen-icon" aria-hidden="true"></i>
+    </a>
+    <a id="Dashboard" href="dashboard.html" target="_blank" aria-label="Dashboard" title="Dashboard">
+      <i class="fa-solid fa-note-sticky dashboard-icon" aria-hidden="true"></i>
+    </a>
+  </nav>
   <script src="scripts/popup.js"></script>
 </body>
 </html>

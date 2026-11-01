@@ -19,7 +19,7 @@ body {
 
 textarea {
   width: calc(100% - 20px);
-  height: 421px;
+  height: 463px;
   margin: 10px 0 0;
   padding: 10px;
   border: 4px solid #232323;
@@ -156,14 +156,27 @@ footer {
   transform: scale(0.95);
 }
 
-.fullscreen-icon {
-  transition: filter 0.3s;
+.fullscreen-icon,
+.dashboard-icon {
+  color: #999999;
+  font-size: 16.5px;
+  transition: filter 0.3s, transform 0.3s;
   user-select: none;
 }
 
-.fullscreen-icon:hover {
+.fullscreen-icon:hover,
+.dashboard-icon:hover {
   filter: brightness(2.0);
   transform: scale(1.1);
+}
+
+.popup-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 20px;
+  box-sizing: border-box;
 }
 
 .spin-once { animation: spin 0.8s ease;} 
