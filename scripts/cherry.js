@@ -137,12 +137,15 @@ document.addEventListener('DOMContentLoaded', function() {
         updateNoteStats();
     });
 
-    let currentNoteView = 'both';
-
     function updateNoteStats() {
-        const countedNotes = currentNoteView === 'first'
+        const activeNoteView = document.activeElement === noteInput1
+            ? 'first'
+            : document.activeElement === noteInput2
+                ? 'second'
+                : 'both';
+        const countedNotes = activeNoteView === 'first'
             ? [noteInput1.value]
-            : currentNoteView === 'second'
+            : activeNoteView === 'second'
                 ? [noteInput2.value]
                 : [noteInput1.value, noteInput2.value];
         const lineCount = countedNotes.reduce((count, value) => count + (value.length > 0 ? value.split(/\r\n|\r|\n/).length : 0), 0);
@@ -154,9 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
             month: 'short',
             year: 'numeric'
         }).format(new Date());
-        const fieldLabel = currentNoteView === 'first'
+        const fieldLabel = activeNoteView === 'first'
             ? ' · Field 1'
-            : currentNoteView === 'second'
+            : activeNoteView === 'second'
                 ? ' · Field 2'
                 : '';
         document.getElementById('fullNoteStats').textContent =
@@ -164,6 +167,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     noteInput1.addEventListener('input', updateNoteStats);
+    noteInput1.addEventListener('focus', updateNoteStats);
+    noteInput2.addEventListener('focus', updateNoteStats);
+    [noteInput1, noteInput2].forEach(textarea => {
+        textarea.addEventListener('blur', () => {
+            setTimeout(updateNoteStats, 0);
+        });
+    });
     updateNoteStats();
 
     const noteFieldViews = ['both', 'first', 'second'];
@@ -182,12 +192,172 @@ document.addEventListener('DOMContentLoaded', function() {
     viewButton.addEventListener('click', function() {
         currentViewIndex = (currentViewIndex + 1) % noteFieldViews.length;
         const view = noteFieldViews[currentViewIndex];
-        currentNoteView = view;
         document.querySelector('.container').dataset.noteView = view;
         viewButton.title = viewTitles[view];
         showStatusMessage(viewMessages[view], 'note-view');
         updateNoteStats();
     });
+
+    const selectionMenu = document.getElementById('noteSelectionMenu');
+    const clearSelectionButton = selectionMenu.querySelector('[data-selection-action="clear"]');
+    let selectedNoteRange = null;
+    let isSelectionActionInProgress = false;
+    let pointerSelectionBefore = null;
+    const keyboardSelectionBefore = new WeakMap();
+
+    function resetClearConfirmation() {
+        clearSelectionButton.textContent = 'Clear';
+        clearSelectionButton.removeAttribute('aria-label');
+        clearSelectionButton.removeAttribute('data-confirming');
+    }
+
+    function hideSelectionMenu() {
+        selectionMenu.hidden = true;
+        selectedNoteRange = null;
+        resetClearConfirmation();
+    }
+
+    function showSelectionMenu(textarea, clientX, clientY) {
+        if (isSelectionActionInProgress) return;
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        if (start === end) {
+            hideSelectionMenu();
+            return;
+        }
+
+        resetClearConfirmation();
+        selectedNoteRange = { textarea, start, end, text: textarea.value.slice(start, end) };
+        selectionMenu.hidden = false;
+
+        const textareaRect = textarea.getBoundingClientRect();
+        const menuRect = selectionMenu.getBoundingClientRect();
+        const anchorX = Number.isFinite(clientX) ? clientX : textareaRect.left + textareaRect.width / 2;
+        const anchorY = Number.isFinite(clientY) ? clientY : textareaRect.top + 44;
+        const menuGap = window.innerHeight * 0.05;
+        const left = Math.max(8, Math.min(anchorX - menuRect.width / 2, window.innerWidth - menuRect.width - 8));
+        const top = anchorY - menuRect.height - menuGap >= 8
+            ? anchorY - menuRect.height - menuGap
+            : Math.min(anchorY + 10, window.innerHeight - menuRect.height - 8);
+
+        selectionMenu.style.left = `${left}px`;
+        selectionMenu.style.top = `${Math.max(8, top)}px`;
+    }
+
+    [noteInput1, noteInput2].forEach(textarea => {
+        textarea.addEventListener('keydown', () => {
+            keyboardSelectionBefore.set(textarea, {
+                start: textarea.selectionStart,
+                end: textarea.selectionEnd
+            });
+        });
+        textarea.addEventListener('mouseup', event => {
+            const { clientX, clientY } = event;
+            const selectionBefore = pointerSelectionBefore;
+            pointerSelectionBefore = null;
+            requestAnimationFrame(() => {
+                const selectionChanged = selectionBefore?.textarea === textarea &&
+                    (textarea.selectionStart !== selectionBefore.start || textarea.selectionEnd !== selectionBefore.end);
+                const pointerDragged = selectionBefore?.textarea === textarea &&
+                    Math.hypot(clientX - selectionBefore.clientX, clientY - selectionBefore.clientY) > 3;
+                if (document.activeElement === textarea && (selectionChanged || pointerDragged)) {
+                    showSelectionMenu(textarea, clientX, clientY);
+                } else {
+                    hideSelectionMenu();
+                }
+            });
+        });
+        textarea.addEventListener('keyup', () => {
+            const selectionBefore = keyboardSelectionBefore.get(textarea);
+            keyboardSelectionBefore.delete(textarea);
+            requestAnimationFrame(() => {
+                const selectionChanged = selectionBefore &&
+                    (textarea.selectionStart !== selectionBefore.start || textarea.selectionEnd !== selectionBefore.end);
+                if (document.activeElement === textarea && selectionChanged) {
+                    showSelectionMenu(textarea);
+                }
+            });
+        });
+    });
+
+    selectionMenu.addEventListener('mousedown', event => event.preventDefault());
+    selectionMenu.addEventListener('click', event => {
+        const action = event.target.closest('[data-selection-action]');
+        if (!action || !selectedNoteRange) return;
+
+        const { textarea, start, end, text } = selectedNoteRange;
+        isSelectionActionInProgress = true;
+
+        if (action.dataset.selectionAction === 'copy') {
+            textarea.focus({ preventScroll: true });
+            textarea.setSelectionRange(start, end);
+            const copied = document.execCommand('copy');
+            if (copied) {
+                showStatusMessage('Copied selection to clipboard', 'copy');
+            } else {
+                console.error('Failed to copy selected note text to clipboard.');
+                showStatusMessage('Could not copy selection to clipboard', 'copy');
+            }
+        } else if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
+            action.textContent = 'Confirm';
+            action.setAttribute('aria-label', 'Confirm clearing selected text');
+            action.setAttribute('data-confirming', '');
+            isSelectionActionInProgress = false;
+            return;
+        } else if (action.dataset.selectionAction === 'clear') {
+            textarea.focus({ preventScroll: true });
+            textarea.setRangeText('', start, end, 'start');
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        } else if (action.dataset.selectionAction === 'download') {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            const today = new Date();
+            const date = [
+                String(today.getDate()).padStart(2, '0'),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                today.getFullYear()
+            ].join('-');
+
+            link.href = url;
+            link.download = `CherrySelection ${date}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            showStatusMessage('Last attempted download: ' + new Date().toLocaleString(), 'download');
+        } else if (action.dataset.selectionAction === 'search') {
+            const searchUrl = new URL('https://www.google.com/search');
+            searchUrl.searchParams.set('q', text);
+            window.open(searchUrl.toString(), '_blank', 'noopener,noreferrer');
+        }
+
+        hideSelectionMenu();
+        setTimeout(() => {
+            isSelectionActionInProgress = false;
+        }, 0);
+    });
+
+    document.addEventListener('pointerdown', event => {
+        if (selectionMenu.contains(event.target)) return;
+        const textarea = [noteInput1, noteInput2].find(field => field === event.target);
+        pointerSelectionBefore = textarea
+            ? {
+                textarea,
+                start: textarea.selectionStart,
+                end: textarea.selectionEnd,
+                clientX: event.clientX,
+                clientY: event.clientY
+            }
+            : null;
+        hideSelectionMenu();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !selectionMenu.hidden) hideSelectionMenu();
+    });
+    window.addEventListener('resize', hideSelectionMenu);
+    window.addEventListener('scroll', hideSelectionMenu, true);
 });
 
 //blink logo Cherry when saving (fullscreen)
@@ -1095,7 +1265,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             ? `${selectionBlock}\n\n${noteInput.value}`
             : selectionBlock;
         noteInput.dispatchEvent(new Event('input', { bubbles: true }));
-        noteInput.focus();
+        noteInput.focus({ preventScroll: true });
         await chrome.storage.local.remove(storageKey);
     } catch (error) {
         console.error('Could not send the selected text to CherryPad:', error);
