@@ -769,12 +769,15 @@ textarea:focus-visible,
 
 .sticky-note:hover,
 .sticky-note:focus-within {
-  z-index: 3;
   box-shadow: 0 15px 34px #00000055, 0 2px 5px #00000030;
 }
 
-.sticky-note.is-dragging {
+.sticky-note.is-front {
   z-index: 5;
+}
+
+.sticky-note.is-dragging {
+  z-index: 6;
   box-shadow: 0 24px 45px #00000070;
   transition: none;
 }

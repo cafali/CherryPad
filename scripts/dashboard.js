@@ -779,8 +779,14 @@
     boardWorld.appendChild(card);
     card.classList.toggle('is-selected', note.id === model.selectedNoteId);
     card.addEventListener('pointerdown', function (event) {
+      if (event.button === 0) {
+        boardWorld.querySelectorAll('.sticky-note.is-front').forEach(function (item) {
+          item.classList.remove('is-front');
+        });
+        card.classList.add('is-front');
+      }
       if (!event.target.closest('.connection-port')) selectNote(note.id);
-    });
+    }, true);
     card.addEventListener('focusin', function () { selectNote(note.id); });
 
     title.addEventListener('input', function () {
