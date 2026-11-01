@@ -1,4 +1,5 @@
 const SEND_TO_CHERRYPAD_MENU_ID = "send-to-cherrypad";
+const PENDING_SELECTION_KEY = "pendingSelection";
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.removeAll(() => {
@@ -25,15 +26,11 @@ chrome.contextMenus.onClicked.addListener((info) => {
   const selectedText = info.selectionText;
   if (typeof selectedText !== "string" || !selectedText.trim()) return;
 
-  const storageKey = `pendingSelection:${crypto.randomUUID()}`;
-  const cherryPadUrl = new URL(chrome.runtime.getURL("cherrypad.html"));
-  cherryPadUrl.searchParams.set("sendToCherryPad", storageKey);
-
-  chrome.storage.local.set({ [storageKey]: selectedText })
-    .then(() => chrome.tabs.create({ url: cherryPadUrl.toString() }))
+  chrome.storage.local.set({ [PENDING_SELECTION_KEY]: selectedText })
+    .then(() => chrome.action.openPopup())
     .catch((error) => {
-      console.error("Could not open CherryPad with the selected text:", error);
-      chrome.storage.local.remove(storageKey).catch((cleanupError) => {
+      console.error("Could not open the CherryPad popup with the selected text:", error);
+      chrome.storage.local.remove(PENDING_SELECTION_KEY).catch((cleanupError) => {
         console.error("Could not clear the pending CherryPad selection:", cleanupError);
       });
     });

@@ -25,7 +25,7 @@ CherryPad Key Features:
 - Lightweight and Fast
 - Built-in Emoji Panel
 - Built-in Unicode Symbol Panel
-- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action
+- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action, which opens the CherryPad popup
 - Comfortable design for everyday use
 - Fullscreen mode with two separate note fields
 - Save notes directly in the extension or download them as a .txt file
@@ -47,4 +47,3 @@ Note: May differ from the current version
 ```
 
 <img width="2540" height="593" alt="bottom" src="https://github.com/user-attachments/assets/0e35fead-8ba2-46f1-a829-8b0f7aa4b6e0" />
-

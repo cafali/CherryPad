@@ -14,6 +14,7 @@ function updateNoteStats() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    const pendingSelectionKey = 'pendingSelection';
     const saveButton = document.getElementById('saveButton');
     const saveTxtButton = document.getElementById('saveTxtButton');
     const clearButton = document.getElementById('clearButton');
@@ -30,6 +31,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const savedFirstNote = localStorage.getItem('noteInput');
     noteInputs[0].value = savedFirstNote !== null ? savedFirstNote : (localStorage.getItem('note') || '');
     noteInputs[1].value = localStorage.getItem('noteInput2') || '';
+
+    if (globalThis.chrome?.storage?.local) {
+        chrome.storage.local.get(pendingSelectionKey)
+            .then(async (storedSelection) => {
+                const selectedText = storedSelection[pendingSelectionKey];
+                if (typeof selectedText !== 'string' || !selectedText.trim()) return;
+
+                const selectionBlock = `---------------------\n${selectedText}\n---------------------`;
+                noteInputs[0].value = noteInputs[0].value
+                    ? `${selectionBlock}\n\n${noteInputs[0].value}`
+                    : selectionBlock;
+                noteInputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+                noteInputs[0].focus();
+                noteInputs[0].setSelectionRange(0, 0);
+                noteInputs[0].scrollTop = 0;
+                await chrome.storage.local.remove(pendingSelectionKey);
+            })
+            .catch((error) => {
+                console.error('Could not send the selected text to the CherryPad popup:', error);
+            });
+    }
 
     noteFieldViewButton.addEventListener('click', function() {
         activeNoteFieldIndex = activeNoteFieldIndex === 0 ? 1 : 0;
