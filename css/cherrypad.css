@@ -521,6 +521,10 @@ rotate: 5deg;
     width: 72px;
 }
 
+.vkeyPanel button.vkey-close-button:hover {
+    color: #ff9999;
+}
+
 #vkey-label {
     margin-top: 8px;
     text-align: center;
