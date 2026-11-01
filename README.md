@@ -45,3 +45,6 @@ CherryPad Key Features:
 ```
 Note: May differ from the current version
 ```
+
+<img width="2540" height="593" alt="bottom" src="https://github.com/user-attachments/assets/0e35fead-8ba2-46f1-a829-8b0f7aa4b6e0" />
+
