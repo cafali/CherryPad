@@ -4,6 +4,8 @@ CherryPad - Browser Notepad | CHANGELOG
 Version 1.6.X (March 2026 - October 2026) (Current)
 -------------------------------------------------
 1.7.0 (DEV)
+- Added a direct shortcut to the StickyNotes dasboard page in popup
+- Updated fullscreen icon in popup
 - Adjusted some StickyNotes UI elements for better visibility
 - Changed StickyNotes max resize value from 30% to 90%
 - Adjusted green center-dot marker for better visibility
