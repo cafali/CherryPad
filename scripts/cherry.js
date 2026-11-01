@@ -1077,3 +1077,27 @@ document.querySelectorAll(".vkey").forEach(button => {
         e.preventDefault();
     });
 });
+
+document.addEventListener('DOMContentLoaded', async function() {
+    if (!globalThis.chrome?.storage?.local) return;
+
+    const storageKey = new URLSearchParams(window.location.search).get('sendToCherryPad');
+    if (!storageKey) return;
+
+    try {
+        const storedSelection = await chrome.storage.local.get(storageKey);
+        const selectedText = storedSelection[storageKey];
+        if (typeof selectedText !== 'string' || !selectedText.trim()) return;
+
+        const noteInput = document.getElementById('noteInput');
+        const selectionBlock = `---------------------\n${selectedText}\n---------------------`;
+        noteInput.value = noteInput.value
+            ? `${selectionBlock}\n\n${noteInput.value}`
+            : selectionBlock;
+        noteInput.dispatchEvent(new Event('input', { bubbles: true }));
+        noteInput.focus();
+        await chrome.storage.local.remove(storageKey);
+    } catch (error) {
+        console.error('Could not send the selected text to CherryPad:', error);
+    }
+});

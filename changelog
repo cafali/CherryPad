@@ -3,6 +3,9 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
+1.7.1
+- Added "Send to CherryPad" a browser context-menu option to send selected text to CherryPad
+
 1.7.0
 - Added a direct shortcut to the StickyNotes dasboard page in popup
 - Updated fullscreen icon in popup

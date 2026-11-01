@@ -5,6 +5,13 @@
   "name": "CherryPad - Browser Notepad",
   "version": "1.7.0",
   "description": "CherryPad: Your Sleek, Distraction-Free Browser Notepad Extension for Endless Productivity",
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
