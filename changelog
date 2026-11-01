@@ -3,7 +3,7 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
-1.7.2 (Dev)
+1.7.2
 - Updated the fullscreen word, line and character counter to follow the active note field, or count both fields when neither is active
 - Changed "Send to CherryPad" to open the popup instead of a new tab and position the selected text at the top of Field 1
 - Added a compact selection menu in fullscreen mode with Copy, two-step Clear, Download and Web search actions
