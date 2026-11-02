@@ -15,6 +15,7 @@ body {
   overflow: hidden; /* emoji view */
   font-family: 'Bahnschrift', sans-serif;
   user-select: none;
+  cursor: none;
 }
 
 /* count score */
@@ -23,43 +24,192 @@ body {
   font-size: 120px;
   position: absolute;
   top: 50px;
-  left: center;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: 'Bahnschrift', sans-serif; 
   font-weight: bold;
   user-select: none;
-  z-index: -1; /* behind emojis */
+  z-index: 1;
+  white-space: nowrap;
 }
 
-/* icon styling */
-#icon {
-  width: 50px;
-  height: 50px;
-  animation: spin 10s linear infinite;
-  transition: filter 0.3s ease, animation-duration 0.3s ease, width 0.3s ease, height 0.3s ease;
+#lives {
+  position: fixed;
+  right: auto;
+  bottom: 16px;
+  left: 50%;
+  display: flex;
+  gap: 5px;
+  z-index: 5;
+  font-size: 24px;
+  transform: translateX(-50%);
 }
 
-/* icon hover effect */
-#icon:hover {
-  filter: brightness(1.5);
-  animation-duration: 10.133s;
-  width: 300px; 
-  height: 300px;
+#lives span {
+  transition: opacity 0.2s, transform 0.2s;
 }
 
-/* spin animation */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#lives span.lost {
+  opacity: 0.2;
+  transform: scale(0.8);
 }
 
-/* icon user select and drag */
-#icon {    
-  user-select: none;  
-  -webkit-user-drag: none;
+#basket {
+  position: fixed;
+  bottom: 110px;
+  left: 50%;
+  z-index: 4;
+  width: 90px;
+  text-align: center;
+  font-size: 64px;
+  line-height: 1;
+  transform: translateX(-50%);
+  transition: filter 0.15s;
+  pointer-events: none;
+}
+
+#basket.caught-bug {
+  filter: drop-shadow(0 0 18px #8ee65a);
+}
+
+#basket.caught-bomb {
+  filter: drop-shadow(0 0 22px #ff7b32);
+}
+
+#basket.caught-heart {
+  filter: drop-shadow(0 0 22px #ff79a8);
+}
+
+#gameFeedback {
+  position: fixed;
+  bottom: 185px;
+  left: 50%;
+  z-index: 5;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity 0.15s, transform 0.15s;
+  text-shadow: 0 2px 8px #000000;
+}
+
+#gameFeedback.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#gameOver {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0ae8;
+  color: #ffffff;
+  text-align: center;
+  cursor: auto;
+}
+
+#gameOver[hidden] {
+  display: none;
+}
+
+#gameOver h1 {
+  margin: 0 0 12px;
+  font-size: 52px;
+}
+
+#finalScore {
+  margin: 0 0 26px;
+  font-size: 30px;
+}
+
+#restartButton,
+#exitGameButton {
+  box-sizing: border-box;
+  width: 180px;
+  height: 60px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font: bold 16px 'Bahnschrift', sans-serif;
+  text-shadow: 0 2px 1px #00000032;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+#restartButton {
+  background-color: #478654;
+  color: #bcffc6;
+}
+
+#restartButton:hover {
+  background-color: #2e6c45;
+}
+
+#exitGameButton {
+  margin-top: 14px;
+  background-color: #b44848;
+  color: #ffdcdc;
+}
+
+#exitGameButton:hover {
+  background-color: #913535;
+}
+
+#instructions {
+  position: fixed;
+  bottom: 82px;
+  left: 50%;
+  z-index: 3;
+  color: #ffffff90;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+#exit {
+  z-index: 5;
+}
+
+.falling-item {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+.falling-item.cherry {
+  filter: drop-shadow(0 0 8px #ff404080);
+}
+
+.falling-item.bug {
+  filter: drop-shadow(0 0 8px #8ee65a80);
+}
+
+.falling-item.bomb {
+  filter: drop-shadow(0 0 8px #ff7b3280);
+}
+
+.falling-item.heart {
+  filter: drop-shadow(0 0 10px #ff79a8);
+}
+
+body.bomb-hit {
+  animation: shake 0.25s linear;
+}
+
+@keyframes shake {
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
 }
 
 /* drop animation */

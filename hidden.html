@@ -11,11 +11,21 @@
   <div id="counter">
     SCORE: 0
   </div>
-    <img id="icon" src="icon/cherrypad.png" alt="CherryPad Logo">
+  <div id="lives" role="status" aria-label="3 lives remaining">
+    <span>❤️</span><span>❤️</span><span>❤️</span>
+  </div>
+  <div id="basket" role="img" aria-label="Basket">🧺</div>
+  <div id="gameFeedback" aria-live="polite"></div>
+  <div id="gameOver" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle" hidden>
+    <h1 id="gameOverTitle">GAME OVER</h1>
+    <p id="finalScore">FINAL SCORE: 0</p>
+    <button id="restartButton" type="button">PLAY AGAIN</button>
+    <button id="exitGameButton" type="button">EXIT GAME</button>
   </div>
 
 <div id="exit">
   PRESS <strong>ESC</strong> TO EXIT
 </div>
+<div id="instructions">CLICK TO CAPTURE MOUSE · MOVE BASKET WITH MOUSE OR ARROW KEYS</div>
 </body>
 </html>
