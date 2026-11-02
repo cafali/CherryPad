@@ -309,7 +309,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.includes("popup.html")) {
         cherryIcon.addEventListener("click", function() {
             const noteInput = activeNoteInput();
-            noteInput.value += "🍒 Click! 🍒";
+            const version = chrome.runtime.getManifest().version;
+            const message = `🍒 CherryPad (${version}) 🍒\n`;
+            if (noteInput.value.startsWith(message)) {
+                noteInput.value = noteInput.value.slice(message.length).replace(/^\r?\n/, '');
+            } else {
+                noteInput.value = noteInput.value ? `${message}\n${noteInput.value}` : message;
+            }
             noteInput.dispatchEvent(new Event('input'));
         });
 
