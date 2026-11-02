@@ -257,6 +257,7 @@ footer {
   font-size: 13px;
   cursor: pointer;
   transition: color 0.15s ease;
+      font: 13px 'Arial', sans-serif;
 }
 
 .popup-selection-action:hover {
@@ -270,12 +271,18 @@ footer {
   transform: none;
 }
 
+.popup-selection-action[data-selection-action="search"] {
+  flex-basis: auto;
+  gap: 5px;
+  padding: 0 7px;
+}
+
 .popup-selection-action[data-confirming] {
   color: #b44848;
 }
 
 .popup-selection-separator {
-  color: #555;
+  color: #ffffffb5;
   font: 12px Arial, sans-serif;
   user-select: none;
 }

@@ -675,7 +675,7 @@ rotate: 5deg;
     border-radius: 6px;
     background: transparent;
     color: #f4f1f1;
-    font: 13px 'Bahnschrift', sans-serif;
+    font: 13px 'Arial', sans-serif;
     cursor: pointer;
     white-space: nowrap;
     transition: color 0.15s ease;
@@ -686,7 +686,7 @@ rotate: 5deg;
 }
 
 .selection-menu-separator {
-    color: #555;
+    color: #ffffffb5;
     font: 12px Arial, sans-serif;
     user-select: none;
 }

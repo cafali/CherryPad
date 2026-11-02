@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function resetClearConfirmation() {
         clearSelectionButton.innerHTML = '<i class="fas fa-eraser" aria-hidden="true"></i>';
-        clearSelectionButton.setAttribute('aria-label', 'Clear selected text');
-        clearSelectionButton.title = 'Clear selected text';
+        clearSelectionButton.setAttribute('aria-label', '');
+        clearSelectionButton.title = '';
         clearSelectionButton.removeAttribute('data-confirming');
     }
 
