@@ -25,6 +25,15 @@
       <img class="cherry-icon" src="icon/cherrypad.png" alt="Cherry Icon">
     </footer>
   </div>
+  <div id="popupSelectionMenu" class="popup-selection-menu" role="toolbar" aria-label="Selected text actions" hidden>
+    <button type="button" class="popup-selection-action" data-selection-action="copy" aria-label="Copy selected text" title="Copy selected text"><i class="fas fa-copy" aria-hidden="true"></i></button>
+    <span class="popup-selection-separator" aria-hidden="true">|</span>
+    <button type="button" class="popup-selection-action" data-selection-action="clear" aria-label="Clear selected text" title="Clear selected text"><i class="fas fa-eraser" aria-hidden="true"></i></button>
+    <span class="popup-selection-separator" aria-hidden="true">|</span>
+    <button type="button" class="popup-selection-action" data-selection-action="download" aria-label="Download selected text" title="Download selected text"><i class="fas fa-file-download" aria-hidden="true"></i></button>
+    <span class="popup-selection-separator" aria-hidden="true">|</span>
+    <button type="button" class="popup-selection-action" data-selection-action="search" aria-label="Search selected text on the web" title="Search selected text on the web"><i class="fas fa-search" aria-hidden="true"></i></button>
+  </div>
   <nav class="popup-navigation" aria-label="Open CherryPad views">
     <a id="Fullscreen" href="cherrypad.html" target="_blank" aria-label="Fullscreen">
       <i class="fa-solid fa-expand fullscreen-icon" aria-hidden="true"></i>

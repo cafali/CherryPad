@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ].join('-');
 
             link.href = url;
-            link.download = `CherrySelection ${date}.txt`;
+            link.download = `CherrySelection ${date} ${formatDownloadTimestamp(today)}.txt`;
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -457,7 +457,7 @@ function downloadNote(textarea) {
     const yyyy = today.getFullYear(); // get current date for filename
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // get current date for filename
     const dd = String(today.getDate()).padStart(2, '0'); // get current date for filename
-    a.download = 'CherryNote ' + dd + '-' + mm + '-' + yyyy + '.txt'; // filename with date
+    a.download = `CherryNote ${dd}-${mm}-${yyyy} ${formatDownloadTimestamp(today)}.txt`;
     
     document.body.appendChild(a);
     a.click();
@@ -466,6 +466,12 @@ function downloadNote(textarea) {
     URL.revokeObjectURL(url);
 
     showStatusMessage('Last attempted download: ' + new Date().toLocaleString(), 'download');
+}
+
+function formatDownloadTimestamp(date) {
+    return [date.getHours(), date.getMinutes(), date.getSeconds()]
+        .map((part) => String(part).padStart(2, '0'))
+        .join('-');
 }
 
 document.querySelectorAll('[data-download-field]').forEach(function(button) {

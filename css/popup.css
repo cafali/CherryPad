@@ -225,6 +225,61 @@ footer {
 
 .spin-once { animation: spin 0.8s ease;} 
 
+.popup-selection-menu {
+  position: fixed;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: #141414;
+  border: 2px solid #242424;
+  border-radius: 5px;
+  box-shadow: 0 5px 16px #00000066;
+}
+
+.popup-selection-menu[hidden] {
+  display: none;
+}
+
+.popup-selection-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #f4f1f1;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.popup-selection-action:hover {
+  color: #f0f0f0b6;
+  box-shadow: none;
+  transform: none;
+}
+
+.popup-selection-action:active {
+  color: #fff;
+  transform: none;
+}
+
+.popup-selection-action[data-confirming] {
+  color: #b44848;
+}
+
+.popup-selection-separator {
+  color: #555;
+  font: 12px Arial, sans-serif;
+  user-select: none;
+}
+
 @keyframes spin { 
   0% { 
     transform: rotate(0deg); 

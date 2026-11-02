@@ -3,6 +3,10 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
+1.7.3 (DEV)
+- Added a compact, icon-only selected-text menu to the popup with Copy, two-step Clear, Download and Web search actions
+- Added an HH-MM-SS timestamp to downloaded note fields and selected text filenames
+
 1.7.2
 - Updated the fullscreen word, line and character counter to follow the active note field, or count both fields when neither is active
 - Changed "Send to CherryPad" to open the popup instead of a new tab and position the selected text at the top of Field 1
