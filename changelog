@@ -3,7 +3,7 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
-1.7.3 (DEV)
+1.7.3
 - Added a compact, icon-only selected-text menu to the popup with Copy, two-step Clear, Download and Web search actions
 - Added an HH-MM-SS timestamp to downloaded note fields and selected text filenames
 - Adjusted selection menu font and appearance in fullscreen
