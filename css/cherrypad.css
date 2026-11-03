@@ -105,6 +105,8 @@ button:active {
 /* TOP button colors */
 #saveButton { background-color: #478654; color: #bcffc6; } /* save */
 #DownloadButton { background-color: #b44848; color: #ffdcdc; } /* download */
+#copyButton { background-color: #dca158; color: hsl(48, 100%, 92%); } /* copy */
+#pasteButton { background-color: #6a98dc; color: #d5e7ff; } /* paste */
 #dashboardButton { background-color: #3e7354; color: #86eeb0; } /* dashboard */
 #emojiButton { background-color: #b8b43f; color: #ffffdd; } /* emoji */
 #symbolButton { background-color: #8a3b71; color: #f3b3df; } /* symbols */
@@ -115,11 +117,24 @@ button:active {
 #vkeyButton { background-color: #ff000000; scale: 1.1; margin-right: 0px;} /* privacy button */
 
 .download-dropdown,
+.copy-dropdown {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-right: 10px;
+    z-index: 1;
+}
+
 .download-dropdown #DownloadButton {
     margin-right: 0;
 }
 
-.download-dropdown .download-menu {
+.copy-dropdown #copyButton {
+    margin-right: 0;
+}
+
+.download-dropdown .download-menu,
+.copy-dropdown .copy-menu {
     position: absolute;
     z-index: 10;
     top: calc(100% + 8px);
@@ -138,7 +153,8 @@ button:active {
     box-shadow: none;
 }
 
-.download-dropdown .download-menu[hidden] {
+.download-dropdown .download-menu[hidden],
+.copy-dropdown .copy-menu[hidden] {
     display: none;
 }
 
@@ -146,6 +162,8 @@ button:active {
 .button:hover { filter: brightness(100%); }
 #saveButton:hover { background-color: #2e6c45; } /* save */
 #DownloadButton:hover { background-color: #913535; } /* download */
+#copyButton:hover { background-color: #c47e53; } /* copy */
+#pasteButton:hover { background-color: #4A73B1; } /* paste */
 #dashboardButton:hover { background-color: #315b42; } /* dashboard */
 #emojiButton:hover { background-color: #949133; } /* emoji */
 .dropdown-toggle:hover { color: #ffffffb5;} /* clear dropdown toggle */
@@ -204,7 +222,8 @@ button:active {
   background-color: #2c2c2c;
 }
 
-#downloadMenu .download-option {
+#downloadMenu .download-option,
+#copyMenu .copy-option {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,7 +242,17 @@ button:active {
   background-color: #913535;
 }
 
-#downloadMenu .download-option i {
+#copyMenu .copy-option {
+  background-color: #dca158;
+  color: hsl(48, 100%, 92%);
+}
+
+#copyMenu .copy-option:hover {
+  background-color: #c47e53;
+}
+
+#downloadMenu .download-option i,
+#copyMenu .copy-option i {
   flex: 0 0 auto;
   margin-right: 0;
 }
@@ -715,12 +744,20 @@ rotate: 5deg;
     color: #539861;
 }
 
+.status-message.status-copy {
+    color: #DCA158;
+}
+
 .status-message.status-download {
     color: #dc5858;
 }
 
 .status-message.status-privacy {
     color: #dc5858;
+}
+
+.status-message.status-paste {
+    color: #6A98DC;
 }
 
 .status-message.status-note-view {

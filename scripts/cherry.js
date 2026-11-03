@@ -289,7 +289,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const { textarea, start, end, text } = selectedNoteRange;
         isSelectionActionInProgress = true;
 
-        if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
+        if (action.dataset.selectionAction === 'copy') {
+            textarea.focus({ preventScroll: true });
+            textarea.setSelectionRange(start, end);
+            const copied = document.execCommand('copy');
+            if (copied) {
+                showStatusMessage('Copied selection to clipboard', 'copy');
+            } else {
+                console.error('Failed to copy selected note text to clipboard.');
+                showStatusMessage('Could not copy selection to clipboard', 'copy');
+            }
+        } else if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
             action.textContent = 'Confirm';
             action.setAttribute('aria-label', 'Confirm clearing selected text');
             action.setAttribute('data-confirming', '');
@@ -393,12 +403,19 @@ document.addEventListener('pointerdown', function(event) {
     if (!event.target.closest('.download-dropdown')) {
         setDownloadMenuOpen(false);
     }
+    if (!event.target.closest('.copy-dropdown')) {
+        setCopyMenuOpen(false);
+    }
 });
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape' && !downloadMenu.hidden) {
         setDownloadMenuOpen(false);
         downloadButton.focus();
+    }
+    if (event.key === 'Escape' && !copyMenu.hidden) {
+        setCopyMenuOpen(false);
+        copyButton.focus();
     }
 });
 
@@ -464,6 +481,83 @@ document.querySelectorAll('[data-download-field]').forEach(function(button) {
         downloadButton.focus();
         downloadNote(textarea);
     });
+});
+
+const copyButton = document.getElementById('copyButton');
+const copyMenu = document.getElementById('copyMenu');
+
+function setCopyMenuOpen(isOpen) {
+    copyMenu.hidden = !isOpen;
+    copyButton.setAttribute('aria-expanded', String(isOpen));
+}
+
+copyButton.addEventListener('click', function() {
+    setCopyMenuOpen(copyMenu.hidden);
+});
+
+copyMenu.addEventListener('click', function(event) {
+    const option = event.target.closest('[data-copy-field]');
+    if (!option) return;
+
+    const textarea = document.getElementById(option.dataset.copyField);
+    const wasPrivacyEnabled = privacyEnabled;
+    if (wasPrivacyEnabled) privacyButton.click();
+
+    textarea.focus();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    let copied;
+    try {
+        copied = document.execCommand('copy');
+    } finally {
+        if (wasPrivacyEnabled) privacyButton.click();
+    }
+
+    if (copied) {
+        showStatusMessage('Copied to clipboard - ' + new Date().toLocaleString(), 'copy');
+    } else {
+        console.error('Failed to copy note field to clipboard.');
+        showStatusMessage('Could not copy to clipboard', 'copy');
+    }
+    setCopyMenuOpen(false);
+});
+
+document.getElementById('pasteButton').addEventListener('click', async () => {
+    const textarea = lastActiveTextarea;
+    if (!textarea) {
+        showStatusMessage('Select a note field before pasting', 'paste');
+        return;
+    }
+
+    const startPos = textarea.selectionStart;
+    const endPos = textarea.selectionEnd;
+
+    try {
+        const text = await navigator.clipboard.readText();
+
+        textarea.focus();
+        textarea.setRangeText(text, startPos, endPos, 'end');
+        textarea.dispatchEvent(new Event('input'));
+
+        localStorage.setItem(textarea.id, textarea.value);
+        showStatusMessage('Last pasted: ' + new Date().toLocaleString(), 'paste');
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+        showStatusMessage('Could not paste clipboard contents', 'paste');
+    }
+});
+
+document.getElementById('noteInput').addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+        const textarea = document.getElementById('noteInput');
+        const pastedContent = JSON.parse(textarea.dataset.lastPastedContent || '{}');
+
+        if (pastedContent.text) {
+            const endPos = pastedContent.startPos + pastedContent.text.length;
+            textarea.setRangeText('', pastedContent.startPos, endPos, 'end');
+            e.preventDefault();
+        }
+    }
 });
 
 document.getElementById('noteInput').addEventListener('focus', () => {
