@@ -13,6 +13,59 @@ function updateNoteStats() {
     noteStats.textContent = `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${fieldLabel}`;
 }
 
+let lineNumberMirror;
+
+function updateLineNumbers(textarea) {
+    const lineNumberList = document.querySelector('.line-number-list');
+    if (!lineNumberMirror) {
+        lineNumberMirror = document.createElement('div');
+        lineNumberMirror.setAttribute('aria-hidden', 'true');
+        Object.assign(lineNumberMirror.style, {
+            position: 'fixed',
+            top: '0',
+            left: '-10000px',
+            visibility: 'hidden',
+            overflow: 'hidden',
+            whiteSpace: 'pre-wrap',
+            overflowWrap: 'break-word',
+            boxSizing: 'content-box',
+            margin: '0',
+            padding: '0',
+            border: '0'
+        });
+        document.body.appendChild(lineNumberMirror);
+    }
+
+    const styles = getComputedStyle(textarea);
+    const lineHeight = parseFloat(styles.lineHeight);
+    const contentWidth = textarea.clientWidth -
+        parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight);
+    Object.assign(lineNumberMirror.style, {
+        width: `${contentWidth}px`,
+        font: styles.font,
+        lineHeight: styles.lineHeight,
+        letterSpacing: styles.letterSpacing,
+        tabSize: styles.tabSize
+    });
+
+    const lines = textarea.value.split(/\r\n|\r|\n/);
+    const lineElements = lines.map((line) => {
+        const element = document.createElement('div');
+        element.textContent = line || ' ';
+        lineNumberMirror.appendChild(element);
+        return element;
+    });
+    const labels = [];
+    lineElements.forEach((element, index) => {
+        const wrappedRows = Math.max(1, Math.ceil(element.getBoundingClientRect().height / lineHeight - 0.01));
+        labels.push(String(index + 1));
+        for (let row = 1; row < wrappedRows; row++) labels.push('');
+    });
+    lineNumberList.textContent = labels.join('\n');
+    lineNumberMirror.replaceChildren();
+    lineNumberList.style.transform = `translateY(-${textarea.scrollTop}px)`;
+}
+
 function formatDownloadTimestamp(date) {
     return [date.getHours(), date.getMinutes(), date.getSeconds()]
         .map((part) => String(part).padStart(2, '0'))
@@ -23,14 +76,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const pendingSelectionKey = 'pendingSelection';
     const saveButton = document.getElementById('saveButton');
     const saveTxtButton = document.getElementById('saveTxtButton');
-    const clearButton = document.getElementById('clearButton');
+    const clearFieldButton = document.getElementById('clearFieldButton');
+    const copyButton = document.getElementById('copyButton');
+    const pasteButton = document.getElementById('pasteButton');
+    const privacyButton = document.getElementById('privacyButton');
+    const editor = document.querySelector('.editor');
+    const lineNumbers = document.querySelector('.line-numbers');
     const noteInputs = [
         document.getElementById('noteInput'),
         document.getElementById('noteInput2')
     ];
     const noteFieldViewButton = document.getElementById('noteFieldViewButton');
     const cherryIcon = document.querySelector('.cherry-icon');
-    const fullscreenLink = document.getElementById('Fullscreen');
+    const destinationLinks = [
+        document.getElementById('Fullscreen'),
+        document.getElementById('stickyButton'),
+        document.getElementById('About')
+    ];
     const selectionMenu = document.getElementById('popupSelectionMenu');
     const clearSelectionButton = selectionMenu.querySelector('[data-selection-action="clear"]');
     let activeNoteFieldIndex = 0;
@@ -43,6 +105,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const savedFirstNote = localStorage.getItem('noteInput');
     noteInputs[0].value = savedFirstNote !== null ? savedFirstNote : (localStorage.getItem('note') || '');
     noteInputs[1].value = localStorage.getItem('noteInput2') || '';
+    updateLineNumbers(noteInputs[0]);
+
+    noteInputs.forEach((textarea) => {
+        textarea.addEventListener('mouseenter', () => {
+            if (editor.classList.contains('privacy-mode')) {
+                editor.classList.add('privacy-revealed');
+            }
+        });
+        textarea.addEventListener('mouseleave', () => {
+            editor.classList.remove('privacy-revealed');
+        });
+    });
 
     function resetClearConfirmation() {
         clearSelectionButton.innerHTML = '<i class="fas fa-eraser" aria-hidden="true"></i>';
@@ -86,12 +160,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     noteInputs.forEach((textarea) => {
+        textarea.addEventListener('input', () => updateLineNumbers(textarea));
+        textarea.addEventListener('scroll', () => {
+            lineNumbers.querySelector('.line-number-list').style.transform =
+                `translateY(-${textarea.scrollTop}px)`;
+        });
         textarea.addEventListener('keydown', () => {
             keyboardSelectionBefore.set(textarea, {
                 start: textarea.selectionStart,
                 end: textarea.selectionEnd
             });
         });
+        const lineNumberResizeObserver = new ResizeObserver((entries) => {
+            entries.forEach((entry) => updateLineNumbers(entry.target));
+        });
+        noteInputs.forEach((textarea) => lineNumberResizeObserver.observe(textarea));
         textarea.addEventListener('mouseup', (event) => {
             const { clientX, clientY } = event;
             const selectionBefore = pointerSelectionBefore;
@@ -134,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textarea.focus({ preventScroll: true });
             textarea.setSelectionRange(start, end);
             if (!document.execCommand('copy')) {
-                console.error('Failed to copy selected popup note text to clipboard.');
+                console.error('Failed to copy selected CherryPad note text to clipboard.');
             }
         } else if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
             action.setAttribute('aria-label', 'Confirm clearing selected text');
@@ -212,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 await chrome.storage.local.remove(pendingSelectionKey);
             })
             .catch((error) => {
-                console.error('Could not send the selected text to the CherryPad popup:', error);
+                console.error('Could not send the selected text to the CherryPad side panel:', error);
             });
     }
 
@@ -220,8 +303,76 @@ document.addEventListener('DOMContentLoaded', function() {
         activeNoteFieldIndex = activeNoteFieldIndex === 0 ? 1 : 0;
         const showingSecondField = activeNoteFieldIndex === 1;
         document.querySelector('.popup-container').dataset.noteField = showingSecondField ? 'second' : 'first';
-        noteFieldViewButton.title = showingSecondField ? '' : '';
+        const activeTextarea = noteInputs[activeNoteFieldIndex];
+        activeTextarea.focus({ preventScroll: true });
+        activeTextarea.scrollTop = 0;
+        updateLineNumbers(activeTextarea);
+        noteFieldViewButton.title = `Switch note field (currently Field ${activeNoteFieldIndex + 1})`;
         updateNoteStats();
+    });
+
+    copyButton.addEventListener('click', async () => {
+        const textarea = activeNoteInput();
+        textarea.focus({ preventScroll: true });
+        textarea.select();
+        try {
+            await navigator.clipboard.writeText(textarea.value);
+        } catch (error) {
+            console.error('Could not copy the current CherryPad note field:', error);
+        }
+    });
+
+    pasteButton.addEventListener('click', async () => {
+        const textarea = activeNoteInput();
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        try {
+            const text = await navigator.clipboard.readText();
+            textarea.focus();
+            textarea.setRangeText(text, start, end, 'end');
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        } catch (error) {
+            console.error('Could not paste clipboard contents into CherryPad:', error);
+        }
+    });
+
+    privacyButton.addEventListener('click', () => {
+        const isPrivate = editor.classList.toggle('privacy-mode');
+        editor.classList.remove('privacy-revealed');
+        noteInputs.forEach((textarea) => {
+            textarea.spellcheck = !isPrivate;
+        });
+        privacyButton.setAttribute('aria-pressed', String(isPrivate));
+        privacyButton.querySelector('i').className = isPrivate
+            ? 'fa-solid fa-eye-slash'
+            : 'fa-solid fa-eye';
+    });
+
+    let clearFieldConfirmed = false;
+    let clearFieldTimeout;
+    clearFieldButton.addEventListener('click', () => {
+        if (!clearFieldConfirmed) {
+            clearFieldConfirmed = true;
+            clearFieldButton.dataset.confirming = '';
+            clearFieldButton.setAttribute('aria-label', 'Confirm clearing current field');
+            clearFieldButton.title = 'Click again to confirm';
+            clearFieldTimeout = setTimeout(() => {
+                clearFieldConfirmed = false;
+                delete clearFieldButton.dataset.confirming;
+                clearFieldButton.removeAttribute('aria-label');
+                clearFieldButton.title = 'Clear current field';
+            }, 2000);
+            return;
+        }
+
+        clearFieldConfirmed = false;
+        clearTimeout(clearFieldTimeout);
+        delete clearFieldButton.dataset.confirming;
+        clearFieldButton.removeAttribute('aria-label');
+        clearFieldButton.title = 'Clear current field';
+        const textarea = activeNoteInput();
+        textarea.value = '';
+        textarea.dispatchEvent(new Event('input', { bubbles: true }));
     });
 
     // cherry icon blink
@@ -266,45 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
         URL.revokeObjectURL(url);
     });
 
-    // --- Two-step clear button confirmation ---
-    let clearConfirmed = false;
-    let clearTimeoutId;
-    const buttonLabel = clearButton.querySelector('b');
-    const originalText = buttonLabel.textContent;
-
-    // Set your warning color here:
-    const warningColor = '#dc5858'; // bright red, adjust as needed
-
-    clearButton.addEventListener('click', function() {
-        if (!clearConfirmed) {
-         // First click → show warning
-            clearConfirmed = true;
-            clearButton.style.backgroundColor = warningColor;
-            buttonLabel.textContent = ' CONFIRM FIELD DELETION';
-
-            // Reset if user doesn't confirm within 2 seconds
-            clearTimeoutId = setTimeout(() => {
-            clearConfirmed = false;
-            clearButton.style.backgroundColor = '';
-            buttonLabel.textContent = originalText;
-        }, 2000);
-        } else {
-        // Second click → clear AND save immediately
-        clearConfirmed = false;
-        clearButton.style.backgroundColor = '';
-        buttonLabel.textContent = originalText;
-        clearTimeout(clearTimeoutId);
-
-        const noteInput = activeNoteInput();
-        noteInput.value = '';
-        noteInput.dispatchEvent(new Event('input'));
-
-        // Visual feedback
-        blinkCherryIcon();
-        spinCherryIconOnce();
-        }
-    });
-
     // add click event to cherry icon only if on popup.html
     if (window.location.pathname.includes("popup.html")) {
         cherryIcon.addEventListener("click", function() {
@@ -319,13 +431,16 @@ document.addEventListener('DOMContentLoaded', function() {
             noteInput.dispatchEvent(new Event('input'));
         });
 
-        // add click event to Fullscreen.png to save content and redirect to fullscreen
-        fullscreenLink.addEventListener('click', function(event) {
-            event.preventDefault(); 
-            saveButton.click();
-            setTimeout(function() {
-                window.open("cherrypad.html", '_blank');
-            }, 150);
+        destinationLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                if (link.id === 'Fullscreen') saveButton.click();
+
+                chrome.windows.getCurrent()
+                    .then(({ id: windowId }) => chrome.sidePanel.close({ windowId }))
+                    .catch((error) => {
+                        console.error(`Could not close the CherryPad side panel after opening ${link.href}:`, error);
+                    });
+            });
         });
     }
 });
@@ -370,6 +485,6 @@ document.addEventListener('keydown', function(event) {
     }
     if (event.ctrlKey && (event.key === 'd' || event.key === 'D')) {
         event.preventDefault(); 
-        document.getElementById('downloadButton').click(); 
+        document.getElementById('saveTxtButton').click();
     }
 });

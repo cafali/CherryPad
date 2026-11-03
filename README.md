@@ -16,6 +16,8 @@ CherryPad Key Features:
 - AutoSave
 - Privacy Mode
 - Character, Word & Line Counters
+- Side panel editor with line numbers, copy/paste, privacy controls, and a toolbar that reveals StickyBoard and Clear actions as space allows
+- Opening fullscreen or StickyBoard closes the side panel
 - Virtual Keyboard
 - Hidden Easter Eggs
 - Interactive StickyBoard
@@ -25,12 +27,13 @@ CherryPad Key Features:
 - Lightweight and Fast
 - Built-in Emoji Panel
 - Built-in Unicode Symbol Panel
-- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action, which opens the CherryPad popup
+- Open CherryPad in Chrome's side panel from the extension button, keeping your notes beside the current tab
+- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action, which opens the CherryPad side panel
 - Comfortable design for everyday use
 - Fullscreen mode with two separate note fields
-- Save notes directly in the extension or download them as a .txt file
+- Save notes directly in the extension, copy/paste them, or download them as a .txt file
 - No ads, no trackers — a lightweight tool that doesn’t follow you around-
-- Create notes using the extension popup or access fullscreen mode for a larger workspace
+- Create notes in the side panel or access fullscreen mode for a larger workspace
 
 <img width="2557" height="1437" alt="image" src="https://github.com/user-attachments/assets/6ee9da06-ecfd-4ec8-b28a-33e628371f5c" /><br>
 

@@ -5,24 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/popup.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <title>CherryPad Popup</title>
+  <title>CherryPad</title>
 </head>
 <body>
   <div class="popup-container">
-    <div class="button-container">
-      <button id="saveButton"><i class="fas fa-save"></i><b> Save</b></button>
-      <button id="saveTxtButton"><i class="fas fa-file-download"></i><b> Download</b></button>
+    <header class="panel-header">
+      <a id="Fullscreen" class="header-fullscreen-button" href="cherrypad.html" target="_blank" aria-label="Open fullscreen editor" title="Open fullscreen editor">
+        <i class="fa-solid fa-expand" aria-hidden="true"></i>
+      </a>
+      <img class="cherry-icon" src="icon/cherrypad.png" alt="">
+      <h1>CherryPad</h1>
+      <button id="noteFieldViewButton" class="header-icon-button header-field-button" type="button" aria-label="Switch note field" title="Switch note field">
+        <i class="fa-solid fa-table-columns" aria-hidden="true"></i>
+      </button>
+    </header>
+    <div class="toolbar" role="toolbar" aria-label="Note actions">
+      <button id="saveButton" class="toolbar-button save-button" type="button" title="Save notes"><i class="fas fa-save" aria-hidden="true"></i><span>Save</span></button>
+      <button id="saveTxtButton" class="toolbar-button download-button" type="button" title="Download current field"><i class="fas fa-file-download" aria-hidden="true"></i><span>Download</span></button>
+      <button id="copyButton" class="toolbar-button expanded-action copy-button" type="button" title="Copy current field"><i class="fas fa-copy" aria-hidden="true"></i><span>Copy</span></button>
+      <button id="pasteButton" class="toolbar-button expanded-action paste-button" type="button" title="Paste into current field"><i class="fas fa-paste" aria-hidden="true"></i><span>Paste</span></button>
+      <a id="stickyButton" class="toolbar-button toolbar-link expanded-action sticky-button" href="dashboard.html" target="_blank" title="Open StickyBoard" aria-label="Open StickyBoard"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i><span>Sticky</span></a>
+      <button id="clearFieldButton" class="toolbar-button expanded-action clear-button" type="button" title="Clear current field"><i class="fas fa-eraser" aria-hidden="true"></i><span>Clear</span></button>
     </div>
-    <textarea id="noteInput" placeholder="Welcome to CherryPad! Write your note here..."></textarea>
-    <textarea id="noteInput2" placeholder="Write your second note here..."></textarea>
-    <p id="noteStats" aria-live="polite">0 lines · 0 characters · 0 words</p>
-    <div class="button-container">
-      <button id="clearButton"><i class="fas fa-eraser"></i><b> Clear Note Field</b></button>
-      <button id="noteFieldViewButton" type="button" aria-label="Switch note field"><i class="fa-solid fa-table-columns" aria-hidden="true"></i></button>
+    <div class="editor">
+      <div class="line-numbers" aria-hidden="true"><div class="line-number-list"></div></div>
+      <textarea id="noteInput" aria-label="Note field 1" placeholder="Welcome to CherryPad! Write your note here..."></textarea>
+      <textarea id="noteInput2" aria-label="Note field 2" placeholder="Write your second note here..."></textarea>
+      <i class="fa-solid fa-eye-slash privacy-overlay" aria-hidden="true"></i>
     </div>
-    <footer>
-      <p>CherryPad Makes Note-Taking Easy</p>
-      <img class="cherry-icon" src="icon/cherrypad.png" alt="Cherry Icon">
+    <footer class="panel-footer">
+      <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" title="Toggle privacy mode" aria-pressed="false">
+        <i class="fa-solid fa-eye" aria-hidden="true"></i>
+      </button>
+      <p id="noteStats" aria-live="polite">0 lines · 0 characters · 0 words · Field 1</p>
+      <div class="footer-actions" aria-label="Note view options">
+        <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad" title="About CherryPad">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+        </a>
+      </div>
     </footer>
   </div>
   <div id="popupSelectionMenu" class="popup-selection-menu" role="toolbar" aria-label="Selected text actions" hidden>
@@ -34,15 +54,6 @@
     <span class="popup-selection-separator" aria-hidden="true">|</span>
     <button type="button" class="popup-selection-action" data-selection-action="search" aria-label="Search selected text on the web" title=""><i class="fas fa-search" aria-hidden="true"></i><span aria-hidden="true">Web Search</span></button>
   </div>
-  <nav class="popup-navigation" aria-label="Open CherryPad views">
-    <a id="Fullscreen" href="cherrypad.html" target="_blank" aria-label="Fullscreen">
-      <i class="fa-solid fa-expand fullscreen-icon" aria-hidden="true"></i>
-    </a>
-    <a id="Dashboard" href="dashboard.html" target="_blank" aria-label="Dashboard">
-      <span class="popup-navigation-label" aria-hidden="true">StickyBoard</span>
-      <i class="fa-solid fa-note-sticky dashboard-icon" aria-hidden="true"></i>
-    </a>
-  </nav>
   <script src="scripts/popup.js"></script>
 </body>
 </html>

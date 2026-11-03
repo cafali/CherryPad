@@ -1,6 +1,11 @@
 const SEND_TO_CHERRYPAD_MENU_ID = "send-to-cherrypad";
 const PENDING_SELECTION_KEY = "pendingSelection";
 
+chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => {
+    console.error("Could not configure CherryPad to open in the side panel:", error);
+  });
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.removeAll(() => {
     if (chrome.runtime.lastError) {
@@ -20,18 +25,19 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.contextMenus.onClicked.addListener((info) => {
+chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId !== SEND_TO_CHERRYPAD_MENU_ID) return;
 
   const selectedText = info.selectionText;
   if (typeof selectedText !== "string" || !selectedText.trim()) return;
 
   chrome.storage.local.set({ [PENDING_SELECTION_KEY]: selectedText })
-    .then(() => chrome.action.openPopup())
     .catch((error) => {
-      console.error("Could not open the CherryPad popup with the selected text:", error);
-      chrome.storage.local.remove(PENDING_SELECTION_KEY).catch((cleanupError) => {
-        console.error("Could not clear the pending CherryPad selection:", cleanupError);
-      });
+      console.error("Could not send the selected text to the CherryPad side panel:", error);
+    });
+
+  chrome.sidePanel.open({ windowId: tab.windowId })
+    .catch((error) => {
+      console.error("Could not open the CherryPad side panel with the selected text:", error);
     });
 });
