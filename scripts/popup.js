@@ -66,10 +66,24 @@ function updateLineNumbers(textarea) {
     lineNumberList.style.transform = `translateY(-${textarea.scrollTop}px)`;
 }
 
+function refreshVisibleLineNumbers() {
+    const visibleTextarea = document.querySelector('.popup-container[data-note-field="second"] #noteInput2') ||
+        document.querySelector('.popup-container:not([data-note-field="second"]) #noteInput') ||
+        document.getElementById('noteInput');
+    if (visibleTextarea) {
+        updateLineNumbers(visibleTextarea);
+    }
+}
+
 function formatDownloadTimestamp(date) {
     return [date.getHours(), date.getMinutes(), date.getSeconds()]
         .map((part) => String(part).padStart(2, '0'))
         .join('-');
+}
+
+function syncVisibleFieldNumbers(noteInputs) {
+    noteInputs.forEach((textarea) => updateLineNumbers(textarea));
+    refreshVisibleLineNumbers();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -211,7 +225,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const { textarea, start, end, text } = selectedNoteRange;
         isSelectionActionInProgress = true;
 
-        if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
+        if (action.dataset.selectionAction === 'copy') {
+            textarea.focus({ preventScroll: true });
+            textarea.setSelectionRange(start, end);
+            const copied = document.execCommand('copy');
+            if (!copied) {
+                console.error('Failed to copy selected note text to clipboard.');
+            }
+        } else if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
             action.setAttribute('aria-label', 'Confirm clearing selected text');
             action.title = 'Confirm clearing selected text';
             action.setAttribute('data-confirming', '');
