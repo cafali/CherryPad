@@ -5,11 +5,10 @@ Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
 1.7.4
 - Replaced the popup with a resizable side panel and updated the toolbar, editor, and navigation to fit the panel
-- Made Save and Download the default toolbar actions; reveal Copy, Paste, StickyBoard, and Clear as the panel widens
+- Made Save and Download the default toolbar actions; reveal StickyBoard and Clear as the panel widens
 - Matched toolbar button height, font, icon size, spacing, colors, and hover styling to fullscreen
 - Added note-field text padding and aligned the toolbar-to-editor spacing with the header
 - Added Privacy Mode blur with an eye-slash indicator, disabled spellcheck while active, and reveal text on hover like fullscreen
-- Reset the active note field's scroll position when switching fields and select the entire field when copying
 - Added an About link and close the side panel when opening About, fullscreen, or StickyBoard
 
 1.7.3
