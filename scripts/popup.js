@@ -77,8 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveButton = document.getElementById('saveButton');
     const saveTxtButton = document.getElementById('saveTxtButton');
     const clearFieldButton = document.getElementById('clearFieldButton');
-    const copyButton = document.getElementById('copyButton');
-    const pasteButton = document.getElementById('pasteButton');
     const privacyButton = document.getElementById('privacyButton');
     const editor = document.querySelector('.editor');
     const lineNumbers = document.querySelector('.line-numbers');
@@ -213,13 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const { textarea, start, end, text } = selectedNoteRange;
         isSelectionActionInProgress = true;
 
-        if (action.dataset.selectionAction === 'copy') {
-            textarea.focus({ preventScroll: true });
-            textarea.setSelectionRange(start, end);
-            if (!document.execCommand('copy')) {
-                console.error('Failed to copy selected CherryPad note text to clipboard.');
-            }
-        } else if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
+        if (action.dataset.selectionAction === 'clear' && !action.hasAttribute('data-confirming')) {
             action.setAttribute('aria-label', 'Confirm clearing selected text');
             action.title = 'Confirm clearing selected text';
             action.setAttribute('data-confirming', '');
@@ -309,31 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateLineNumbers(activeTextarea);
         noteFieldViewButton.title = `Switch note field (currently Field ${activeNoteFieldIndex + 1})`;
         updateNoteStats();
-    });
-
-    copyButton.addEventListener('click', async () => {
-        const textarea = activeNoteInput();
-        textarea.focus({ preventScroll: true });
-        textarea.select();
-        try {
-            await navigator.clipboard.writeText(textarea.value);
-        } catch (error) {
-            console.error('Could not copy the current CherryPad note field:', error);
-        }
-    });
-
-    pasteButton.addEventListener('click', async () => {
-        const textarea = activeNoteInput();
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        try {
-            const text = await navigator.clipboard.readText();
-            textarea.focus();
-            textarea.setRangeText(text, start, end, 'end');
-            textarea.dispatchEvent(new Event('input', { bubbles: true }));
-        } catch (error) {
-            console.error('Could not paste clipboard contents into CherryPad:', error);
-        }
     });
 
     privacyButton.addEventListener('click', () => {
@@ -460,20 +427,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             updateNoteStats();
         });
-    });
-});
-
-// Undo Ctrl+Z
-document.querySelectorAll('#noteInput, #noteInput2').forEach((textarea) => {
-    textarea.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'z') {
-            const pastedContent = JSON.parse(textarea.dataset.lastPastedContent || '{}');
-            if (pastedContent.text) {
-                const endPos = pastedContent.startPos + pastedContent.text.length;
-                textarea.setRangeText('', pastedContent.startPos, endPos, 'end');
-                e.preventDefault();
-            }
-        }
     });
 });
 

@@ -9,9 +9,7 @@
   "permissions": [
     "contextMenus",
     "storage",
-    "sidePanel",
-    "clipboardRead",
-    "clipboardWrite"
+    "sidePanel"
   ],
   "background": {
     "service_worker": "background.js"
