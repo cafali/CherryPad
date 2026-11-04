@@ -354,12 +354,12 @@ body {
 
 .symbol-panel button:hover {
   color: #d560b0;
-  transform: scale(1.5);
+  transform: scale(1.1);
   z-index: 1;
 }
 
 .emoji-panel button:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   z-index: 1;
 }
 
