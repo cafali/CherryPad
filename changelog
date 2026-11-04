@@ -4,8 +4,14 @@ CherryPad - Browser Notepad | CHANGELOG
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
 1.7.5 (DEV)
+- Fixed multiple issues, related to the implementation of the sidepanel
 - Adjusted line numbers font in the sidepanel
-- Adjusted sidepanel UI elements
+- Fixed sidepanel line numbers updating when switching between note fields
+- Updated the sidepanel footer with lines, words, and active-field counters, plus privacy, StickyBoard, clear, and About controls
+- Added a two-click confirmation to the footer clear button for clearing the active note field
+- Added fullscreen-matching emoji and symbol pickers to the sidepanel when expanding
+- Show Emoji, Symbol, StickyBoard, and Clear toolbar buttons only when the side panel is expanded
+- Added a header divider and balanced spacing around the toolbar buttons
 
 1.7.4
 - Replaced the popup with a resizable side panel and updated the toolbar, editor, and navigation to fit the panel

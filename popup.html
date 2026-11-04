@@ -28,6 +28,14 @@
         <i class="fas fa-file-download" aria-hidden="true"></i>
         <span>Download</span>
       </button>
+      <button id="emojiButton" class="toolbar-button expanded-action emoji-button" type="button" aria-label="Open emoji panel" aria-controls="emojiPanel" aria-expanded="false" title="Emoji">
+        <i class="fas fa-smile" aria-hidden="true"></i>
+        <span>Emoji</span>
+      </button>
+      <button id="symbolButton" class="toolbar-button expanded-action symbol-button" type="button" aria-label="Open symbol panel" aria-controls="symbolPanel" aria-expanded="false" title="Symbol">
+        <i class="fas fa-font" aria-hidden="true"></i>
+        <span>Symbol</span>
+      </button>
       <a id="stickyButton" class="toolbar-button toolbar-link expanded-action sticky-button" href="dashboard.html" target="_blank" aria-label="Open StickyBoard">
         <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
         <span>Sticky</span>
@@ -52,7 +60,7 @@
         <a id="dashboardButton" class="footer-icon footer-link" href="dashboard.html" target="_blank" aria-label="Open StickyBoard">
           <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
         </a>
-        <button id="clearActiveFieldButton" class="footer-icon" type="button" aria-label="Clear active note field" title="Clear active note field">
+        <button id="clearActiveFieldButton" class="footer-icon" type="button" aria-label="Clear active note field">
           <i class="fa-solid fa-eraser" aria-hidden="true"></i>
         </button>
         <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad">
@@ -61,6 +69,8 @@
       </div>
     </footer>
   </div>
+  <div id="emojiPanel" class="picker-panel emoji-panel" role="group" aria-label="Emoji picker" hidden></div>
+  <div id="symbolPanel" class="picker-panel symbol-panel" role="group" aria-label="Symbol picker" hidden></div>
   <div id="popupSelectionMenu" class="popup-selection-menu" role="toolbar" aria-label="Selected text actions" hidden>
     <button type="button" class="popup-selection-action" data-selection-action="copy" aria-label="Copy selected text" title="Copy selected text"><i class="fas fa-copy" aria-hidden="true"></i></button>
     <span class="popup-selection-separator" aria-hidden="true">|</span>

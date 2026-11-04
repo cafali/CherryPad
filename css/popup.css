@@ -161,6 +161,24 @@ body {
   flex: 0 0 auto;
 }
 
+.toolbar .toolbar-button.emoji-button {
+  background: #b8b43f;
+  color: #ffffdd;
+}
+
+.toolbar .toolbar-button.emoji-button:hover {
+  background: #949133;
+}
+
+.toolbar .toolbar-button.symbol-button {
+  background: #8a3b71;
+  color: #f3b3df;
+}
+
+.toolbar .toolbar-button.symbol-button:hover {
+  background: #6a2c5b;
+}
+
 .save-button {
   background: #478654;
   color: #bcffc6 !important;
@@ -285,6 +303,68 @@ body {
 
 .editor textarea::placeholder {
   color: #ffffff80;
+}
+
+.picker-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  display: grid;
+  grid-template-columns: repeat(9, 32px);
+  gap: 2px;
+  width: 325px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 6px;
+  border: 4px solid #212121;
+  border-radius: 15px;
+  background: #161616;
+  box-shadow: 0 4px 8px #0003;
+  box-sizing: border-box;
+  scrollbar-color: #444 #161616;
+}
+
+.picker-panel[hidden] {
+  display: none;
+}
+
+.picker-panel button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 23px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.emoji-panel button {
+  font-family: Arial, sans-serif;
+}
+
+.symbol-panel button:hover {
+  color: #d560b0;
+  transform: scale(1.5);
+  z-index: 1;
+}
+
+.emoji-panel button:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.picker-panel button:active {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .privacy-overlay {

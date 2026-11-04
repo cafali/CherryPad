@@ -103,6 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     const noteFieldViewButton = document.getElementById('noteFieldViewButton');
     const cherryIcon = document.querySelector('.cherry-icon');
+    const emojiButton = document.getElementById('emojiButton');
+    const symbolButton = document.getElementById('symbolButton');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const symbolPanel = document.getElementById('symbolPanel');
     const destinationLinks = [
         document.getElementById('Fullscreen'),
         document.getElementById('stickyButton'),
@@ -117,6 +121,111 @@ document.addEventListener('DOMContentLoaded', function() {
     let isSelectionActionInProgress = false;
     let pointerSelectionBefore = null;
     const keyboardSelectionBefore = new WeakMap();
+
+    const pickerItems = {
+        emoji: '😊|😂|😍|😢|😎|😜|🥳|😇|😒|😡|🤮|🤡|💩|💀|🎃|👽|😈|😱|👍|👎|👉|👈|👌|✋|👊|👏|🤙|✅|⚠️|❌|🟢|🟡|🔴|💚|💛|❤️|💡|💥|🔥|⚡|🔍|📞|♾️|🚀|🧠|🕒|🌟|💬|📢|🔔|❓|👀|📌|🚨|💻|🛡️|🔒|🗝️|⚙️|🐧|🍪|🌐|🌍|💰|💲|🪙|💎|💸|💴|💵|💶|💷|🍒|🌸|🍌|🍆|🍑|🍓|🍉|🍇|🌶️|🧼|👑|🥂|👜|👠|🍧|🏖️|🛥️|🌴|🐸|🎉|🎈|💦|👻|🌈|🎀|🐳|🍄'.split('|'),
+        symbol: '★|☆|✦|✧|✪|✰|✵|✶|✷|✔|✖|✚|✱|∞|≈|⚝|ψ|☉|➡|⬅|⬆|⬇|↗|↘|↖|↙|↩|•|◦|‣|⁃|◉|⊗|⬤|◆|◇|■|□|▲|△|▼|▽|◀|▶|⊕|✿|❀|❁|✤|✥|☾|☽|✺|✹|♠|♣|♥|♦|♤|♧|♡|♢|⚑|✈|☢|☣|☯|☮|⚜|✞|☸|✡|Æ|✉|✎|✏|✂|✃|✄|✆|*|∑|∏|∫|√|≠|≡|±|⊂|⊃|⊆|⊇|∩|∪|∧|∨|¬|©|®|֎|¤|§|¶|‼|‽|✸|✷|✶'.split('|')
+    };
+
+    [[emojiPanel, pickerItems.emoji, 'emoji'], [symbolPanel, pickerItems.symbol, 'symbol']].forEach(([panel, items, type]) => {
+        items.forEach((item) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = item;
+            button.setAttribute('aria-label', `Insert ${type} ${item}`);
+            button.addEventListener('mousedown', (event) => event.preventDefault());
+            panel.appendChild(button);
+        });
+    });
+
+    let pickerCloseTimeout;
+
+    function closePickers() {
+        window.clearTimeout(pickerCloseTimeout);
+        emojiPanel.hidden = true;
+        symbolPanel.hidden = true;
+        emojiButton.setAttribute('aria-expanded', 'false');
+        symbolButton.setAttribute('aria-expanded', 'false');
+    }
+
+    function positionPicker(button, panel) {
+        const buttonRect = button.getBoundingClientRect();
+        const panelWidth = parseFloat(getComputedStyle(panel).width);
+        const left = Math.max(8, Math.min(
+            buttonRect.left + buttonRect.width / 2 - panelWidth / 2,
+            window.innerWidth - panelWidth - 8
+        ));
+        const top = buttonRect.bottom + 6;
+
+        panel.style.left = `${left}px`;
+        panel.style.top = `${top}px`;
+        panel.style.maxHeight = `${Math.max(0, window.innerHeight - top - 8)}px`;
+    }
+
+    function openPicker(button, panel, otherButton) {
+        closePickers();
+        panel.hidden = false;
+        button.setAttribute('aria-expanded', 'true');
+        otherButton.setAttribute('aria-expanded', 'false');
+        positionPicker(button, panel);
+    }
+
+    function schedulePickerClose() {
+        window.clearTimeout(pickerCloseTimeout);
+        pickerCloseTimeout = window.setTimeout(closePickers, 150);
+    }
+
+    [
+        [emojiButton, emojiPanel, symbolButton],
+        [symbolButton, symbolPanel, emojiButton]
+    ].forEach(([button, panel, otherButton]) => {
+        button.addEventListener('mouseenter', () => openPicker(button, panel, otherButton));
+        button.addEventListener('focus', () => openPicker(button, panel, otherButton));
+        button.addEventListener('click', () => {
+            if (panel.hidden) openPicker(button, panel, otherButton);
+        });
+        button.addEventListener('mouseleave', schedulePickerClose);
+    });
+
+    [emojiPanel, symbolPanel].forEach((panel) => {
+        panel.addEventListener('mouseenter', () => window.clearTimeout(pickerCloseTimeout));
+        panel.addEventListener('mouseleave', schedulePickerClose);
+    });
+
+    document.querySelectorAll('.toolbar button, .toolbar a').forEach((button) => {
+        if (button !== emojiButton && button !== symbolButton) {
+            button.addEventListener('mouseenter', closePickers);
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (!emojiPanel.hidden) positionPicker(emojiButton, emojiPanel);
+        if (!symbolPanel.hidden) positionPicker(symbolButton, symbolPanel);
+    });
+
+    [emojiPanel, symbolPanel].forEach((panel) => {
+        panel.addEventListener('click', (event) => {
+            if (!(event.target instanceof Element)) return;
+            const button = event.target.closest('button');
+            if (!button) return;
+
+            const textarea = activeNoteInput();
+            textarea.setRangeText(button.textContent, textarea.selectionStart, textarea.selectionEnd, 'end');
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+            textarea.focus({ preventScroll: true });
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!emojiButton.contains(event.target) && !symbolButton.contains(event.target) &&
+            !emojiPanel.contains(event.target) && !symbolPanel.contains(event.target)) {
+            closePickers();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closePickers();
+    });
 
     const savedFirstNote = localStorage.getItem('noteInput');
     noteInputs[0].value = savedFirstNote !== null ? savedFirstNote : (localStorage.getItem('note') || '');
