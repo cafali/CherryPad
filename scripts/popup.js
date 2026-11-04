@@ -7,10 +7,9 @@ function updateNoteStats() {
     const showingSecondField = document.querySelector('.popup-container').dataset.noteField === 'second';
     const text = noteInputs[showingSecondField ? 1 : 0].value;
     const lineCount = text.length > 0 ? text.split(/\r\n|\r|\n/).length : 0;
-    const characterCount = Array.from(text).length;
     const wordCount = text.trim().match(/\S+/g)?.length || 0;
     const fieldLabel = showingSecondField ? 'Field 2' : 'Field 1';
-    noteStats.textContent = `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${characterCount} ${characterCount === 1 ? 'character' : 'characters'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${fieldLabel}`;
+    noteStats.textContent = `${lineCount} ${lineCount === 1 ? 'line' : 'lines'} · ${wordCount} ${wordCount === 1 ? 'word' : 'words'} · ${fieldLabel}`;
 }
 
 let lineNumberMirror;
@@ -93,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveButton = document.getElementById('saveButton');
     const saveTxtButton = document.getElementById('saveTxtButton');
     const clearFieldButton = document.getElementById('clearFieldButton');
+    const clearActiveFieldButton = document.getElementById('clearActiveFieldButton');
+    const clearButtons = [clearFieldButton, clearActiveFieldButton];
     const privacyButton = document.getElementById('privacyButton');
     const editor = document.querySelector('.editor');
     const lineNumbers = document.querySelector('.line-numbers');
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const destinationLinks = [
         document.getElementById('Fullscreen'),
         document.getElementById('stickyButton'),
+        document.getElementById('dashboardButton'),
         document.getElementById('About')
     ];
     const selectionMenu = document.getElementById('popupSelectionMenu');
@@ -338,30 +340,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let clearFieldConfirmed = false;
     let clearFieldTimeout;
-    clearFieldButton.addEventListener('click', () => {
+    function resetClearFieldConfirmation() {
+        clearFieldConfirmed = false;
+        clearButtons.forEach((button) => {
+            delete button.dataset.confirming;
+            button.setAttribute('aria-label', button === clearActiveFieldButton ? 'Clear active note field' : 'Clear current field');
+            button.title = button === clearActiveFieldButton ? 'Clear active note field' : 'Clear current field';
+        });
+    }
+
+    clearButtons.forEach((button) => button.addEventListener('click', () => {
         if (!clearFieldConfirmed) {
             clearFieldConfirmed = true;
-            clearFieldButton.dataset.confirming = '';
-            clearFieldButton.setAttribute('aria-label', 'Confirm clearing current field');
-            clearFieldButton.title = 'Click again to confirm';
+            clearButtons.forEach((clearButton) => {
+                clearButton.dataset.confirming = '';
+                clearButton.setAttribute('aria-label', 'Confirm clearing active note field');
+                clearButton.title = 'Click again to confirm';
+            });
             clearFieldTimeout = setTimeout(() => {
-                clearFieldConfirmed = false;
-                delete clearFieldButton.dataset.confirming;
-                clearFieldButton.removeAttribute('aria-label');
-                clearFieldButton.title = 'Clear current field';
+                resetClearFieldConfirmation();
             }, 2000);
             return;
         }
 
-        clearFieldConfirmed = false;
         clearTimeout(clearFieldTimeout);
-        delete clearFieldButton.dataset.confirming;
-        clearFieldButton.removeAttribute('aria-label');
-        clearFieldButton.title = 'Clear current field';
+        resetClearFieldConfirmation();
         const textarea = activeNoteInput();
         textarea.value = '';
         textarea.dispatchEvent(new Event('input', { bubbles: true }));
-    });
+    }));
 
     // cherry icon blink
     function blinkCherryIcon() {

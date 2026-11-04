@@ -44,11 +44,17 @@
       <i class="fa-solid fa-eye-slash privacy-overlay" aria-hidden="true"></i>
     </div>
     <footer class="panel-footer">
-      <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" aria-pressed="false">
-        <i class="fa-solid fa-eye" aria-hidden="true"></i>
-      </button>
-      <p id="noteStats" aria-live="polite">0 lines · 0 characters · 0 words · Field 1</p>
-      <div class="footer-actions" aria-label="Note view options">
+      <p id="noteStats" aria-live="polite">0 lines · 0 words · Field 1</p>
+      <div class="footer-actions" aria-label="Note controls">
+        <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" aria-pressed="false">
+          <i class="fa-solid fa-eye" aria-hidden="true"></i>
+        </button>
+        <a id="dashboardButton" class="footer-icon footer-link" href="dashboard.html" target="_blank" aria-label="Open StickyBoard" title="Open StickyBoard">
+          <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
+        </a>
+        <button id="clearActiveFieldButton" class="footer-icon" type="button" aria-label="Clear active note field" title="Clear active note field">
+          <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+        </button>
         <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad">
           <i class="fa fa-info-circle" aria-hidden="true"></i>
         </a>
