@@ -57,16 +57,19 @@
     <footer class="panel-footer">
       <p id="noteStats" aria-live="polite">0 lines · 0 words · Field 1</p>
       <div class="footer-actions" aria-label="Note controls">
-        <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" aria-pressed="false">
+        <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" aria-pressed="false" title="Hide note">
           <i class="fa-solid fa-eye" aria-hidden="true"></i>
         </button>
-        <a id="dashboardButton" class="footer-icon footer-link" href="dashboard.html" target="_blank" aria-label="Open StickyBoard">
+        <a id="dashboardButton" class="footer-icon footer-link" href="dashboard.html" target="_blank" aria-label="Open StickyBoard" title="StickyBoard">
           <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
         </a>
-        <button id="clearActiveFieldButton" class="footer-icon" type="button" aria-label="Clear active note field">
+        <button id="clearActiveFieldButton" class="footer-icon" type="button" aria-label="Clear active note field" title="Clear active note field">
           <i class="fa-solid fa-eraser" aria-hidden="true"></i>
         </button>
-        <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad">
+        <a class="footer-icon footer-link" href="https://github.com/cafali/CherryPad/issues/new" target="_blank" rel="noopener noreferrer" aria-label="Report a bug" title="Report a bug">
+          <i class="fa-solid fa-bug" aria-hidden="true"></i>
+        </a>
+        <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad" title="About">
           <i class="fa fa-info-circle" aria-hidden="true"></i>
         </a>
       </div>
@@ -75,7 +78,7 @@
   <div id="emojiPanel" class="picker-panel emoji-panel" role="group" aria-label="Emoji picker" hidden></div>
   <div id="symbolPanel" class="picker-panel symbol-panel" role="group" aria-label="Symbol picker" hidden></div>
   <div id="popupSelectionMenu" class="popup-selection-menu" role="toolbar" aria-label="Selected text actions" hidden>
-    <button type="button" class="popup-selection-action" data-selection-action="copy" aria-label="Copy selected text" title="Copy selected text"><i class="fas fa-copy" aria-hidden="true"></i></button>
+    <button type="button" class="popup-selection-action" data-selection-action="copy" aria-label="Copy selected text"><i class="fas fa-copy" aria-hidden="true"></i></button>
     <span class="popup-selection-separator" aria-hidden="true">|</span>
     <button type="button" class="popup-selection-action" data-selection-action="clear" aria-label="" title=""><i class="fas fa-eraser" aria-hidden="true"></i></button>
     <span class="popup-selection-separator" aria-hidden="true">|</span>

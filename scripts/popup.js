@@ -443,6 +443,8 @@ document.addEventListener('DOMContentLoaded', function() {
         noteInputs.forEach((textarea) => {
             textarea.dispatchEvent(new Event('input', { bubbles: true }));
         });
+        blinkCherryIcon();
+        spinCherryIconOnce();
     });
 
     privacyButton.addEventListener('click', () => {

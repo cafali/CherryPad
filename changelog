@@ -3,7 +3,12 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
-1.7.5 (DEV)
+1.7.6 (DEV)
+- Added matching logo spin and blink feedback when refreshing note fields
+- Added a footer bug-report icon linking to the CherryPad GitHub issue form
+- Improved Toolbar navigation in sidebar
+
+1.7.5
 - Fixed multiple issues, related to the implementation of the sidepanel
 - Adjusted line numbers font in the sidepanel
 - Fixed sidepanel line numbers updating when switching between note fields
