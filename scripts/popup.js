@@ -15,7 +15,14 @@ function updateNoteStats() {
 
 let lineNumberMirror;
 
+function getVisibleTextarea() {
+    const showingSecondField = document.querySelector('.popup-container').dataset.noteField === 'second';
+    return document.getElementById(showingSecondField ? 'noteInput2' : 'noteInput');
+}
+
 function updateLineNumbers(textarea) {
+    if (textarea !== getVisibleTextarea()) return;
+
     const lineNumberList = document.querySelector('.line-number-list');
     if (!lineNumberMirror) {
         lineNumberMirror = document.createElement('div');
@@ -67,12 +74,7 @@ function updateLineNumbers(textarea) {
 }
 
 function refreshVisibleLineNumbers() {
-    const visibleTextarea = document.querySelector('.popup-container[data-note-field="second"] #noteInput2') ||
-        document.querySelector('.popup-container:not([data-note-field="second"]) #noteInput') ||
-        document.getElementById('noteInput');
-    if (visibleTextarea) {
-        updateLineNumbers(visibleTextarea);
-    }
+    updateLineNumbers(getVisibleTextarea());
 }
 
 function formatDownloadTimestamp(date) {
@@ -183,10 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 end: textarea.selectionEnd
             });
         });
-        const lineNumberResizeObserver = new ResizeObserver((entries) => {
-            entries.forEach((entry) => updateLineNumbers(entry.target));
-        });
-        noteInputs.forEach((textarea) => lineNumberResizeObserver.observe(textarea));
         textarea.addEventListener('mouseup', (event) => {
             const { clientX, clientY } = event;
             const selectionBefore = pointerSelectionBefore;
@@ -215,6 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    const lineNumberResizeObserver = new ResizeObserver(refreshVisibleLineNumbers);
+    noteInputs.forEach((textarea) => lineNumberResizeObserver.observe(textarea));
 
     selectionMenu.addEventListener('mousedown', (event) => event.preventDefault());
     selectionMenu.addEventListener('click', (event) => {
