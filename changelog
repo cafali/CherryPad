@@ -12,6 +12,7 @@ Version 1.7.X (November 2026) (Current)
 - Added fullscreen-matching emoji and symbol pickers to the sidepanel when expanding
 - Show Emoji, Symbol, StickyBoard, and Clear toolbar buttons only when the side panel is expanded
 - Added a header divider and balanced spacing around the toolbar buttons
+- Added update content button to sidepanel
 
 1.7.4
 - Replaced the popup with a resizable side panel and updated the toolbar, editor, and navigation to fit the panel

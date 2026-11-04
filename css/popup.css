@@ -56,6 +56,13 @@ body {
   transform: translateY(-50%);
 }
 
+.header-refresh-button {
+  position: absolute;
+  top: 50%;
+  right: 36px;
+  transform: translateY(-50%);
+}
+
 .header-icon-button {
   display: inline-flex;
   align-items: center;
@@ -66,15 +73,16 @@ body {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #fff;
-  font-size: 14px;
+  color: #888;
+  font-size: 15.4px;
   cursor: pointer;
   transition: color 0.15s ease;
 }
 
 .header-icon-button:hover,
+.header-icon-button:focus-visible,
 .header-icon-button[aria-pressed="true"] {
-  color: #fff;
+  color: #c5c5c5;
 }
 
 .header-icon-button:hover {
@@ -90,14 +98,16 @@ body {
   justify-content: center;
   width: 20px;
   height: 28px;
-  color: #fff;
-  font-size: 14px;
+  color: #888;
+  font-size: 16.94px;
   text-decoration: none;
   transform: translateY(-50%);
+  transition: color 0.15s ease;
 }
 
-.header-fullscreen-button:hover {
-  color: #fff;
+.header-fullscreen-button:hover,
+.header-fullscreen-button:focus-visible {
+  color: #c5c5c5;
 }
 
 .toolbar {

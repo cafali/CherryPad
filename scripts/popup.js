@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('noteInput2')
     ];
     const noteFieldViewButton = document.getElementById('noteFieldViewButton');
+    const refreshNoteFieldsButton = document.getElementById('refreshNoteFieldsButton');
     const cherryIcon = document.querySelector('.cherry-icon');
     const emojiButton = document.getElementById('emojiButton');
     const symbolButton = document.getElementById('symbolButton');
@@ -431,8 +432,17 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTextarea.focus({ preventScroll: true });
         activeTextarea.scrollTop = 0;
         updateLineNumbers(activeTextarea);
-        noteFieldViewButton.title = `Switch note field (currently Field ${activeNoteFieldIndex + 1})`;
+        noteFieldViewButton.title = `Field ${activeNoteFieldIndex + 1}`;
         updateNoteStats();
+    });
+
+    refreshNoteFieldsButton.addEventListener('click', function() {
+        const savedFirstNote = localStorage.getItem('noteInput');
+        noteInputs[0].value = savedFirstNote !== null ? savedFirstNote : (localStorage.getItem('note') || '');
+        noteInputs[1].value = localStorage.getItem('noteInput2') || '';
+        noteInputs.forEach((textarea) => {
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        });
     });
 
     privacyButton.addEventListener('click', () => {
