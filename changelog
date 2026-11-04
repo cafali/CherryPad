@@ -3,6 +3,10 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
+1.7.5 (DEV)
+- Adjusted line numbers font in the sidepanel
+- Adjusted sidepanel UI elements
+
 1.7.4
 - Replaced the popup with a resizable side panel and updated the toolbar, editor, and navigation to fit the panel
 - Made Save and Download the default toolbar actions; reveal StickyBoard and Clear as the panel widens

@@ -10,20 +10,32 @@
 <body>
   <div class="popup-container">
     <header class="panel-header">
-      <a id="Fullscreen" class="header-fullscreen-button" href="cherrypad.html" target="_blank" aria-label="Open fullscreen editor" title="Open fullscreen editor">
+      <a id="Fullscreen" class="header-fullscreen-button" href="cherrypad.html" target="_blank" aria-label="Open fullscreen editor">
         <i class="fa-solid fa-expand" aria-hidden="true"></i>
       </a>
       <img class="cherry-icon" src="icon/cherrypad.png" alt="">
       <h1>CherryPad</h1>
-      <button id="noteFieldViewButton" class="header-icon-button header-field-button" type="button" aria-label="Switch note field" title="Switch note field">
+      <button id="noteFieldViewButton" class="header-icon-button header-field-button" type="button" aria-label="Switch note field">
         <i class="fa-solid fa-table-columns" aria-hidden="true"></i>
       </button>
     </header>
     <div class="toolbar" role="toolbar" aria-label="Note actions">
-      <button id="saveButton" class="toolbar-button save-button" type="button" title="Save notes"><i class="fas fa-save" aria-hidden="true"></i><span>Save</span></button>
-      <button id="saveTxtButton" class="toolbar-button download-button" type="button" title="Download current field"><i class="fas fa-file-download" aria-hidden="true"></i><span>Download</span></button>
-      <a id="stickyButton" class="toolbar-button toolbar-link expanded-action sticky-button" href="dashboard.html" target="_blank" title="Open StickyBoard" aria-label="Open StickyBoard"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i><span>Sticky</span></a>
-      <button id="clearFieldButton" class="toolbar-button expanded-action clear-button" type="button" title="Clear current field"><i class="fas fa-eraser" aria-hidden="true"></i><span>Clear</span></button>
+      <button id="saveButton" class="toolbar-button save-button" type="button" aria-label="Save notes">
+        <i class="fas fa-save" aria-hidden="true"></i>
+        <span>Save</span>
+      </button>
+      <button id="saveTxtButton" class="toolbar-button download-button" type="button" aria-label="Download current field">
+        <i class="fas fa-file-download" aria-hidden="true"></i>
+        <span>Download</span>
+      </button>
+      <a id="stickyButton" class="toolbar-button toolbar-link expanded-action sticky-button" href="dashboard.html" target="_blank" aria-label="Open StickyBoard">
+        <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
+        <span>Sticky</span>
+      </a>
+      <button id="clearFieldButton" class="toolbar-button expanded-action clear-button" type="button" aria-label="Clear current field">
+        <i class="fas fa-eraser" aria-hidden="true"></i>
+        <span>Clear</span>
+      </button>
     </div>
     <div class="editor">
       <div class="line-numbers" aria-hidden="true"><div class="line-number-list"></div></div>
@@ -32,12 +44,12 @@
       <i class="fa-solid fa-eye-slash privacy-overlay" aria-hidden="true"></i>
     </div>
     <footer class="panel-footer">
-      <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" title="Toggle privacy mode" aria-pressed="false">
+      <button id="privacyButton" class="footer-icon" type="button" aria-label="Toggle privacy mode" aria-pressed="false">
         <i class="fa-solid fa-eye" aria-hidden="true"></i>
       </button>
       <p id="noteStats" aria-live="polite">0 lines · 0 characters · 0 words · Field 1</p>
       <div class="footer-actions" aria-label="Note view options">
-        <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad" title="About CherryPad">
+        <a id="About" class="footer-icon footer-link" href="about.html" target="_blank" aria-label="Open About CherryPad">
           <i class="fa fa-info-circle" aria-hidden="true"></i>
         </a>
       </div>
