@@ -3,6 +3,9 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
+1.7.7
+- Added support for creating checklists in fullscreen mode
+
 1.7.6
 - Added matching logo spin and blink feedback when refreshing note fields in sidepanel
 - Added a footer bug-report icon in sidepanel, linking to the CherryPad GitHub issue form
