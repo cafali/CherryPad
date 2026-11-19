@@ -13,27 +13,48 @@ CherryPad is designed to make your note-taking experience quick, convenient, and
 
 
 CherryPad Key Features:
-- AutoSave
-- Privacy Mode
-- Character, Word & Line Counters
-- Side panel editor with line numbers, copy/paste, privacy controls, and a toolbar that reveals StickyBoard and Clear actions as space allows
-- Opening fullscreen or StickyBoard closes the side panel
-- Virtual Keyboard
-- Hidden Easter Eggs
-- Interactive StickyBoard
-- Built-in Sticky Note Colors & Drawing Tools
-- Connect Sticky Notes with Lines
-- Import & Export StickyBoards as JSON
-- Lightweight and Fast
-- Built-in Emoji Panel
-- Built-in Unicode Symbol Panel
-- Open CherryPad in Chrome's side panel from the extension button, keeping your notes beside the current tab
-- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action, which opens the CherryPad side panel
+
+**Note-Taking**
+- Two separate note fields in fullscreen mode for organizing different types of content
+- Side panel editor with line numbers, copy/paste, privacy controls, and adaptive toolbar
+- AutoSave functionality to prevent data loss
+- Save notes directly in the extension, copy/paste them, or download them as .txt files with timestamps
 - Comfortable design for everyday use
-- Fullscreen mode with two separate note fields
-- Save notes directly in the extension, copy/paste them, or download them as a .txt file
-- No ads, no trackers — a lightweight tool that doesn’t follow you around-
-- Create notes in the side panel or access fullscreen mode for a larger workspace
+
+**Checklists**
+- Fullscreen checklist dropdown menu with persistent, locally-saved items
+- Quick add/remove/check functionality for task management
+- Synced across browser tabs in real-time
+
+**Sticky Notes**
+- Interactive StickyBoard for creating, editing, moving, resizing, and organizing sticky notes
+- Built-in note colors with visual customization options
+- Connect sticky notes with drawn lines for visual organization
+- Drawing tools with adjustable thickness (1-15px) and color palette
+- Import & Export StickyBoards as JSON for backup and restoration
+
+**Formatting & Input**
+- Built-in Emoji Panel with task-management focused emojis
+- Built-in Unicode Symbol Panel for special characters
+- Draggable Virtual Keyboard with uppercase, lowercase, numbers, and special characters
+- Advanced text counters: Character, Word, and Line counters with date display
+
+**Privacy & Security**
+- Privacy Mode to blur note content with reveal-on-hover functionality
+- No ads, no trackers — a lightweight tool that doesn't follow you around
+- Private browser storage with no data sent to external servers
+
+**Workflow Integration**
+- Open CherryPad in Chrome's side panel from the extension button, keeping notes beside the current tab
+- Capture selected text from any tab using the browser context menu's "Send to CherryPad" action
+- Opening fullscreen or StickyBoard closes the side panel for a focused experience
+- Two-step deletion confirmation for safety
+
+**Additional Features**
+- Hidden Easter Eggs and minigame
+- Lightweight and Fast performance
+- Cross-platform compatibility (Windows, macOS, Linux)
+- Keyboard shortcuts for quick access to features
 
 <img width="2557" height="1437" alt="image" src="https://github.com/user-attachments/assets/6ee9da06-ecfd-4ec8-b28a-33e628371f5c" /><br>
 

@@ -444,6 +444,173 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+const checklistButton = document.getElementById('checklistButton');
+const checklistMenu = document.getElementById('checklistMenu');
+const checklistForm = document.getElementById('checklistForm');
+const checklistInput = document.getElementById('checklistInput');
+const checklistItems = document.getElementById('checklistItems');
+const checklistEmpty = document.getElementById('checklistEmpty');
+const checklistError = document.getElementById('checklistError');
+const checklistStorageKey = 'checklistItems';
+let checklist = [];
+
+function showChecklistError(message) {
+    checklistError.textContent = message;
+    checklistError.hidden = !message;
+}
+
+function renderChecklist() {
+    checklistItems.replaceChildren();
+    checklistEmpty.hidden = checklist.length > 0;
+
+    checklist.forEach((item, index) => {
+        const row = document.createElement('li');
+        row.className = 'checklist-item';
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = item.checked;
+        const text = document.createElement('span');
+        text.textContent = item.text;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'checklist-remove';
+        remove.setAttribute('aria-label', `Remove ${item.text}`);
+        remove.title = 'Remove item';
+        const icon = document.createElement('i');
+        icon.className = 'fa-solid fa-xmark';
+        icon.setAttribute('aria-hidden', 'true');
+        remove.appendChild(icon);
+
+        checkbox.addEventListener('change', () => {
+            const updated = checklist.map((entry, entryIndex) =>
+                entryIndex === index ? { ...entry, checked: checkbox.checked } : entry
+            );
+            if (saveChecklist(updated)) {
+                renderChecklist();
+                checklistItems.children[index].querySelector('input').focus();
+            } else {
+                checkbox.checked = item.checked;
+            }
+        });
+        remove.addEventListener('click', () => {
+            if (saveChecklist(checklist.filter((entry, entryIndex) => entryIndex !== index))) {
+                renderChecklist();
+                checklistInput.focus();
+            }
+        });
+
+        label.append(checkbox, text);
+        row.append(label, remove);
+        checklistItems.appendChild(row);
+    });
+}
+
+function loadChecklist() {
+    try {
+        const stored = localStorage.getItem(checklistStorageKey);
+        const items = stored === null ? [] : JSON.parse(stored);
+        if (!Array.isArray(items) || !items.every(item =>
+            item && typeof item.text === 'string' && typeof item.checked === 'boolean'
+        )) {
+            throw new Error('Invalid checklist data');
+        }
+        checklist = items;
+        checklistInput.disabled = false;
+        checklistForm.querySelector('button').disabled = false;
+        showChecklistError('');
+        renderChecklist();
+    } catch (error) {
+        console.error('Could not load checklist:', error);
+        checklistItems.replaceChildren();
+        checklistEmpty.hidden = true;
+        checklistInput.disabled = true;
+        checklistForm.querySelector('button').disabled = true;
+        showChecklistError('Could not load your checklist. Reopen the menu to try again.');
+    }
+}
+
+function saveChecklist(items) {
+    try {
+        localStorage.setItem(checklistStorageKey, JSON.stringify(items));
+        checklist = items;
+        showChecklistError('');
+        return true;
+    } catch (error) {
+        console.error('Could not save checklist:', error);
+        showChecklistError('Could not save your checklist. Please try again.');
+        return false;
+    }
+}
+
+function setChecklistMenuOpen(isOpen) {
+    checklistMenu.hidden = !isOpen;
+    checklistButton.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+        loadChecklist();
+        if (!checklistInput.disabled) checklistInput.focus();
+    }
+}
+
+checklistButton.addEventListener('click', () => {
+    setChecklistMenuOpen(checklistMenu.hidden);
+});
+
+// Close checklist when clicking on other buttons (except emoji & symbol which are hover-based)
+const closeChecklistOnClick = ['saveButton', 'DownloadButton', 'copyButton', 'pasteButton', 'dashboardButton', 'vkeyButton', 'clearMenuToggle', 'noteFieldViewButton', 'privacyButton', 'clearButton', 'clearButton2'];
+closeChecklistOnClick.forEach(buttonId => {
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.addEventListener('click', () => {
+            setChecklistMenuOpen(false);
+        });
+    }
+});
+
+// Close checklist when hovering over emoji or symbol buttons (they are hover-based menus)
+const emojiButton = document.getElementById('emojiButton');
+const symbolButton = document.getElementById('symbolButton');
+if (emojiButton) {
+    emojiButton.addEventListener('mouseenter', () => {
+        setChecklistMenuOpen(false);
+    });
+}
+if (symbolButton) {
+    symbolButton.addEventListener('mouseenter', () => {
+        setChecklistMenuOpen(false);
+    });
+}
+
+checklistForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const text = checklistInput.value.trim();
+    if (!text) {
+        showChecklistError('Enter an item first.');
+        checklistInput.focus();
+        return;
+    }
+    if (saveChecklist([...checklist, { text, checked: false }])) {
+        checklistInput.value = '';
+        renderChecklist();
+        checklistInput.focus();
+    }
+});
+
+document.addEventListener('pointerdown', event => {
+    if (!event.target.closest('.checklist-dropdown')) setChecklistMenuOpen(false);
+});
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !checklistMenu.hidden) {
+        setChecklistMenuOpen(false);
+        checklistButton.focus();
+    }
+});
+
+window.addEventListener('storage', event => {
+    if (event.key === checklistStorageKey || event.key === null) loadChecklist();
+});
+
 function downloadNote(textarea) {
     if (!textarea) return;
 

@@ -35,6 +35,24 @@
         <button id="emojiButton" class="button"><i class="fas fa-smile"></i>Emoji</button>
         <button id="symbolButton" class="button"><i class="fas fa-font"></i>Symbol</button>
         <button id="dashboardButton" class="button" type="button" title=""><i class="fa-solid fa-note-sticky" aria-hidden="true"></i>Sticky</button>
+        <div class="checklist-dropdown">
+            <button id="checklistButton" class="button" type="button" aria-label="Checklist" title="Checklist" aria-controls="checklistMenu" aria-expanded="false"><i class="fa-solid fa-check" aria-hidden="true"></i></button>
+            <section id="checklistMenu" class="checklist-menu" aria-label="Checklist" hidden>
+                <div class="checklist-header">
+                    <div>
+                        <h2>Checklist</h2>
+                        <p>Keep track of your tasks</p>
+                    </div>
+                </div>
+                <form id="checklistForm">
+                    <input id="checklistInput" type="text" aria-label="New checklist item" placeholder="Add an item..." maxlength="500" autocomplete="off" required>
+                    <button type="submit" aria-label="Add checklist item" title="Add item"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                </form>
+                <p id="checklistEmpty">Your checklist is empty.<br><span>Add an item to get started.</span></p>
+                <ul id="checklistItems" aria-label="Checklist items"></ul>
+                <p id="checklistError" role="alert" hidden></p>
+            </section>
+        </div>
         <button id="vkeyButton" class="button"><i class="fa-solid fa-keyboard"></i></button>
         <!-- Clear Buttons Menu -->
         <div class="dropdown clear-dropdown"><button id="clearMenuToggle" class="button dropdown-toggle" type="button" aria-label="Clear a note field" aria-haspopup="true" aria-controls="clearMenu" aria-expanded="false"><i class="fas fa-eraser" aria-hidden="true"></i></button><div class="dropdown-menu" id="clearMenu" role="group" aria-label="Clear options" hidden>
@@ -428,7 +446,7 @@ Enjoying CherryPad? Leave a rating on the Chrome Web Store!
 </body>
 </html>
 <!-- Bottom Buttons --> 
-<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.7.6</button>
+<button id="versionButton" class="button version-button"><i class="fa fa-microchip"></i>1.7.7</button>
 <button id="GithubButton" class="button github-button"><i class="fa-brands fa-github"></i>GitHub</button>
 <button id="WebStoreButton" class="button WebStore-button"><i class="fa-brands fa-chrome"></i>Web Store</button>
 <button id="AboutButton" class="button About-button"><i class="fa fa-info-circle"></i>About</button>
