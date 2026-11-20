@@ -3,6 +3,16 @@ CherryPad - Browser Notepad | CHANGELOG
 
 Version 1.7.X (November 2026) (Current)
 -------------------------------------------------
+1.7.8
+- Fixed emoji and symbol panels to center under their buttons in fullscreen
+- Fixed checklist scrollbar positioning to be centered on the right side
+- Removed scrollbar from checklist and enabled mouse wheel scrolling instead
+- Added numbering to checklist items (1., 2., 3., etc.)
+- Updated checklist header to display task count (e.g., "3 tasks") instead of "Keep track of your tasks"
+- Added dynamic scroll instruction text that appears next to task counter when items overflow
+- Fixed checklist item strikethrough styling to apply to both task number and text when marked as complete
+- Improved checklist item spacing and layout for better readability
+
 1.7.7
 - Added support for creating checklists in fullscreen mode
 
@@ -20,7 +30,6 @@ Version 1.7.X (November 2026) (Current)
 - Added fullscreen-matching emoji and symbol pickers to the sidepanel when expanding
 - Show Emoji, Symbol, StickyBoard, and Clear toolbar buttons only when the side panel is expanded
 - Added a header divider and balanced spacing around the toolbar buttons
-- Added update content button to sidepanel
 
 1.7.4
 - Replaced the popup with a resizable side panel and updated the toolbar, editor, and navigation to fit the panel

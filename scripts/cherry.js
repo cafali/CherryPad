@@ -450,6 +450,7 @@ const checklistForm = document.getElementById('checklistForm');
 const checklistInput = document.getElementById('checklistInput');
 const checklistItems = document.getElementById('checklistItems');
 const checklistEmpty = document.getElementById('checklistEmpty');
+const checklistHeader = document.getElementById('checklistHeader');
 const checklistError = document.getElementById('checklistError');
 const checklistStorageKey = 'checklistItems';
 let checklist = [];
@@ -461,6 +462,25 @@ function showChecklistError(message) {
 
 function renderChecklist() {
     checklistItems.replaceChildren();
+    
+    const taskCount = checklist.length;
+    const taskLabel = taskCount === 1 ? 'task' : 'tasks';
+    
+    let headerText = taskCount > 0 
+        ? `${taskCount} ${taskLabel}`
+        : 'Keep track of your tasks';
+    
+    requestAnimationFrame(() => {
+        const isScrollable = checklistItems.scrollHeight > checklistItems.clientHeight;
+        if (isScrollable && taskCount > 0) {
+            headerText += ' · Scroll down to view more';
+        }
+        checklistHeader.textContent = headerText;
+    });
+    
+    checklistEmpty.innerHTML = taskCount > 0 
+        ? `You have <strong>${taskCount}</strong> ${taskLabel}.`
+        : 'Your checklist is empty.<br><span>Add an item to get started.</span>';
     checklistEmpty.hidden = checklist.length > 0;
 
     checklist.forEach((item, index) => {
@@ -470,6 +490,11 @@ function renderChecklist() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = item.checked;
+        
+        const number = document.createElement('span');
+        number.className = 'checklist-number';
+        number.textContent = `${index + 1}.`;
+        
         const text = document.createElement('span');
         text.textContent = item.text;
         const remove = document.createElement('button');
@@ -500,7 +525,7 @@ function renderChecklist() {
             }
         });
 
-        label.append(checkbox, text);
+        label.append(checkbox, number, text);
         row.append(label, remove);
         checklistItems.appendChild(row);
     });
@@ -777,6 +802,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // emoji panel
 
+function positionPickerUnderButton(button, panel) {
+    const buttonRect = button.getBoundingClientRect();
+    const panelWidth = panel.getBoundingClientRect().width;
+    const centeredLeft = buttonRect.left + buttonRect.width / 2 - panelWidth / 2;
+    const left = Math.max(8, Math.min(centeredLeft, window.innerWidth - panelWidth - 8));
+
+    panel.style.left = `${left}px`;
+    panel.style.right = 'auto';
+}
+
 // emoji panel display on hover 1.5.2
 document.addEventListener('DOMContentLoaded', function() {
     const emojiButton = document.getElementById('emojiButton');
@@ -786,6 +821,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // open emoji panel when hovering over emoji button
     emojiButton.addEventListener('mouseenter', function() {
         emojiPanel.style.display = 'block';
+        positionPickerUnderButton(emojiButton, emojiPanel);
     });
 
     // close emoji panel when hovering over other buttons
@@ -798,6 +834,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // no collapsing when hovering overpanel
     emojiPanel.addEventListener('mouseenter', function() {
         emojiPanel.style.display = 'block';
+    });
+
+    window.addEventListener('resize', function() {
+        if (emojiPanel.style.display === 'block') {
+            positionPickerUnderButton(emojiButton, emojiPanel);
+        }
     });
 });
 
@@ -829,6 +871,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Prevent the click from propagating to the document event listener
         event.stopPropagation();
         emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+        if (emojiPanel.style.display === 'block') {
+            positionPickerUnderButton(emojiButton, emojiPanel);
+        }
     });
 
     emojiPanel.addEventListener('click', function(event) {
@@ -1147,6 +1192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // open symbol panel when hovering over symbol button
     symbolButton.addEventListener('mouseenter', function() {
         symbolPanel.style.display = 'block';
+        positionPickerUnderButton(symbolButton, symbolPanel);
     });
 
     // close symbol panel when hovering over other buttons
@@ -1159,6 +1205,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // no collapsing when hovering overpanel
     symbolPanel.addEventListener('mouseenter', function() {
         symbolPanel.style.display = 'block';
+    });
+
+    window.addEventListener('resize', function() {
+        if (symbolPanel.style.display === 'block') {
+            positionPickerUnderButton(symbolButton, symbolPanel);
+        }
     });
 });
 
@@ -1190,6 +1242,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Prevent the click from propagating to the document event listener
         event.stopPropagation();
         symbolPanel.style.display = symbolPanel.style.display === 'block' ? 'none' : 'block';
+        if (symbolPanel.style.display === 'block') {
+            positionPickerUnderButton(symbolButton, symbolPanel);
+        }
     });
 
     symbolPanel.addEventListener('click', function(event) {
