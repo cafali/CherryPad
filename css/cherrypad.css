@@ -361,7 +361,7 @@ button:active {
     line-height: 1.4;
 }
 
-.checklist-item input:checked ~ span {
+.checklist-item input:checked ~ span:not(.checklist-number) {
     color: #86eeb0;
     text-decoration: line-through;
 }
